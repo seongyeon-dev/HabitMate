@@ -1,499 +1,742 @@
-*{
-box-sizing:border-box;
+* {
+  box-sizing: border-box;
 }
 
-body{
-margin:0;
-font-family:"Pretendard",sans-serif;
-background-color:#f7f8f7;
-color:#222;
+body {
+  margin: 0;
+  font-family: "Pretendard", sans-serif;
+  background-color: #f7f8f7;
+  color: #222;
 }
 
-button{
-font-family:inherit;
+button {
+  font-family: inherit;
 }
 
-main{
-width:900px;
-margin:0 auto;
-padding:25px 30px 50px;
+main {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 30px 50px;
 }
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:55px;
-}
-
-header button{
-border:none;
-background:none;
-font-size:28px;
-cursor:pointer;
-}
-
-header h1{
-font-size:24px;
-margin:0;
-}
-
 
 /* 리포트 제목 */
-.report-title{
-margin-bottom:25px;
+.report-title {
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-.report-title h2{
-font-size:34px;
-margin:0 0 10px;
+.report-title h2 {
+  margin: 0 0 10px;
+  font-size: 34px;
+  font-weight: 800;
 }
 
-.report-title p{
-margin:0;
-color:#666;
-font-size:17px;
+.report-title p {
+  margin: 0;
+  color: #666;
+  font-size: 17px;
 }
-
 
 /* 리포트 전체 */
-.report{
-background-color:white;
-border:1px solid #e5e5e5;
-border-radius:16px;
-padding:25px;
-box-shadow:0 3px 12px rgba(0,0,0,0.05);
+.report {
+  padding: 25px;
+  border: 1px solid #e5e5e5;
+  border-radius: 16px;
+  background-color: white;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
-
 
 /* 리포트 기본 정보 */
-.challenge-info{
-display:flex;
-align-items:center;
-gap:25px;
-margin-bottom:25px;
+.challenge-info {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 25px;
 }
 
-.challenge-icon{
-width:90px;
-height:90px;
-border-radius:14px;
-background-color:#f0f8f1;
-display:flex;
-justify-content:center;
-align-items:center;
+.challenge-icon {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 14px;
+  background-color: #f0f8f1;
 }
 
-.challenge-icon span{
-font-size:42px;
+.challenge-icon span {
+  font-size: 42px;
 }
 
-.challenge-text{
-flex:1;
+.challenge-text {
+  min-width: 0;
+  flex: 1;
 }
 
-.challenge-text h3{
-margin:0 0 8px;
-font-size:20px;
+.challenge-text h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
 }
 
-.challenge-text p{
-margin:5px 0;
-color:#777;
+.challenge-text p {
+  margin: 5px 0;
+  color: #777;
 }
 
-.challenge-end{
-text-align:center;
+.challenge-end {
+  flex-shrink: 0;
+  text-align: center;
 }
 
-.challenge-end strong{
-font-size:25px;
-color:#18ad45;
+.challenge-end strong {
+  color: #18ad45;
+  font-size: 25px;
 }
 
-.challenge-end p{
-margin:8px 0 0;
-color:#777;
+.challenge-end p {
+  margin: 8px 0 0;
+  color: #777;
 }
-
 
 /* 최종 달성률 */
-.result{
-border:1px solid #e5e5e5;
-border-radius:14px;
-padding:22px;
-display:flex;
-align-items:center;
-gap:35px;
-margin-bottom:18px;
+.result {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  margin-bottom: 18px;
+  padding: 22px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
 }
 
-.result-rate{
-width:150px;
+.result-rate {
+  width: 150px;
+  flex-shrink: 0;
 }
 
-.result-rate p{
-margin:0 0 5px;
+.result-rate p {
+  margin: 0 0 5px;
 }
 
-.result-rate strong{
-font-size:30px;
-color:#18ad45;
+.result-rate strong {
+  color: #18ad45;
+  font-size: 30px;
 }
 
-.result-progress{
-flex:1;
+.result-progress {
+  flex: 1;
 }
 
-.progress{
-width:100%;
-height:14px;
-background-color:#e2e2e2;
-border-radius:10px;
-overflow:hidden;
+.progress {
+  width: 100%;
+  height: 14px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #e2e2e2;
 }
 
-.progress-bar{
-height:100%;
-background-color:#20b84b;
-border-radius:10px;
+.progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  background-color: #20b84b;
 }
 
-.result-progress p{
-margin:8px 0 0;
-color:#777;
+.result-progress p {
+  margin: 8px 0 0;
+  color: #777;
 }
 
-.result-progress strong{
-color:#18ad45;
+.result-progress strong {
+  color: #18ad45;
 }
 
-
-/* 성공 실패 화면 */
-.result-summary{
-display:flex;
-border:1px solid #e5e5e5;
-border-radius:14px;
-margin-bottom:20px;
-overflow:hidden;
+/* 성공 / 실패 요약 */
+.result-summary {
+  display: flex;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
 }
 
-.summary-item{
-width:33.33%;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-gap:3px;
-padding:18px;
-border-right:1px solid #eee;
-text-align:center;
+.summary-item {
+  width: 33.33%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  padding: 18px;
+  border-right: 1px solid #eee;
+  text-align: center;
 }
 
-.summary-item:last-child{
-border-right:none;
+.summary-item:last-child {
+  border-right: none;
 }
 
-.summary-item span{
-font-size:20px;
+.summary-item span {
+  font-size: 20px;
 }
 
-.summary-item p{
-margin:0;
-font-size:14px;
+.summary-item p {
+  margin: 0;
+  font-size: 14px;
 }
 
-.summary-item strong{
-font-size:23px;
+.summary-item strong {
+  font-size: 23px;
 }
-
 
 /* 나의 변화 */
-.change{
-background-color:#f7fbf7;
-border:1px solid #e1ebe2;
-border-radius:14px;
-padding:20px;
-margin-bottom:20px;
+.change {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #e1ebe2;
+  border-radius: 14px;
+  background-color: #f7fbf7;
 }
 
-.section-title{
-display:flex;
-justify-content:space-between;
-align-items:center;
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
 }
 
-.section-title h3{
-margin:0 0 15px;
+.section-title h3 {
+  margin: 0 0 15px;
 }
 
-.section-title > p{
-font-size:12px;
-color:#777;
+.section-title > p {
+  margin: 0 0 15px;
+  color: #777;
+  font-size: 12px;
 }
 
-.change-list{
-display:flex;
-gap:20px;
+.change-list {
+  display: flex;
+  gap: 20px;
 }
 
-.change-card{
-width:50%;
-background-color:white;
-border:1px solid #e5e5e5;
-border-radius:12px;
-padding:18px;
+.change-card {
+  width: 50%;
+  padding: 18px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background-color: white;
 }
 
-.change-card h4{
-margin:0 0 20px;
-font-size:18px;
+.change-card h4 {
+  margin: 0 0 20px;
+  font-size: 18px;
 }
 
-.change-value{
-display:flex;
-justify-content:space-between;
-align-items:flex-end;
-gap:10px;
+.change-value {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 10px;
 }
 
-.change-value p{
-font-size:12px;
-color:#777;
-margin:0 0 8px;
+.change-value p {
+  margin: 0 0 8px;
+  color: #777;
+  font-size: 12px;
 }
 
-.change-value strong{
-font-size:20px;
+.change-value strong {
+  font-size: 20px;
 }
 
-.change-value > strong{
-font-size:16px;
-color:#18ad45;
+.change-value > strong {
+  color: #18ad45;
+  font-size: 16px;
 }
 
-.change-notice{
-font-size:12px;
-color:#777;
-margin:15px 0 0;
+.change-notice {
+  margin: 15px 0 0;
+  color: #777;
+  font-size: 12px;
+  line-height: 1.5;
 }
-
 
 /* 7일 기록 */
-.week-record{
-border:1px solid #e5e5e5;
-border-radius:14px;
-padding:20px;
-margin-bottom:20px;
+.week-record {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
 }
 
-.record-info{
-display:flex;
-gap:18px;
-font-size:13px;
-color:#666;
+.record-info {
+  display: flex;
+  gap: 18px;
+  color: #666;
+  font-size: 13px;
 }
 
-.record-days{
-display:flex;
-justify-content:space-between;
-text-align:center;
+.record-days {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
 }
 
-.record-day{
-width:70px;
+.record-day {
+  width: 70px;
 }
 
-.record-day p{
-font-size:13px;
+.record-day p {
+  font-size: 13px;
 }
 
-.record-day span{
-width:38px;
-height:38px;
-margin:0 auto;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-background-color:#e6f6e9;
-color:#18ad45;
-font-size:20px;
+.record-day span {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: #e6f6e9;
+  color: #18ad45;
+  font-size: 20px;
 }
 
-.record-day.fail span{
-background-color:#ffe8e5;
-color:#ff4b3e;
+.record-day.fail span {
+  background-color: #ffe8e5;
+  color: #ff4b3e;
 }
-
 
 /* 참여자 순위 */
-.ranking{
-border:1px solid #e5e5e5;
-border-radius:14px;
-padding:20px;
-margin-bottom:20px;
+.ranking {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
 }
 
-.ranking h3{
-margin-top:0;
+.ranking h3 {
+  margin: 0 0 15px;
 }
 
-.ranking-item{
-display:flex;
-align-items:center;
-gap:15px;
-padding:8px 10px;
-border-radius:10px;
+.ranking-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 10px;
+  border-radius: 10px;
 }
 
-
-/* 순위 숫자 공통 */
-.ranking-item > span{
-width:25px;
-height:25px;
-border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-weight:bold;
+.ranking-item > span {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  font-weight: bold;
 }
 
-.ranking-item:nth-child(2) > span{
-background-color:#ffb515;
-color:white;
+.ranking-item:nth-child(2) > span {
+  background-color: #ffb515;
+  color: white;
 }
 
-.ranking-item:nth-child(3) > span{
-background-color:#bfc1c3;
-color:white;
+.ranking-item:nth-child(3) > span {
+  background-color: #bfc1c3;
+  color: white;
 }
 
-.ranking-item:nth-child(4) > span{
-background-color:#df781c;
-color:white;
+.ranking-item:nth-child(4) > span {
+  background-color: #df781c;
+  color: white;
 }
 
-.ranking-item:nth-child(5) > span{
-background-color:white;
-color:#222;
-border:1px solid #ddd;
+.ranking-item:nth-child(5) > span {
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #222;
 }
 
-.ranking-item p{
-width:110px;
-margin:0;
+.ranking-item p {
+  width: 110px;
+  margin: 0;
 }
 
-.ranking-progress{
-flex:1;
-height:10px;
-background-color:#e2e2e2;
-border-radius:10px;
-overflow:hidden;
+.ranking-progress {
+  flex: 1;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  background-color: #e2e2e2;
 }
 
-.ranking-progress-bar{
-height:100%;
-background-color:#20b84b;
-border-radius:10px;
+.ranking-progress-bar {
+  height: 100%;
+  border-radius: 10px;
+  background-color: #20b84b;
 }
 
-.ranking-item strong{
-width:55px;
-text-align:right;
+.ranking-item strong {
+  width: 55px;
+  text-align: right;
 }
-
 
 /* 내 순위 강조 */
-.ranking-item.me{
-background-color:#f0f8f1;
+.ranking-item.me {
+  background-color: #f0f8f1;
 }
 
 .ranking-item.me p,
-.ranking-item.me strong{
-color:#18ad45;
+.ranking-item.me strong {
+  color: #18ad45;
 }
-
 
 /* 리포트 결과 코멘트 */
-.report-comment{
-display:flex;
-align-items:center;
-gap:20px;
-background-color:#fafafa;
-border:1px solid #e5e5e5;
-border-radius:14px;
-padding:15px 20px;
-margin-bottom:15px;
+.report-comment {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 15px;
+  padding: 15px 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  background-color: #fafafa;
 }
 
-.report-comment img{
-width:130px;
+.report-comment img {
+  width: 130px;
+  height: auto;
+  flex-shrink: 0;
 }
 
-.comment-bubble{
-flex:1;
-background-color:white;
-border:1px solid #e5e5e5;
-border-radius:14px;
-padding:15px 25px;
+.comment-bubble {
+  flex: 1;
+  padding: 15px 25px;
+  border: 1px solid #e5e5e5;
+  border-radius: 14px;
+  background-color: white;
 }
 
-.comment-bubble p{
-margin:6px 0;
+.comment-bubble p {
+  margin: 6px 0;
 }
-
 
 /* 리포트 버튼 */
-.report-buttons{
-display:grid;
-grid-template-columns:repeat(3, 1fr);
-gap:20px;
+.report-buttons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
-.report-buttons button{
-width:100%;
-height:54px;
-padding:0 15px;
-border-radius:10px;
-font-size:17px;
-font-weight:bold;
-cursor:pointer;
+.report-buttons button {
+  width: 100%;
+  height: 54px;
+  padding: 0 15px;
+  border-radius: 10px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
 }
-
 
 /* 다시 도전하기 */
-.report-buttons button:first-child{
-background-color:white;
-border:1px solid #18ad45;
-color:#18ad45;
+.report-buttons button:first-child {
+  border: 1px solid #18ad45;
+  background-color: white;
+  color: #18ad45;
 }
 
-.report-buttons button:first-child:hover{
-background-color:#f0f8f1;
+.report-buttons button:first-child:hover {
+  background-color: #f0f8f1;
 }
-
 
 /* 홈으로 돌아가기 */
-.report-buttons button:nth-child(2){
-background-color:white;
-border:1px solid #dddddd;
-color:#333;
+.report-buttons button:nth-child(2) {
+  border: 1px solid #dddddd;
+  background-color: white;
+  color: #333;
 }
 
-.report-buttons button:nth-child(2):hover{
-background-color:#f7f7f7;
+.report-buttons button:nth-child(2):hover {
+  background-color: #f7f7f7;
 }
-
 
 /* 챌린지 삭제 */
-.report-buttons .delete-button{
-background-color:white;
-border:1px solid #ff5a5a;
-color:#ff5a5a;
+.report-buttons .delete-button {
+  border: 1px solid #ff5a5a;
+  background-color: white;
+  color: #ff5a5a;
 }
 
-.report-buttons .delete-button:hover{
-background-color:#fff5f5;
+.report-buttons .delete-button:hover {
+  background-color: #fff5f5;
+}
+
+/* 모바일 */
+@media (max-width: 700px) {
+  main {
+    width: 100%;
+    padding: 25px 15px;
+  }
+
+  /* 제목 */
+  .report-title {
+    margin-bottom: 20px;
+  }
+
+  .report-title h2 {
+    font-size: 25px;
+  }
+
+  .report-title p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  /* 리포트 */
+  .report {
+    padding: 18px;
+    border-radius: 14px;
+  }
+
+  /* 챌린지 정보 */
+  .challenge-info {
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 20px;
+  }
+
+  .challenge-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+  }
+
+  .challenge-icon span {
+    font-size: 30px;
+  }
+
+  .challenge-text h3 {
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+
+  .challenge-text p {
+    margin: 3px 0;
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .challenge-end {
+    display: none;
+  }
+
+  /* 최종 달성률 */
+  .result {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 15px;
+    padding: 17px;
+  }
+
+  .result-rate {
+    width: 100%;
+  }
+
+  .result-rate p {
+    font-size: 13px;
+  }
+
+  .result-rate strong {
+    font-size: 27px;
+  }
+
+  .progress {
+    height: 11px;
+  }
+
+  .result-progress p {
+    font-size: 12px;
+  }
+
+  /* 성공 / 실패 요약 */
+  .result-summary {
+    flex-direction: row;
+  }
+
+  .summary-item {
+    width: 33.33%;
+    padding: 14px 6px;
+    border-right: 1px solid #eee;
+    border-bottom: none;
+  }
+
+  .summary-item:last-child {
+    border-right: none;
+  }
+
+  .summary-item span {
+    font-size: 18px;
+  }
+
+  .summary-item p {
+    font-size: 11px;
+  }
+
+  .summary-item strong {
+    font-size: 19px;
+  }
+
+  /* 나의 변화 */
+  .change {
+    padding: 17px;
+  }
+
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+
+  .section-title h3 {
+    margin-bottom: 8px;
+    font-size: 17px;
+  }
+
+  .section-title > p {
+    margin-bottom: 15px;
+    font-size: 11px;
+  }
+
+  .change-list {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .change-card {
+    width: 100%;
+    padding: 15px;
+  }
+
+  .change-card h4 {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .change-value {
+    gap: 6px;
+  }
+
+  .change-value p {
+    font-size: 10px;
+  }
+
+  .change-value strong {
+    font-size: 17px;
+  }
+
+  .change-value > strong {
+    font-size: 13px;
+  }
+
+  .change-notice {
+    font-size: 10px;
+  }
+
+  /* 기록 */
+  .week-record {
+    padding: 17px;
+  }
+
+  .record-info {
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+
+  .record-day {
+    width: auto;
+    flex: 1;
+  }
+
+  .record-day p {
+    font-size: 11px;
+  }
+
+  .record-day span {
+    width: 32px;
+    height: 32px;
+    font-size: 17px;
+  }
+
+  /* 순위 */
+  .ranking {
+    padding: 17px;
+  }
+
+  .ranking h3 {
+    font-size: 17px;
+  }
+
+  .ranking-item {
+    gap: 8px;
+    padding: 8px 5px;
+  }
+
+  .ranking-item > span {
+    width: 23px;
+    height: 23px;
+    font-size: 12px;
+  }
+
+  .ranking-item p {
+    width: 55px;
+    font-size: 12px;
+  }
+
+  .ranking-progress {
+    height: 8px;
+  }
+
+  .ranking-item strong {
+    width: 42px;
+    font-size: 12px;
+  }
+
+  /* 코멘트 */
+  .report-comment {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    text-align: center;
+  }
+
+  .report-comment img {
+    width: 100px;
+  }
+
+  .comment-bubble {
+    width: 100%;
+    padding: 13px 15px;
+  }
+
+  .comment-bubble p {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  /* 버튼 */
+  .report-buttons {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .report-buttons button {
+    height: 48px;
+    font-size: 14px;
+  }
 }

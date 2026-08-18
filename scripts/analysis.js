@@ -8,37 +8,31 @@ today.setHours(0, 0, 0, 0);
 
 
 /* 날짜 문자열 만들기 */
-function getDateText(date){
-
+function getDateText(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
 
     return year + "-" + month + "-" + day;
-
 }
 
 
 /* 모든 인증 기록 가져오기 */
 let allCheckRecords = [];
 
-challenges.forEach(function(challenge){
-
+challenges.forEach(function (challenge) {
     const records = Array.isArray(challenge.checkRecords)
         ? challenge.checkRecords
         : [];
 
-    records.forEach(function(record){
-
+    records.forEach(function (record) {
         allCheckRecords.push({
             date: record.date,
             success: record.success,
             challengeId: challenge.id,
             challengeTitle: challenge.title
         });
-
     });
-
 });
 
 
@@ -47,20 +41,16 @@ const summaryCards = document.querySelectorAll(".summary-card");
 
 
 /* 완료한 챌린지 */
-const completedChallenges = challenges.filter(function(challenge){
-
+const completedChallenges = challenges.filter(function (challenge) {
     return challenge.status === "completed";
-
 });
 
 
 /* 평균 달성률 */
 let averageRate = 0;
 
-if(challenges.length > 0){
-
-    const totalRate = challenges.reduce(function(sum, challenge){
-
+if (challenges.length > 0) {
+    const totalRate = challenges.reduce(function (sum, challenge) {
         const successDays = challenge.successDays || 0;
         const period = challenge.period || 1;
 
@@ -69,27 +59,21 @@ if(challenges.length > 0){
         );
 
         return sum + rate;
-
     }, 0);
 
     averageRate = Math.round(
         totalRate / challenges.length
     );
-
 }
 
 
 /* 연속 성공 계산 */
 const successDates = allCheckRecords
-    .filter(function(record){
-
+    .filter(function (record) {
         return record.success === true;
-
     })
-    .map(function(record){
-
+    .map(function (record) {
         return record.date;
-
     });
 
 
@@ -104,15 +88,11 @@ uniqueSuccessDates.sort();
 let currentStreak = 0;
 let maxStreak = 0;
 
-for(let i = 0; i < uniqueSuccessDates.length; i++){
-
-    if(i === 0){
-
+for (let i = 0; i < uniqueSuccessDates.length; i++) {
+    if (i === 0) {
         currentStreak = 1;
         maxStreak = 1;
-
         continue;
-
     }
 
     const previousDate = new Date(uniqueSuccessDates[i - 1]);
@@ -126,31 +106,23 @@ for(let i = 0; i < uniqueSuccessDates.length; i++){
         (1000 * 60 * 60 * 24)
     );
 
-    if(difference === 1){
-
+    if (difference === 1) {
         currentStreak++;
-
     }
-    else{
-
+    else {
         currentStreak = 1;
-
     }
 
-    if(currentStreak > maxStreak){
-
+    if (currentStreak > maxStreak) {
         maxStreak = currentStreak;
-
     }
-
 }
 
 
 /* 현재 연속 성공 계산 */
 let streak = 0;
 
-if(uniqueSuccessDates.length > 0){
-
+if (uniqueSuccessDates.length > 0) {
     const sortedDates = uniqueSuccessDates
         .slice()
         .sort()
@@ -161,57 +133,45 @@ if(uniqueSuccessDates.length > 0){
     const todayText = getDateText(today);
 
     /* 오늘 인증이 없으면 어제부터 확인 */
-    if(sortedDates[0] !== todayText){
-
+    if (sortedDates[0] !== todayText) {
         checkDate.setDate(
             checkDate.getDate() - 1
         );
-
     }
 
-    for(let i = 0; i < sortedDates.length; i++){
-
+    for (let i = 0; i < sortedDates.length; i++) {
         const expectedDate = getDateText(checkDate);
 
-        if(sortedDates.includes(expectedDate)){
-
+        if (sortedDates.includes(expectedDate)) {
             streak++;
 
             checkDate.setDate(
                 checkDate.getDate() - 1
             );
-
         }
-        else{
-
+        else {
             break;
-
         }
-
     }
-
 }
 
 
 /* 연속 성공 화면 */
 summaryCards[0]
     .querySelector("strong")
-    .innerHTML =
-    streak + "<span>일</span>";
+    .innerHTML = streak + "<span>일</span>";
 
 
 /* 평균 달성률 화면 */
 summaryCards[1]
     .querySelector("strong")
-    .innerHTML =
-    averageRate + "<span>%</span>";
+    .innerHTML = averageRate + "<span>%</span>";
 
 
 /* 완료한 챌린지 화면 */
 summaryCards[2]
     .querySelector("strong")
-    .innerHTML =
-    completedChallenges.length + "<span>개</span>";
+    .innerHTML = completedChallenges.length + "<span>개</span>";
 
 
 /* 이번 주 요일 */
@@ -229,10 +189,9 @@ const weekLabels = [
 const currentDay = today.getDay();
 const monday = new Date(today);
 
-const mondayDifference =
-    currentDay === 0
-        ? -6
-        : 1 - currentDay;
+const mondayDifference = currentDay === 0
+    ? -6
+    : 1 - currentDay;
 
 monday.setDate(
     today.getDate() + mondayDifference
@@ -243,8 +202,7 @@ const weekRates = [];
 
 
 /* 주간 달성률 계산 */
-for(let i = 0; i < 7; i++){
-
+for (let i = 0; i < 7; i++) {
     const date = new Date(monday);
 
     date.setDate(
@@ -253,20 +211,14 @@ for(let i = 0; i < 7; i++){
 
     const dateText = getDateText(date);
 
-
     /* 미래 날짜 */
-    if(date > today){
-
+    if (date > today) {
         weekRates.push(null);
-
         continue;
-
     }
 
-
     /* 해당 날짜 진행 중 챌린지 */
-    const activeChallenges = challenges.filter(function(challenge){
-
+    const activeChallenges = challenges.filter(function (challenge) {
         const start = new Date(challenge.startDate);
         const end = new Date(challenge.endDate);
 
@@ -277,46 +229,33 @@ for(let i = 0; i < 7; i++){
             date >= start &&
             date <= end
         );
-
     });
 
-
     /* 챌린지가 없는 날짜 */
-    if(activeChallenges.length === 0){
-
+    if (activeChallenges.length === 0) {
         weekRates.push(null);
-
         continue;
-
     }
-
 
     /* 해당 날짜 성공 챌린지 */
     let successCount = 0;
 
-    activeChallenges.forEach(function(challenge){
-
+    activeChallenges.forEach(function (challenge) {
         const records = Array.isArray(challenge.checkRecords)
             ? challenge.checkRecords
             : [];
 
-        const successRecord = records.find(function(record){
-
+        const successRecord = records.find(function (record) {
             return (
                 record.date === dateText &&
                 record.success === true
             );
-
         });
 
-        if(successRecord){
-
+        if (successRecord) {
             successCount++;
-
         }
-
     });
-
 
     /* 날짜별 달성률 */
     const rate = Math.round(
@@ -324,7 +263,6 @@ for(let i = 0; i < 7; i++){
     );
 
     weekRates.push(rate);
-
 }
 
 
@@ -332,11 +270,9 @@ for(let i = 0; i < 7; i++){
 const weekChart = document.querySelector("#weekChart");
 
 new Chart(weekChart, {
-
     type: "bar",
 
     data: {
-
         labels: weekLabels,
 
         datasets: [
@@ -347,59 +283,41 @@ new Chart(weekChart, {
                 barThickness: 36
             }
         ]
-
     },
 
     options: {
-
         responsive: true,
         maintainAspectRatio: false,
 
         plugins: {
-
             legend: {
                 display: false
             },
 
             tooltip: {
-
                 callbacks: {
-
-                    label: function(context){
-
-                        if(context.raw === null){
-
+                    label: function (context) {
+                        if (context.raw === null) {
                             return "미기록";
-
                         }
 
                         return context.raw + "%";
-
                     }
-
                 }
-
             }
-
         },
 
         scales: {
-
             y: {
-
                 beginAtZero: true,
                 max: 100,
 
                 ticks: {
-
                     stepSize: 25,
 
-                    callback: function(value){
-
+                    callback: function (value) {
                         return value + "%";
-
                     }
-
                 },
 
                 grid: {
@@ -409,11 +327,9 @@ new Chart(weekChart, {
                 border: {
                     display: false
                 }
-
             },
 
             x: {
-
                 grid: {
                     display: false
                 },
@@ -421,13 +337,9 @@ new Chart(weekChart, {
                 border: {
                     display: false
                 }
-
             }
-
         }
-
     }
-
 });
 
 
@@ -465,23 +377,20 @@ const dayTotal = [
 ];
 
 
-challenges.forEach(function(challenge){
-
+challenges.forEach(function (challenge) {
     const start = new Date(challenge.startDate);
     const end = new Date(challenge.endDate);
 
     start.setHours(0, 0, 0, 0);
     end.setHours(0, 0, 0, 0);
 
-    const lastDate =
-        end < today
-            ? end
-            : today;
+    const lastDate = end < today
+        ? end
+        : today;
 
     const date = new Date(start);
 
-    while(date <= lastDate){
-
+    while (date <= lastDate) {
         const dateText = getDateText(date);
         const dayIndex = date.getDay();
 
@@ -491,55 +400,43 @@ challenges.forEach(function(challenge){
             ? challenge.checkRecords
             : [];
 
-        const success = records.some(function(record){
-
+        const success = records.some(function (record) {
             return (
                 record.date === dateText &&
                 record.success === true
             );
-
         });
 
-        if(!success){
-
+        if (!success) {
             dayStats[dayIndex]++;
-
         }
 
         date.setDate(
             date.getDate() + 1
         );
-
     }
-
 });
 
 
 let worstDayIndex = -1;
 let highestFailRate = 0;
 
-for(let i = 0; i < 7; i++){
-
-    if(dayTotal[i] === 0){
-
+for (let i = 0; i < 7; i++) {
+    if (dayTotal[i] === 0) {
         continue;
-
     }
 
     const failRate = Math.round(
         (dayStats[i] / dayTotal[i]) * 100
     );
 
-    if(
+    if (
         worstDayIndex === -1 ||
         failRate > highestFailRate
-    ){
-
+    ) {
         worstDayIndex = i;
         highestFailRate = failRate;
-
     }
-
 }
 
 
@@ -550,18 +447,13 @@ const failRateText = document.querySelector(
     ".result-card:first-child .result-text p strong"
 );
 
-
-if(worstDayIndex === -1){
-
+if (worstDayIndex === -1) {
     failValue.innerText = "기록 없음";
     failRateText.innerText = "-";
-
 }
-else{
-
+else {
     failValue.innerText = dayNames[worstDayIndex];
     failRateText.innerText = highestFailRate + "%";
-
 }
 
 
@@ -569,8 +461,7 @@ else{
 let bestChallenge = null;
 let bestRate = -1;
 
-challenges.forEach(function(challenge){
-
+challenges.forEach(function (challenge) {
     const successDays = challenge.successDays || 0;
     const period = challenge.period || 1;
 
@@ -578,13 +469,10 @@ challenges.forEach(function(challenge){
         (successDays / period) * 100
     );
 
-    if(rate > bestRate){
-
+    if (rate > bestRate) {
         bestRate = rate;
         bestChallenge = challenge;
-
     }
-
 });
 
 
@@ -599,29 +487,15 @@ const successEmoji = document.querySelector(
 );
 
 
-if(bestChallenge){
-
-    successValue.innerText =
-        bestChallenge.title;
-
-    successRateText.innerText =
-        bestRate + "%";
-
-    successEmoji.innerText =
-        bestChallenge.icon || "🎯";
-
+if (bestChallenge) {
+    successValue.innerText = bestChallenge.title;
+    successRateText.innerText = bestRate + "%";
+    successEmoji.innerText = bestChallenge.icon || "🎯";
 }
-else{
-
-    successValue.innerText =
-        "기록 없음";
-
-    successRateText.innerText =
-        "-";
-
-    successEmoji.innerText =
-        "🎯";
-
+else {
+    successValue.innerText = "기록 없음";
+    successRateText.innerText = "-";
+    successEmoji.innerText = "🎯";
 }
 
 
@@ -637,14 +511,12 @@ const rateLabels = [
 const rateValues = [];
 
 
-for(let week = 3; week >= 0; week--){
-
+for (let week = 3; week >= 0; week--) {
     const weekStart = new Date(monday);
 
     weekStart.setDate(
         monday.getDate() - (week * 7)
     );
-
 
     const weekEnd = new Date(weekStart);
 
@@ -652,107 +524,72 @@ for(let week = 3; week >= 0; week--){
         weekStart.getDate() + 6
     );
 
-
-    if(weekEnd > today){
-
+    if (weekEnd > today) {
         weekEnd.setTime(
             today.getTime()
         );
-
     }
-
 
     let totalCount = 0;
     let successCount = 0;
 
-
-    challenges.forEach(function(challenge){
-
-        const challengeStart =
-            new Date(challenge.startDate);
-
-        const challengeEnd =
-            new Date(challenge.endDate);
+    challenges.forEach(function (challenge) {
+        const challengeStart = new Date(challenge.startDate);
+        const challengeEnd = new Date(challenge.endDate);
 
         challengeStart.setHours(0, 0, 0, 0);
         challengeEnd.setHours(0, 0, 0, 0);
 
+        const start = challengeStart > weekStart
+            ? challengeStart
+            : weekStart;
 
-        const start =
-            challengeStart > weekStart
-                ? challengeStart
-                : weekStart;
+        const end = challengeEnd < weekEnd
+            ? challengeEnd
+            : weekEnd;
 
-
-        const end =
-            challengeEnd < weekEnd
-                ? challengeEnd
-                : weekEnd;
-
-
-        if(start > end){
-
+        if (start > end) {
             return;
-
         }
-
 
         const date = new Date(start);
 
-        while(date <= end){
-
+        while (date <= end) {
             totalCount++;
 
-            const dateText =
-                getDateText(date);
+            const dateText = getDateText(date);
 
-            const records =
-                Array.isArray(challenge.checkRecords)
-                    ? challenge.checkRecords
-                    : [];
+            const records = Array.isArray(challenge.checkRecords)
+                ? challenge.checkRecords
+                : [];
 
-            const success =
-                records.some(function(record){
+            const success = records.some(function (record) {
+                return (
+                    record.date === dateText &&
+                    record.success === true
+                );
+            });
 
-                    return (
-                        record.date === dateText &&
-                        record.success === true
-                    );
-
-                });
-
-
-            if(success){
-
+            if (success) {
                 successCount++;
-
             }
-
 
             date.setDate(
                 date.getDate() + 1
             );
-
         }
-
     });
 
-
-    if(totalCount === 0){
-
+    if (totalCount === 0) {
         rateValues.push(null);
-
     }
-    else{
-
+    else {
         const rate = Math.round(
             (successCount / totalCount) * 100
         );
 
         rateValues.push(rate);
-
     }
-
 }
 
 
@@ -760,11 +597,9 @@ for(let week = 3; week >= 0; week--){
 const rateChart = document.querySelector("#rateChart");
 
 new Chart(rateChart, {
-
     type: "line",
 
     data: {
-
         labels: rateLabels,
 
         datasets: [
@@ -783,59 +618,41 @@ new Chart(rateChart, {
                 spanGaps: false
             }
         ]
-
     },
 
     options: {
-
         responsive: true,
         maintainAspectRatio: false,
 
         plugins: {
-
             legend: {
                 display: false
             },
 
             tooltip: {
-
                 callbacks: {
-
-                    label: function(context){
-
-                        if(context.raw === null){
-
+                    label: function (context) {
+                        if (context.raw === null) {
                             return "기록 없음";
-
                         }
 
                         return context.raw + "%";
-
                     }
-
                 }
-
             }
-
         },
 
         scales: {
-
             y: {
-
                 beginAtZero: true,
                 max: 100,
 
                 ticks: {
-
                     stepSize: 25,
 
-                    callback: function(value){
-
+                    callback: function (value) {
                         return value + "%";
-
                     }
-
                 },
 
                 grid: {
@@ -845,11 +662,9 @@ new Chart(rateChart, {
                 border: {
                     display: false
                 }
-
             },
 
             x: {
-
                 grid: {
                     display: false
                 },
@@ -857,11 +672,7 @@ new Chart(rateChart, {
                 border: {
                     display: false
                 }
-
             }
-
         }
-
     }
-
 });

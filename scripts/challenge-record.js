@@ -1,837 +1,508 @@
 /* 날짜 */
+const dayItems = document.querySelectorAll(".day-item");
 
-const dayItems =
-document.querySelectorAll(".day-item");
-
-const monthText =
-document.querySelector(".month-area strong");
+const currentMonthText = document.querySelector(".current-month");
+const prevMonthButton = document.querySelector(".prev-month-button");
+const nextMonthButton = document.querySelector(".next-month-button");
 
 let selectedDate = "";
 
-
-/* 날짜 형식 */
-function formatDate(date){
-
-const year =
-date.getFullYear();
-
-const month =
-String(
-date.getMonth() + 1
-).padStart(2, "0");
-
-const day =
-String(
-date.getDate()
-).padStart(2, "0");
-
-return (
-year +
-"-" +
-month +
-"-" +
-day
-);
-
-}
-
-
-/* 현재 주 표시 */
-function renderWeek(){
-
-const today =
-new Date();
+/* 현재 화면에 표시할 연도 / 월 */
+const today = new Date();
 
 today.setHours(0, 0, 0, 0);
 
+let currentYear = today.getFullYear();
+let currentMonth = today.getMonth();
 
-/* 이번 주 일요일 */
-const startDate =
-new Date(today);
+/* 날짜 형식 */
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
 
-startDate.setDate(
-today.getDate() - today.getDay()
-);
-
+  return year + "-" + month + "-" + day;
+}
 
 /* 월 표시 */
-monthText.innerText =
-today.getFullYear() +
-"년 " +
-(today.getMonth() + 1) +
-"월";
-
-
-dayItems.forEach(function(item, index){
-
-const date =
-new Date(startDate);
-
-date.setDate(
-startDate.getDate() + index
-);
-
-const dateText =
-item.querySelector("strong");
-
-dateText.innerText =
-date.getDate();
-
-
-/* 날짜 저장 */
-item.dataset.date =
-formatDate(date);
-
-
-/* 오늘 날짜 활성화 */
-if(
-formatDate(date) ===
-formatDate(today)
-){
-
-item.classList.add("active");
-
-selectedDate =
-formatDate(date);
-
+function updateMonthText() {
+  currentMonthText.innerText = currentYear + "년 " + (currentMonth + 1) + "월";
 }
 
-else{
+/* 선택한 월의 주 표시 */
+function renderWeek() {
+  updateMonthText();
 
-item.classList.remove("active");
+  /*
+    현재 달이면 오늘이 포함된 주를 표시하고,
+    다른 달이면 해당 월 1일이 포함된 주를 표시
+  */
+  let baseDate;
 
+  if (
+    currentYear === today.getFullYear() &&
+    currentMonth === today.getMonth()
+  ) {
+    baseDate = new Date(today);
+  } else {
+    baseDate = new Date(currentYear, currentMonth, 1);
+  }
+
+  /* 해당 주의 일요일 */
+  const startDate = new Date(baseDate);
+
+  startDate.setDate(baseDate.getDate() - baseDate.getDay());
+
+  let activeDate = null;
+
+  dayItems.forEach(function (item, index) {
+    const date = new Date(startDate);
+
+    date.setDate(startDate.getDate() + index);
+
+    const dateText = item.querySelector("strong");
+
+    dateText.innerText = date.getDate();
+
+    /* 날짜 저장 */
+    item.dataset.date = formatDate(date);
+
+    item.classList.remove("active");
+
+    /*
+      현재 달이면 오늘 선택
+    */
+    if (
+      currentYear === today.getFullYear() &&
+      currentMonth === today.getMonth() &&
+      formatDate(date) === formatDate(today)
+    ) {
+      activeDate = date;
+    }
+  });
+
+  /*
+    현재 달이 아닌 경우
+    해당 월의 1일을 선택
+  */
+  if (!activeDate) {
+    activeDate = new Date(currentYear, currentMonth, 1);
+  }
+
+  selectedDate = formatDate(activeDate);
+
+  dayItems.forEach(function (item) {
+    if (item.dataset.date === selectedDate) {
+      item.classList.add("active");
+    }
+  });
+
+  loadRecord(selectedDate);
+  renderRecordGoals();
 }
 
+/* 이전 달 */
+prevMonthButton.addEventListener("click", function () {
+  currentMonth--;
+
+  /* 1월에서 이전 버튼을 누르면 전년도 12월 */
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+
+  renderWeek();
 });
 
-}
+/* 다음 달 */
+nextMonthButton.addEventListener("click", function () {
+  currentMonth++;
 
+  /* 12월에서 다음 버튼을 누르면 다음년도 1월 */
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+
+  renderWeek();
+});
 
 /* 날짜 선택 */
-dayItems.forEach(function(day){
+dayItems.forEach(function (day) {
+  day.addEventListener("click", function () {
+    dayItems.forEach(function (item) {
+      item.classList.remove("active");
+    });
 
-day.addEventListener("click", function(){
+    day.classList.add("active");
 
-dayItems.forEach(function(item){
+    selectedDate = day.dataset.date;
 
-item.classList.remove("active");
+    /* 선택 날짜 기록 불러오기 */
+    loadRecord(selectedDate);
 
+    /* 선택 날짜 목표 출력 */
+    renderRecordGoals();
+  });
 });
-
-day.classList.add("active");
-
-selectedDate =
-day.dataset.date;
-
-
-/* 선택 날짜 기록 불러오기 */
-loadRecord(selectedDate);
-
-
-/* 선택 날짜 목표 출력 */
-renderRecordGoals();
-
-});
-
-});
-
 
 /* 컨디션 */
+const conditionItems = document.querySelectorAll(".condition-item");
 
-const conditionItems =
-document.querySelectorAll(".condition-item");
+const conditionResultText = document.querySelector(".condition-result strong");
 
-const conditionResultText =
-document.querySelector(
-".condition-result strong"
-);
-
-const conditionResultScore =
-document.querySelector(
-".condition-result span"
-);
+const conditionResultScore = document.querySelector(".condition-result span");
 
 let selectedCondition = null;
 
-
 /* 컨디션 이름 */
 const conditionNames = {
-
-1: "매우 나쁨",
-2: "나쁨",
-3: "보통",
-4: "좋음",
-5: "매우 좋음"
-
+  1: "매우 나쁨",
+  2: "나쁨",
+  3: "보통",
+  4: "좋음",
+  5: "매우 좋음",
 };
 
+conditionItems.forEach(function (item) {
+  item.addEventListener("click", function () {
+    conditionItems.forEach(function (button) {
+      button.classList.remove("active");
+    });
 
-conditionItems.forEach(function(item){
+    item.classList.add("active");
 
-item.addEventListener("click", function(){
+    selectedCondition = Number(item.dataset.value);
 
-conditionItems.forEach(function(button){
+    conditionResultText.innerText = conditionNames[selectedCondition];
 
-button.classList.remove("active");
-
+    conditionResultScore.innerText = selectedCondition + " / 5";
+  });
 });
-
-item.classList.add("active");
-
-selectedCondition =
-Number(item.dataset.value);
-
-conditionResultText.innerText =
-conditionNames[selectedCondition];
-
-conditionResultScore.innerText =
-selectedCondition + " / 5";
-
-});
-
-});
-
 
 /* 체중 */
-
-const weightInput =
-document.querySelector(
-'input[name="weight"]'
-);
-
+const weightInput = document.querySelector('input[name="weight"]');
 
 /* 메모 */
+const memo = document.querySelector('textarea[name="memo"]');
 
-const memo =
-document.querySelector(
-'textarea[name="memo"]'
-);
+const memoCount = document.querySelector(".memo-count");
 
-const memoCount =
-document.querySelector(
-".memo-count"
-);
-
-
-memo.addEventListener("input", function(){
-
-memoCount.innerText =
-memo.value.length;
-
+memo.addEventListener("input", function () {
+  memoCount.innerText = memo.value.length;
 });
-
 
 /* 오늘 목표 */
+const recordGoalList = document.querySelector(".record-goal-list");
 
-const recordGoalList =
-document.querySelector(
-".record-goal-list"
+const recordGoalCount = document.querySelector(".record-goal-count");
+
+const recordGoalAddButton = document.querySelector(".record-goal-add-button");
+
+const recordGoalAddForm = document.querySelector(".record-goal-add-form");
+
+const recordGoalInput = document.querySelector(".record-goal-input");
+
+const recordGoalSaveButton = document.querySelector(".record-goal-save-button");
+
+const recordGoalCancelButton = document.querySelector(
+  ".record-goal-cancel-button",
 );
-
-const recordGoalCount =
-document.querySelector(
-".record-goal-count"
-);
-
-const recordGoalAddButton =
-document.querySelector(
-".record-goal-add-button"
-);
-
-const recordGoalAddForm =
-document.querySelector(
-".record-goal-add-form"
-);
-
-const recordGoalInput =
-document.querySelector(
-".record-goal-input"
-);
-
-const recordGoalSaveButton =
-document.querySelector(
-".record-goal-save-button"
-);
-
-const recordGoalCancelButton =
-document.querySelector(
-".record-goal-cancel-button"
-);
-
 
 /* 날짜별 목표 불러오기 */
-let goals =
-JSON.parse(
-localStorage.getItem("goals")
-) || [];
-
+let goals = JSON.parse(localStorage.getItem("goals")) || [];
 
 /* 목표 저장 */
-function saveGoals(){
-
-localStorage.setItem(
-"goals",
-JSON.stringify(goals)
-);
-
+function saveGoals() {
+  localStorage.setItem("goals", JSON.stringify(goals));
 }
-
 
 /* 선택 날짜 목표 가져오기 */
-function getSelectedGoals(){
-
-return goals.filter(function(goal){
-
-return goal.date === selectedDate;
-
-});
-
+function getSelectedGoals() {
+  return goals.filter(function (goal) {
+    return goal.date === selectedDate;
+  });
 }
-
 
 /* 목표 화면 출력 */
-function renderRecordGoals(){
+function renderRecordGoals() {
+  recordGoalList.innerHTML = "";
 
-recordGoalList.innerHTML = "";
+  const selectedGoals = getSelectedGoals();
 
-const selectedGoals =
-getSelectedGoals();
+  /* 목표가 없는 경우 */
+  if (selectedGoals.length === 0) {
+    recordGoalList.innerHTML = "<p>등록된 목표가 없습니다.</p>";
 
+    recordGoalCount.innerText = "0 / 0";
 
-/* 목표가 없는 경우 */
-if(selectedGoals.length === 0){
+    return;
+  }
 
-recordGoalList.innerHTML =
-"<p>등록된 목표가 없습니다.</p>";
+  selectedGoals.forEach(function (goal) {
+    const goalItem = document.createElement("div");
 
-recordGoalCount.innerText =
-"0 / 0";
+    goalItem.className = "goal-item";
 
-return;
+    goalItem.innerHTML = `
+      <div class="goal-name">
+        <strong>
+          ${goal.name}
+        </strong>
+      </div>
 
+      <div class="goal-progress">
+        <div
+          class="goal-progress-bar"
+          style="width: ${goal.completed ? "100%" : "0%"};">
+        </div>
+      </div>
+
+      <p>
+        ${goal.completed ? "완료" : "진행 중"}
+      </p>
+
+      <button
+        type="button"
+        class="goal-check ${goal.completed ? "active" : ""}"
+        data-id="${goal.id}">
+        ${goal.completed ? "✓" : "○"}
+      </button>
+
+      <button
+        type="button"
+        class="goal-delete"
+        data-id="${goal.id}"
+        aria-label="목표 삭제">
+        ×
+      </button>
+    `;
+
+    recordGoalList.append(goalItem);
+  });
+
+  updateGoalCount();
 }
-
-
-selectedGoals.forEach(function(goal){
-
-const goalItem =
-document.createElement("div");
-
-goalItem.className =
-"goal-item";
-
-
-goalItem.innerHTML = `
-
-<div class="goal-name">
-
-<strong>
-${goal.name}
-</strong>
-
-</div>
-
-
-<div class="goal-progress">
-
-<div
-class="goal-progress-bar"
-style="width:${goal.completed ? "100%" : "0%"}">
-</div>
-
-</div>
-
-
-<p>
-${goal.completed ? "완료" : "진행 중"}
-</p>
-
-
-<button
-type="button"
-class="goal-check ${goal.completed ? "active" : ""}"
-data-id="${goal.id}">
-
-${goal.completed ? "✓" : "○"}
-
-</button>
-
-
-<button
-type="button"
-class="goal-delete"
-data-id="${goal.id}"
-aria-label="목표 삭제">
-
-×
-
-</button>
-
-`;
-
-
-recordGoalList.append(
-goalItem
-);
-
-});
-
-
-updateGoalCount();
-
-}
-
 
 /* 목표 완료 개수 */
-function updateGoalCount(){
+function updateGoalCount() {
+  const selectedGoals = getSelectedGoals();
 
-const selectedGoals =
-getSelectedGoals();
+  const completedCount = selectedGoals.filter(function (goal) {
+    return goal.completed;
+  }).length;
 
-const completedCount =
-selectedGoals.filter(function(goal){
-
-return goal.completed;
-
-}).length;
-
-
-recordGoalCount.innerText =
-completedCount +
-" / " +
-selectedGoals.length;
-
+  recordGoalCount.innerText = completedCount + " / " + selectedGoals.length;
 }
-
 
 /* 목표 추가 버튼 */
-recordGoalAddButton.addEventListener(
-"click",
-function(){
+recordGoalAddButton.addEventListener("click", function () {
+  recordGoalAddForm.classList.add("active");
 
-recordGoalAddForm.classList.add(
-"active"
-);
-
-recordGoalInput.focus();
-
+  recordGoalInput.focus();
 });
-
 
 /* 목표 저장 */
-recordGoalSaveButton.addEventListener(
-"click",
-function(){
+recordGoalSaveButton.addEventListener("click", function () {
+  const goalName = recordGoalInput.value.trim();
 
-const goalName =
-recordGoalInput.value.trim();
+  if (goalName === "") {
+    alert("목표를 입력해주세요.");
 
+    return;
+  }
 
-if(goalName === ""){
+  const newGoal = {
+    id: Date.now(),
+    date: selectedDate,
+    name: goalName,
+    completed: false,
+  };
 
-alert("목표를 입력해주세요.");
+  goals.push(newGoal);
 
-return;
+  saveGoals();
 
-}
+  renderRecordGoals();
 
+  recordGoalInput.value = "";
 
-const newGoal = {
-
-id:
-Date.now(),
-
-date:
-selectedDate,
-
-name:
-goalName,
-
-completed:
-false
-
-};
-
-
-goals.push(
-newGoal
-);
-
-
-saveGoals();
-
-renderRecordGoals();
-
-
-recordGoalInput.value = "";
-
-recordGoalAddForm.classList.remove(
-"active"
-);
-
+  recordGoalAddForm.classList.remove("active");
 });
-
 
 /* Enter로 목표 추가 */
-recordGoalInput.addEventListener(
-"keydown",
-function(event){
-
-if(event.key === "Enter"){
-
-recordGoalSaveButton.click();
-
-}
-
+recordGoalInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    recordGoalSaveButton.click();
+  }
 });
-
 
 /* 목표 추가 취소 */
-recordGoalCancelButton.addEventListener(
-"click",
-function(){
+recordGoalCancelButton.addEventListener("click", function () {
+  recordGoalInput.value = "";
 
-recordGoalInput.value = "";
-
-recordGoalAddForm.classList.remove(
-"active"
-);
-
+  recordGoalAddForm.classList.remove("active");
 });
-
 
 /* 목표 체크 / 삭제 */
-recordGoalList.addEventListener(
-"click",
-function(event){
+recordGoalList.addEventListener("click", function (event) {
+  /* 목표 체크 */
+  if (event.target.classList.contains("goal-check")) {
+    const goalId = Number(event.target.dataset.id);
 
+    const goal = goals.find(function (goal) {
+      return goal.id === goalId && goal.date === selectedDate;
+    });
 
-/* 목표 체크 */
-if(
-event.target.classList.contains(
-"goal-check"
-)
-){
+    if (!goal) {
+      return;
+    }
 
-const goalId =
-Number(
-event.target.dataset.id
-);
+    goal.completed = !goal.completed;
 
+    saveGoals();
 
-const goal =
-goals.find(function(goal){
+    renderRecordGoals();
 
-return (
-goal.id === goalId &&
-goal.date === selectedDate
-);
+    return;
+  }
 
+  /* 목표 삭제 */
+  if (event.target.classList.contains("goal-delete")) {
+    const goalId = Number(event.target.dataset.id);
+
+    goals = goals.filter(function (goal) {
+      return goal.id !== goalId;
+    });
+
+    saveGoals();
+
+    renderRecordGoals();
+  }
 });
-
-
-if(!goal){
-
-return;
-
-}
-
-
-goal.completed =
-!goal.completed;
-
-
-saveGoals();
-
-renderRecordGoals();
-
-return;
-
-}
-
-
-/* 목표 삭제 */
-if(
-event.target.classList.contains(
-"goal-delete"
-)
-){
-
-const goalId =
-Number(
-event.target.dataset.id
-);
-
-
-goals =
-goals.filter(function(goal){
-
-return goal.id !== goalId;
-
-});
-
-
-saveGoals();
-
-renderRecordGoals();
-
-}
-
-});
-
 
 /* 기록 불러오기 */
+function loadRecord(date) {
+  const personalRecords =
+    JSON.parse(localStorage.getItem("personalRecords")) || [];
 
-function loadRecord(date){
+  const record = personalRecords.find(function (item) {
+    return item.date === date;
+  });
 
-const personalRecords =
-JSON.parse(
-localStorage.getItem(
-"personalRecords"
-)
-) || [];
+  /* 입력 화면 초기화 */
+  weightInput.value = "";
 
+  memo.value = "";
 
-const record =
-personalRecords.find(function(item){
+  memoCount.innerText = "0";
 
-return item.date === date;
+  selectedCondition = null;
 
-});
+  conditionItems.forEach(function (item) {
+    item.classList.remove("active");
+  });
 
+  conditionResultText.innerText = "선택해주세요";
 
-/* 입력 화면 초기화 */
-weightInput.value = "";
+  conditionResultScore.innerText = "- / 5";
 
-memo.value = "";
+  /* 저장된 기록이 없으면 종료 */
+  if (!record) {
+    return;
+  }
 
-memoCount.innerText = "0";
+  /* 체중 */
+  if (record.weight !== null) {
+    weightInput.value = record.weight;
+  }
 
-selectedCondition = null;
+  /* 메모 */
+  memo.value = record.memo || "";
 
+  memoCount.innerText = memo.value.length;
 
-conditionItems.forEach(function(item){
+  /* 컨디션 */
+  if (record.condition !== null) {
+    selectedCondition = record.condition;
 
-item.classList.remove("active");
+    conditionItems.forEach(function (item) {
+      if (Number(item.dataset.value) === selectedCondition) {
+        item.classList.add("active");
+      }
+    });
 
-});
+    conditionResultText.innerText = conditionNames[selectedCondition];
 
-
-conditionResultText.innerText =
-"선택해주세요";
-
-conditionResultScore.innerText =
-"- / 5";
-
-
-/* 저장된 기록이 없으면 종료 */
-if(!record){
-
-return;
-
+    conditionResultScore.innerText = selectedCondition + " / 5";
+  }
 }
-
-
-/* 체중 */
-if(record.weight !== null){
-
-weightInput.value =
-record.weight;
-
-}
-
-
-/* 메모 */
-memo.value =
-record.memo || "";
-
-memoCount.innerText =
-memo.value.length;
-
-
-/* 컨디션 */
-if(record.condition !== null){
-
-selectedCondition =
-record.condition;
-
-
-conditionItems.forEach(function(item){
-
-if(
-Number(item.dataset.value) ===
-selectedCondition
-){
-
-item.classList.add("active");
-
-}
-
-});
-
-
-conditionResultText.innerText =
-conditionNames[selectedCondition];
-
-conditionResultScore.innerText =
-selectedCondition + " / 5";
-
-}
-
-}
-
 
 /* 기록 저장 */
+const saveButton = document.querySelector(".save-button");
 
-const saveButton =
-document.querySelector(
-".save-button"
-);
+saveButton.addEventListener("click", function () {
+  const weight = weightInput.value.trim();
 
+  const memoText = memo.value.trim();
 
-saveButton.addEventListener(
-"click",
-function(){
+  const selectedGoals = getSelectedGoals();
 
-const weight =
-weightInput.value.trim();
+  /* 기록 데이터 */
+  const recordData = {
+    date: selectedDate,
 
-const memoText =
-memo.value.trim();
+    weight: weight === "" ? null : Number(weight),
 
-const selectedGoals =
-getSelectedGoals();
+    condition: selectedCondition,
 
+    memo: memoText,
 
-/* 기록 데이터 */
-const recordData = {
+    goals: selectedGoals.map(function (goal) {
+      return {
+        ...goal,
+      };
+    }),
+  };
 
-date:
-selectedDate,
+  /* 기존 기록 */
+  const personalRecords =
+    JSON.parse(localStorage.getItem("personalRecords")) || [];
 
-weight:
-weight === ""
-? null
-: Number(weight),
+  /* 같은 날짜 기록 찾기 */
+  const existingIndex = personalRecords.findIndex(function (record) {
+    return record.date === selectedDate;
+  });
 
-condition:
-selectedCondition,
+  /* 이미 기록 존재 */
+  if (existingIndex !== -1) {
+    personalRecords[existingIndex] = recordData;
+  } else {
+    /* 새로운 기록 */
+    personalRecords.push(recordData);
+  }
 
-memo:
-memoText,
+  /* 날짜순 정렬 */
+  personalRecords.sort(function (a, b) {
+    return new Date(a.date) - new Date(b.date);
+  });
 
-goals:
-selectedGoals.map(function(goal){
+  /* 전체 기록 저장 */
+  localStorage.setItem("personalRecords", JSON.stringify(personalRecords));
 
-return {
-...goal
-};
+  /* 오늘 날짜 */
+  const todayText = formatDate(new Date());
 
-})
+  /* 오늘 기록 저장 */
+  if (selectedDate === todayText) {
+    localStorage.setItem("todayRecord", JSON.stringify(recordData));
+  }
 
-};
+  /* 목표 저장 */
+  saveGoals();
 
-
-/* 기존 기록 */
-const personalRecords =
-JSON.parse(
-localStorage.getItem(
-"personalRecords"
-)
-) || [];
-
-
-/* 같은 날짜 기록 찾기 */
-const existingIndex =
-personalRecords.findIndex(
-function(record){
-
-return (
-record.date ===
-selectedDate
-);
-
+  alert(selectedDate + " 기록이 저장되었어요!");
 });
-
-
-/* 이미 기록 존재 */
-if(existingIndex !== -1){
-
-personalRecords[
-existingIndex
-] = recordData;
-
-}
-
-
-/* 새로운 기록 */
-else{
-
-personalRecords.push(
-recordData
-);
-
-}
-
-
-/* 날짜순 정렬 */
-personalRecords.sort(
-function(a, b){
-
-return (
-new Date(a.date) -
-new Date(b.date)
-);
-
-});
-
-
-/* 전체 기록 저장 */
-localStorage.setItem(
-"personalRecords",
-JSON.stringify(personalRecords)
-);
-
-
-/* 오늘 날짜 */
-const todayText =
-formatDate(
-new Date()
-);
-
-
-/* 오늘 기록 저장 */
-if(
-selectedDate ===
-todayText
-){
-
-localStorage.setItem(
-"todayRecord",
-JSON.stringify(recordData)
-);
-
-}
-
-
-/* 목표 저장 */
-saveGoals();
-
-
-alert(
-selectedDate +
-" 기록이 저장되었어요!"
-);
-
-});
-
 
 /* 처음 화면 */
-
 renderWeek();
-
-loadRecord(
-selectedDate
-);
-
-renderRecordGoals();
