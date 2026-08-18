@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>분석</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/analysis.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header class="analysis-header">
+
+<button type="button" class="menu-button" aria-label="메뉴 열기">
+☰
+</button>
+
+<h1>분석</h1>
+
+<button type="button" class="calendar-button" aria-label="캘린더 보기">
+📊
+</button>
+
+</header>
+
+
+<!-- 분석 안내 -->
+<section class="analysis-intro">
+
+<div class="analysis-character">
+
+<img
+src="../images/analysis.mascot.png"
+alt="분석 캐릭터">
+
+</div>
+
+<div class="analysis-message">
+
+<strong>
+꾸준히 잘하고 있어요!
+</strong>
+
+<p>
+이번 주도 함께 건강한 습관을 이어가봐요!
+</p>
+
+</div>
+
+</section>
+
+
+<!-- 분석 요약 -->
+<section class="summary-list">
+
+
+<!-- 연속 성공 -->
+<div class="summary-card">
+
+<div class="summary-icon">
+📅
+</div>
+
+<div class="summary-text">
+
+<p>
+연속 성공
+</p>
+
+<strong>
+7<span>일</span>
+</strong>
+
+<small>
+연속 성공 기록
+</small>
+
+</div>
+
+</div>
+
+
+<!-- 평균 달성률 -->
+<div class="summary-card">
+
+<div class="summary-icon">
+🎯
+</div>
+
+<div class="summary-text">
+
+<p>
+평균 달성률
+</p>
+
+<strong>
+72<span>%</span>
+</strong>
+
+<small>
+전체 기간 기준
+</small>
+
+</div>
+
+</div>
+
+
+<!-- 완료한 챌린지 -->
+<div class="summary-card">
+
+<div class="summary-icon">
+🏆
+</div>
+
+<div class="summary-text">
+
+<p>
+완료한 챌린지
+</p>
+
+<strong>
+2<span>개</span>
+</strong>
+
+<small>
+전체 챌린지 중
+</small>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- 주간 달성률 -->
+<section class="analysis-card">
+
+<div class="card-header">
+
+<h2>
+주간 달성률
+</h2>
+
+<select class="period-select" aria-label="주간 달성률 조회 기간">
+
+<option value="week">
+이번 주
+</option>
+
+</select>
+
+</div>
+
+
+<div class="week-chart">
+
+<canvas id="weekChart"></canvas>
+
+</div>
+
+</section>
+
+
+<!-- 분석 결과 -->
+<section class="result-list">
+
+
+<!-- 실패가 가장 잦은 요일 -->
+<div class="result-card">
+
+<div class="result-icon fail-icon">
+↓
+</div>
+
+<div class="result-text">
+
+<h2>
+실패가 가장 잦은 요일
+</h2>
+
+<strong class="fail-value">
+목요일
+</strong>
+
+<p>
+실패율
+<strong>45%</strong>
+</p>
+
+</div>
+
+<div class="result-emoji">
+😞
+</div>
+
+</div>
+
+
+<!-- 가장 성공률 높은 챌린지 -->
+<div class="result-card">
+
+<div class="result-icon success-icon">
+↑
+</div>
+
+<div class="result-text">
+
+<h2>
+가장 성공률 높은 챌린지
+</h2>
+
+<strong class="success-value">
+물 2L 마시기 7일 챌린지
+</strong>
+
+<p>
+성공률
+<strong>83%</strong>
+</p>
+
+</div>
+
+<div class="result-emoji">
+💧
+</div>
+
+</div>
+
+</section>
+
+
+<!-- 달성률 추이 -->
+<section class="analysis-card">
+
+<div class="card-header">
+
+<h2>
+달성률 추이
+</h2>
+
+<select class="period-select" aria-label="달성률 추이 조회 기간">
+
+<option value="4">
+최근 4주
+</option>
+
+</select>
+
+</div>
+
+
+<div class="rate-chart">
+
+<canvas id="rateChart"></canvas>
+
+</div>
+
+</section>
+
+
+<!-- 하단 메뉴 -->
+<nav class="bottom-nav">
+
+
+<!-- 홈 -->
+<a href="../index.html">
+
+<img
+src="../icons/bottom-home.svg"
+alt="홈">
+
+<span>
+홈
+</span>
+
+</a>
+
+
+<!-- 챌린지 -->
+<a href="./challenge-list.html">
+
+<img
+src="../icons/bottom-trophy.svg"
+alt="챌린지">
+
+<span>
+챌린지
+</span>
+
+</a>
+
+
+<!-- 기록 -->
+<a href="./challenge-record.html">
+
+<img
+src="../icons/bottom-record.svg"
+alt="기록">
+
+<span>
+기록
+</span>
+
+</a>
+
+
+<!-- 분석 -->
+<a href="./analysis.html" class="active">
+
+<img
+src="../icons/bottom-chart.svg"
+alt="분석">
+
+<span>
+분석
+</span>
+
+</a>
+
+
+<!-- 마이 -->
+<a href="./my-page.html">
+
+<img
+src="../icons/bottom-user.svg"
+alt="마이">
+
+<span>
+마이
+</span>
+
+</a>
+
+</nav>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../scripts/analysis.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,558 @@
+*{
+box-sizing: border-box;
+}
+
+body{
+margin: 0;
+font-family: "Pretendard", sans-serif;
+background-color: #f5f7f5;
+color: #222;
+}
+
+button,
+input,
+select,
+textarea{
+font: inherit;
+}
+
+main{
+width: 100%;
+max-width: 900px;
+margin: 0 auto;
+padding: 40px;
+}
+
+
+/* 상단 */
+header{
+position: relative;
+margin-bottom: 30px;
+text-align: center;
+}
+
+header > button{
+position: absolute;
+top: 3px;
+left: 0;
+
+padding: 8px;
+
+border: none;
+background: none;
+
+font-size: 28px;
+cursor: pointer;
+}
+
+.header-title h1{
+margin: 0 0 8px;
+font-size: 32px;
+}
+
+.header-title p{
+margin: 0;
+color: #777;
+font-size: 15px;
+}
+
+
+/* 챌린지 입력 카드 */
+.challenge-form{
+padding: 35px 40px;
+
+border: 1px solid #e6e9e6;
+border-radius: 20px;
+
+background-color: white;
+
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+
+/* 각 단계 */
+.form-section{
+margin-bottom: 30px;
+padding-bottom: 30px;
+
+border-bottom: 1px solid #eeeeee;
+}
+
+.form-section:last-of-type{
+border-bottom: none;
+}
+
+
+/* 단계 제목 */
+.section-title{
+display: flex;
+align-items: center;
+gap: 7px;
+
+margin: 0 0 25px;
+
+font-size: 21px;
+font-weight: bold;
+}
+
+.section-title span{
+font-size: 21px;
+font-weight: bold;
+}
+
+
+/* 입력 항목 */
+.form-group{
+position: relative;
+margin-bottom: 25px;
+}
+
+.form-group:last-child{
+margin-bottom: 0;
+}
+
+.group-title{
+margin-bottom: 10px;
+}
+
+.group-title h3{
+margin: 0;
+
+font-size: 15px;
+font-weight: bold;
+}
+
+
+/* 카테고리 */
+.category-list{
+display: flex;
+gap: 10px;
+}
+
+.category-item{
+flex: 1;
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 7px;
+
+min-height: 85px;
+
+border: 1px solid #dddddd;
+border-radius: 12px;
+
+background-color: white;
+color: #555;
+
+cursor: pointer;
+}
+
+.category-icon{
+display: flex;
+justify-content: center;
+align-items: center;
+
+min-height: 35px;
+
+font-size: 28px;
+}
+
+.category-item:hover{
+border-color: #2bb24c;
+}
+
+.category-item.active{
+border-color: #2bb24c;
+
+background-color: #f5fbf6;
+color: #2bb24c;
+
+font-weight: bold;
+}
+
+
+/* 안내 문구 */
+.form-help{
+margin: 10px 0 0;
+
+color: #888;
+
+font-size: 12px;
+}
+
+
+/* 직접 설정 */
+.custom-goal-form{
+display: none;
+
+padding: 18px;
+
+border: 1px solid #dce8df;
+border-radius: 12px;
+
+background-color: #f8fcf9;
+}
+
+
+/* 공통 입력창 */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select,
+textarea{
+width: 100%;
+
+padding: 13px 15px;
+
+border: 1px solid #dddddd;
+border-radius: 10px;
+
+outline: none;
+
+background-color: white;
+color: #222;
+
+font-size: 14px;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus,
+textarea:focus{
+border-color: #2bb24c;
+
+box-shadow: 0 0 0 3px rgba(43, 178, 76, 0.1);
+}
+
+
+/* 나의 목표 설정 */
+.goal-input-area{
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+.goal-value-group{
+display: flex;
+gap: 10px;
+}
+
+.goal-value-group input{
+flex: 2;
+}
+
+.goal-value-group select{
+flex: 1;
+}
+
+
+/* 목표 도움말 */
+.goal-help-box{
+display: flex;
+align-items: flex-start;
+gap: 10px;
+
+padding: 14px 16px;
+
+border: 1px solid #dce8df;
+border-radius: 10px;
+
+background-color: #f5fbf6;
+
+color: #666;
+
+font-size: 13px;
+}
+
+.goal-help-box > span{
+font-size: 18px;
+}
+
+.goal-help-box strong{
+display: block;
+
+margin-bottom: 4px;
+
+color: #444;
+font-size: 13px;
+}
+
+.goal-help-box p{
+margin: 0;
+
+color: #888;
+font-size: 12px;
+}
+
+
+/* 목표 설명 */
+textarea{
+min-height: 90px;
+resize: vertical;
+}
+
+
+/* 글자 수 */
+.text-count{
+margin-top: 6px;
+
+color: #999;
+
+font-size: 12px;
+text-align: right;
+}
+
+
+/* 기간 선택 */
+.period-list{
+display: flex;
+gap: 10px;
+
+margin-bottom: 20px;
+}
+
+.period-list button{
+flex: 1;
+
+padding: 11px 8px;
+
+border: 1px solid #dddddd;
+border-radius: 10px;
+
+background-color: white;
+color: #555;
+
+cursor: pointer;
+}
+
+.period-list button:hover{
+border-color: #2bb24c;
+}
+
+.period-list button.active{
+border-color: #2bb24c;
+
+background-color: #f5fbf6;
+color: #2bb24c;
+
+font-weight: bold;
+}
+
+
+/* 날짜 */
+.date-box{
+display: flex;
+align-items: flex-end;
+gap: 15px;
+}
+
+.date-item{
+flex: 1;
+}
+
+.date-item label{
+display: block;
+
+margin-bottom: 8px;
+
+color: #555;
+
+font-size: 13px;
+font-weight: bold;
+}
+
+.date-between{
+padding-bottom: 13px;
+
+color: #222;
+}
+
+
+/* 도전 방식 */
+.participation-options{
+display: flex;
+gap: 12px;
+
+margin-top: 12px;
+}
+
+.participation-option{
+flex: 1;
+
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 6px;
+
+padding: 18px;
+
+border: 1px solid #dddddd;
+border-radius: 12px;
+
+background-color: white;
+color: #555;
+
+text-align: left;
+
+cursor: pointer;
+}
+
+.participation-option:hover{
+border-color: #2bb24c;
+}
+
+.participation-option.active{
+border-color: #2bb24c;
+
+background-color: #f5fbf6;
+color: #2bb24c;
+}
+
+.participation-option strong{
+font-size: 15px;
+}
+
+.participation-option span{
+color: #888;
+font-size: 12px;
+}
+
+
+/* 친구 초대 */
+.invite-section{
+display: none;
+
+margin-top: 22px;
+}
+
+.invite-box{
+padding: 16px 18px;
+
+border: 1px solid #dce8df;
+border-radius: 12px;
+
+background-color: #f5fbf6;
+color: #64806a;
+
+font-size: 13px;
+text-align: center;
+}
+
+
+/* 혼자 도전 성공 보상 */
+.solo-reward-section{
+display: block;
+}
+
+
+/* 함께 도전 실패 약속 */
+.group-penalty-section{
+display: none;
+}
+
+
+/* 보상 / 약속 설명 */
+.reward-description{
+margin: -12px 0 18px;
+
+color: #777;
+
+font-size: 13px;
+}
+
+
+/* 보상 / 약속 목록 */
+.reward-option-list{
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+}
+
+
+/* 보상 / 약속 버튼 */
+.reward-option{
+min-width: 145px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+
+padding: 13px 16px;
+
+border: 1px solid #dddddd;
+border-radius: 10px;
+
+background-color: white;
+color: #555;
+
+cursor: pointer;
+}
+
+.reward-option > span{
+font-size: 18px;
+}
+
+.reward-option:hover{
+border-color: #2bb24c;
+}
+
+.reward-option.active{
+border-color: #2bb24c;
+
+background-color: #f5fbf6;
+color: #2bb24c;
+
+font-weight: bold;
+}
+
+
+/* 직접 보상 / 약속 입력 */
+.custom-reward-input{
+display: none;
+
+margin-top: 15px;
+}
+
+
+/* 보상 안내 */
+.reward-help-box{
+margin-top: 15px;
+padding: 13px 15px;
+
+border: 1px solid #dce8df;
+border-radius: 10px;
+
+background-color: #f5fbf6;
+color: #64806a;
+
+font-size: 12px;
+}
+
+
+/* 챌린지 만들기 */
+.create-button{
+width: 100%;
+
+padding: 15px;
+
+border: none;
+border-radius: 11px;
+
+background-color: #2bb24c;
+color: white;
+
+font-size: 16px;
+font-weight: bold;
+
+cursor: pointer;
+}
+
+.create-button:hover{
+background-color: #239a40;
+}
+
+

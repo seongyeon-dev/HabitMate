@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>오늘 기록</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/challenge-record.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header class="record-header">
+
+<button
+type="button"
+class="menu-button"
+aria-label="메뉴 열기">
+☰
+</button>
+
+<h1>오늘 기록</h1>
+
+<button
+type="button"
+class="calendar-button"
+aria-label="캘린더 보기">
+📅
+</button>
+
+</header>
+
+
+<!-- 날짜 선택 -->
+<section class="date-section">
+
+<div class="month-area">
+
+<span class="date-icon">
+📅
+</span>
+
+<strong>
+2026년 8월
+</strong>
+
+<button
+type="button"
+class="month-button">
+⌄
+</button>
+
+</div>
+
+
+<div class="week-list">
+
+<button type="button" class="day-item">
+
+<span>일</span>
+
+<strong>
+9
+</strong>
+
+</button>
+
+
+<button type="button" class="day-item">
+
+<span>월</span>
+
+<strong>
+10
+</strong>
+
+</button>
+
+
+<button type="button" class="day-item">
+
+<span>화</span>
+
+<strong>
+11
+</strong>
+
+</button>
+
+
+<button type="button" class="day-item">
+
+<span>수</span>
+
+<strong>
+12
+</strong>
+
+</button>
+
+
+<button type="button" class="day-item">
+
+<span>목</span>
+
+<strong>
+13
+</strong>
+
+</button>
+
+
+<button
+type="button"
+class="day-item active">
+
+<span>금</span>
+
+<strong>
+14
+</strong>
+
+</button>
+
+
+<button type="button" class="day-item">
+
+<span>토</span>
+
+<strong>
+15
+</strong>
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 체중 기록 -->
+<section class="record-card">
+
+<div class="record-title">
+
+<div class="record-icon">
+<span>⚖️</span>
+</div>
+
+<div>
+
+<h2>
+
+체중
+
+<span class="optional">
+선택
+</span>
+
+</h2>
+
+<p>
+기록하고 싶다면 오늘의 체중을 입력해보세요.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="weight-input-area">
+
+<input
+type="number"
+name="weight"
+placeholder="54.2"
+step="0.1"
+min="0">
+
+<span>
+kg
+</span>
+
+</div>
+
+</section>
+
+
+<!-- 컨디션 기록 -->
+<section class="record-card">
+
+<div class="condition-header">
+
+<div class="record-title">
+
+<div class="record-icon">
+<span>😊</span>
+</div>
+
+<div>
+
+<h2>
+컨디션
+</h2>
+
+<p>
+오늘의 컨디션은 어땠나요?
+</p>
+
+</div>
+
+</div>
+
+
+<div class="condition-result">
+
+<strong>
+선택해주세요
+</strong>
+
+<span>
+- / 5
+</span>
+
+</div>
+
+</div>
+
+
+<div class="condition-list">
+
+<button
+type="button"
+class="condition-item"
+data-value="1">
+
+<span>😡</span>
+
+<strong>
+1
+</strong>
+
+</button>
+
+
+<button
+type="button"
+class="condition-item"
+data-value="2">
+
+<span>☹️</span>
+
+<strong>
+2
+</strong>
+
+</button>
+
+
+<button
+type="button"
+class="condition-item"
+data-value="3">
+
+<span>😐</span>
+
+<strong>
+3
+</strong>
+
+</button>
+
+
+<button
+type="button"
+class="condition-item"
+data-value="4">
+
+<span>🙂</span>
+
+<strong>
+4
+</strong>
+
+</button>
+
+
+<button
+type="button"
+class="condition-item"
+data-value="5">
+
+<span>😄</span>
+
+<strong>
+5
+</strong>
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 오늘 메모 -->
+<section class="record-card">
+
+<div class="record-title">
+
+<div class="record-icon">
+<span>✏️</span>
+</div>
+
+<div>
+
+<h2>
+오늘의 메모
+</h2>
+
+<p>
+오늘 느낀 점이나 한 일을 자유롭게 적어보세요.
+</p>
+
+</div>
+
+</div>
+
+
+<textarea
+name="memo"
+placeholder="오늘의 기록을 남겨보세요 :)"
+maxlength="200"></textarea>
+
+
+<div class="text-count">
+
+<span class="memo-count">
+0
+</span>
+
+/
+
+200
+
+</div>
+
+</section>
+
+
+<!-- 오늘 목표 -->
+<section class="record-card">
+
+<div class="goal-header">
+
+<div class="record-title">
+
+<div class="record-icon">
+<span>🎯</span>
+</div>
+
+<div>
+
+<h2>
+오늘 목표
+</h2>
+
+<p>
+선택한 날짜의 목표를 관리해보세요.
+</p>
+
+</div>
+
+</div>
+
+
+<div class="goal-header-right">
+
+<p>
+
+<strong class="record-goal-count">
+0 / 0
+</strong>
+
+완료
+
+</p>
+
+
+<button
+type="button"
+class="record-goal-add-button">
+
++ 목표 추가
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- 목표 추가 입력 -->
+<div class="record-goal-add-form">
+
+<input
+type="text"
+class="record-goal-input"
+placeholder="예) 물 1.5L 마시기"
+maxlength="30">
+
+
+<button
+type="button"
+class="record-goal-save-button">
+
+추가
+
+</button>
+
+
+<button
+type="button"
+class="record-goal-cancel-button">
+
+취소
+
+</button>
+
+</div>
+
+
+<!-- 선택한 날짜의 목표 목록 -->
+<div class="record-goal-list">
+</div>
+
+</section>
+
+
+<!-- 기록 저장 -->
+<button
+type="button"
+class="save-button">
+
+기록 저장
+
+</button>
+
+
+<!-- 하단 메뉴 -->
+<nav class="bottom-nav">
+
+
+<!-- 홈 -->
+<a href="../index.html">
+
+<img
+src="../icons/bottom-home.svg"
+alt="홈">
+
+<span>
+홈
+</span>
+
+</a>
+
+
+<!-- 챌린지 -->
+<a href="challenge-list.html">
+
+<img
+src="../icons/bottom-trophy.svg"
+alt="챌린지">
+
+<span>
+챌린지
+</span>
+
+</a>
+
+
+<!-- 기록 -->
+<a
+href="challenge-record.html"
+class="active">
+
+<img
+src="../icons/bottom-record.svg"
+alt="기록">
+
+<span>
+기록
+</span>
+
+</a>
+
+
+<!-- 분석 -->
+<a href="analysis.html">
+
+<img
+src="../icons/bottom-chart.svg"
+alt="분석">
+
+<span>
+분석
+</span>
+
+</a>
+
+
+<!-- 마이 -->
+<a href="my-page.html">
+
+<img
+src="../icons/bottom-user.svg"
+alt="마이">
+
+<span>
+마이
+</span>
+
+</a>
+
+</nav>
+
+</main>
+
+
+<script src="../scripts/challenge-record.js"></script>
+
+</body>
+
+</html>

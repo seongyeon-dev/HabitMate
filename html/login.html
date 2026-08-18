@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>로그인 / 회원가입</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/login.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header class="signup-header">
+
+<h1>
+HabitMate
+</h1>
+
+</header>
+
+
+<!-- 회원가입 화면 -->
+<section class="signup-area">
+
+<!-- 회원가입 안내 -->
+<section class="signup-intro">
+
+<h2>
+회원가입
+</h2>
+
+<p>
+건강한 습관, 함께 시작해요!
+</p>
+
+</section>
+
+
+<!-- 회원가입 -->
+<section class="signup-section">
+
+<form class="signup-form">
+
+
+<!-- 이메일 -->
+<div class="form-group">
+
+<label for="signup-email">
+이메일
+</label>
+
+<input
+type="email"
+id="signup-email"
+name="email"
+placeholder="이메일을 입력해주세요"
+required>
+
+</div>
+
+
+<!-- 비밀번호 -->
+<div class="form-group">
+
+<label for="signup-password">
+비밀번호
+</label>
+
+<input
+type="password"
+id="signup-password"
+name="password"
+placeholder="비밀번호를 입력해주세요"
+required>
+
+<p class="form-help">
+영문, 숫자, 특수문자 포함 8자 이상
+</p>
+
+</div>
+
+
+<!-- 비밀번호 확인 -->
+<div class="form-group">
+
+<label for="password-confirm">
+비밀번호 확인
+</label>
+
+<input
+type="password"
+id="password-confirm"
+name="passwordConfirm"
+placeholder="비밀번호를 다시 입력해주세요"
+required>
+
+</div>
+
+
+<!-- 닉네임 -->
+<div class="form-group">
+
+<label for="nickname">
+닉네임
+</label>
+
+<input
+type="text"
+id="nickname"
+name="nickname"
+placeholder="닉네임을 입력해주세요 (2~10자)"
+maxlength="10"
+required>
+
+</div>
+
+
+<!-- 약관 동의 -->
+<label class="agree-area">
+
+<input
+type="checkbox"
+name="agree"
+required>
+
+<span>
+이용약관 및 개인정보처리방침에 동의합니다.
+</span>
+
+</label>
+
+
+<!-- 회원가입 버튼 -->
+<button
+type="submit"
+class="signup-button">
+
+회원가입
+
+</button>
+
+</form>
+
+</section>
+
+
+<!-- 로그인 이동 -->
+<div class="login-link">
+
+<span>
+이미 계정이 있으신가요?
+</span>
+
+<button
+type="button"
+class="login-button">
+
+로그인
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 로그인 화면 -->
+<section class="login-area">
+
+<!-- 로그인 안내 -->
+<section class="login-intro">
+
+<h2>
+로그인
+</h2>
+
+<p>
+오늘도 건강한 습관을 이어가보세요!
+</p>
+
+</section>
+
+
+<!-- 로그인 -->
+<section class="login-section">
+
+<form class="login-form">
+
+
+<!-- 이메일 -->
+<div class="form-group">
+
+<label for="login-email">
+이메일
+</label>
+
+<input
+type="email"
+id="login-email"
+name="loginEmail"
+placeholder="이메일을 입력해주세요"
+required>
+
+</div>
+
+
+<!-- 비밀번호 -->
+<div class="form-group">
+
+<label for="login-password">
+비밀번호
+</label>
+
+<input
+type="password"
+id="login-password"
+name="loginPassword"
+placeholder="비밀번호를 입력해주세요"
+required>
+
+</div>
+
+
+<!-- 로그인 버튼 -->
+<button
+type="submit"
+class="login-submit-button">
+
+로그인
+
+</button>
+
+</form>
+
+</section>
+
+
+<!-- 회원가입 이동 -->
+<div class="signup-link">
+
+<span>
+아직 계정이 없으신가요?
+</span>
+
+<button
+type="button"
+class="signup-link-button">
+
+회원가입
+
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<script src="../scripts/login.js"></script>
+
+</body>
+
+</html>

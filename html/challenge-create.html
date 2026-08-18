@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>새 챌린지 만들기</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/challenge-create.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header>
+
+<button
+type="button"
+onclick="location.href='challenge-list.html'"
+aria-label="챌린지 목록으로 돌아가기">
+←
+</button>
+
+<div class="header-title">
+
+<h1>새 챌린지 만들기</h1>
+
+<p>
+나에게 맞는 건강한 습관을 만들어보세요!
+</p>
+
+</div>
+
+</header>
+
+
+<form class="challenge-form">
+
+
+<!-- 1. 기본 정보 -->
+<section class="form-section">
+
+<h2 class="section-title">
+<span>1.</span>
+기본 정보
+</h2>
+
+
+<!-- 카테고리 -->
+<div class="form-group">
+
+<div class="group-title">
+<h3>카테고리</h3>
+</div>
+
+<div class="category-list">
+
+<button
+type="button"
+class="category-item active"
+data-category="exercise">
+
+<span class="category-icon">🏃</span>
+<span>운동</span>
+
+</button>
+
+
+<button
+type="button"
+class="category-item"
+data-category="diet">
+
+<span class="category-icon">🥗</span>
+<span>식습관</span>
+
+</button>
+
+
+<button
+type="button"
+class="category-item"
+data-category="water">
+
+<span class="category-icon">💧</span>
+<span>수분</span>
+
+</button>
+
+
+<button
+type="button"
+class="category-item"
+data-category="sleep">
+
+<span class="category-icon">🌙</span>
+<span>수면</span>
+
+</button>
+
+
+<button
+type="button"
+class="category-item"
+data-category="custom">
+
+<span class="category-icon">✏️</span>
+<span>직접 설정</span>
+
+</button>
+
+</div>
+
+<p class="form-help">
+나에게 맞는 건강한 생활 목표를 선택하거나 직접 설정해보세요.
+</p>
+
+</div>
+
+
+<!-- 나만의 목표 -->
+<div class="form-group custom-goal-form">
+
+<div class="group-title">
+<h3>나만의 목표</h3>
+</div>
+
+<input
+type="text"
+name="customGoal"
+placeholder="예) 하루 30분 책 읽기"
+maxlength="30">
+
+<p class="form-help">
+건강한 생활을 위한 나만의 목표를 입력해보세요.
+</p>
+
+</div>
+
+
+<!-- 나의 목표 설정 -->
+<div class="form-group">
+
+<div class="group-title">
+<h3>나의 목표 설정</h3>
+</div>
+
+<div class="goal-input-area">
+
+<div class="goal-value-group">
+
+<input
+type="number"
+name="goalValue"
+value="8000"
+min="1">
+
+<select name="goalUnit">
+
+<option value="step">
+보
+</option>
+
+<option value="minute">
+분
+</option>
+
+<option value="time">
+회
+</option>
+
+<option value="ml">
+ml
+</option>
+
+<option value="hour">
+시간
+</option>
+
+</select>
+
+</div>
+
+
+<div class="goal-help-box">
+
+<span>💡</span>
+
+<div>
+
+<strong>
+목표량을 직접 설정해보세요.
+</strong>
+
+<p>
+자신에게 맞는 목표로 조절할 수 있어요.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- 제목 -->
+<div class="form-group">
+
+<div class="group-title">
+<h3>제목</h3>
+</div>
+
+<input
+type="text"
+name="title"
+placeholder="예) 하루 8천 보 걷기 챌린지"
+maxlength="30">
+
+<div class="text-count">
+<span class="title-count">0</span> / 30
+</div>
+
+</div>
+
+
+<!-- 목표 설명 -->
+<div class="form-group">
+
+<div class="group-title">
+<h3>목표 설명 (선택)</h3>
+</div>
+
+<textarea
+name="description"
+placeholder="예) 꾸준한 운동 습관 만들기"
+maxlength="100"></textarea>
+
+<div class="text-count">
+<span class="description-count">0</span> / 100
+</div>
+
+</div>
+
+</section>
+
+
+<!-- 2. 기간 설정 -->
+<section class="form-section">
+
+<h2 class="section-title">
+<span>2.</span>
+기간 설정
+</h2>
+
+
+<div class="period-list">
+
+<button type="button">
+3일
+</button>
+
+<button type="button" class="active">
+7일
+</button>
+
+<button type="button">
+14일
+</button>
+
+<button type="button">
+21일
+</button>
+
+<button type="button">
+30일
+</button>
+
+</div>
+
+
+<div class="date-box">
+
+<div class="date-item">
+
+<label>
+시작일
+</label>
+
+<input
+type="date"
+name="startDate">
+
+</div>
+
+
+<span class="date-between">
+~
+</span>
+
+
+<div class="date-item">
+
+<label>
+종료일
+</label>
+
+<input
+type="date"
+name="endDate">
+
+</div>
+
+</div>
+
+
+<p class="form-help">
+ⓘ 챌린지 기간은 시작일을 포함합니다.
+</p>
+
+</section>
+
+
+<!-- 3. 도전 방식 -->
+<section class="form-section">
+
+<h2 class="section-title">
+<span>3.</span>
+도전 방식
+</h2>
+
+
+<div class="group-title">
+<h3>어떻게 도전할까요?</h3>
+</div>
+
+
+<div class="participation-options">
+
+<button
+type="button"
+class="participation-option active"
+data-mode="solo">
+
+<strong>
+혼자 도전
+</strong>
+
+<span>
+나만의 목표에 집중해요
+</span>
+
+</button>
+
+
+<button
+type="button"
+class="participation-option"
+data-mode="together">
+
+<strong>
+함께 도전
+</strong>
+
+<span>
+친구들과 서로 인증해요
+</span>
+
+</button>
+
+</div>
+
+
+<div class="invite-section">
+
+<div class="group-title">
+<h3>친구 초대</h3>
+</div>
+
+<div class="invite-box">
+함께 도전하면 챌린지 생성 후 초대코드가 만들어져요.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- 4. 동기 설정 -->
+<section class="form-section">
+
+
+<!-- 혼자 성공 보상 -->
+<div class="solo-reward-section">
+
+<h2 class="section-title">
+<span>4.</span>
+성공 보상 (선택)
+</h2>
+
+<p class="reward-description">
+챌린지를 성공한 나에게 줄 작은 보상을 설정해보세요!
+</p>
+
+
+<div class="reward-option-list">
+
+<button
+type="button"
+class="reward-option">
+
+<span>☕</span>
+좋아하는 카페 가기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option">
+
+<span>🍽️</span>
+먹고 싶었던 메뉴 먹기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option">
+
+<span>🛍️</span>
+갖고 싶었던 것 사기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option custom-reward-option">
+
+<span>✏️</span>
+직접 설정
+
+</button>
+
+
+<button
+type="button"
+class="reward-option active">
+
+<span>⊘</span>
+설정하지 않기
+
+</button>
+
+</div>
+
+
+<div class="custom-reward-input">
+
+<input
+type="text"
+name="soloCustomReward"
+placeholder="예) 성공하면 하루 여행 다녀오기"
+maxlength="30">
+
+</div>
+
+
+<div class="reward-help-box">
+💡 무리하지 않는 범위에서 스스로에게 보상을 주세요!
+</div>
+
+</div>
+
+
+<!-- 함께 실패 약속 -->
+<div class="group-penalty-section">
+
+<h2 class="section-title">
+<span>4.</span>
+실패 시 약속 (선택)
+</h2>
+
+<p class="reward-description">
+친구들과 챌린지를 재미있게 이어갈 약속을 정해보세요!
+</p>
+
+
+<div class="reward-option-list">
+
+<button
+type="button"
+class="reward-option">
+
+<span>☕</span>
+커피 사기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option">
+
+<span>🍽️</span>
+식사 사기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option">
+
+<span>🏃</span>
+다음 운동 함께하기
+
+</button>
+
+
+<button
+type="button"
+class="reward-option">
+
+<span>🎯</span>
+다음 챌린지 참여
+
+</button>
+
+
+<button
+type="button"
+class="reward-option custom-reward-option">
+
+<span>✏️</span>
+직접 설정
+
+</button>
+
+
+<button
+type="button"
+class="reward-option active">
+
+<span>⊘</span>
+설정하지 않기
+
+</button>
+
+</div>
+
+
+<div class="custom-reward-input">
+
+<input
+type="text"
+name="togetherCustomPromise"
+placeholder="예) 다음 주 운동 같이 가기"
+maxlength="30">
+
+</div>
+
+
+<div class="reward-help-box">
+💡 서로 부담되지 않는 가벼운 약속을 정해보세요!
+</div>
+
+</div>
+
+</section>
+
+
+<!-- 챌린지 생성 -->
+<button
+type="submit"
+class="create-button">
+
+챌린지 만들기
+
+</button>
+
+</form>
+
+</main>
+
+
+<script src="../scripts/challenge-create.js"></script>
+
+</body>
+
+</html>

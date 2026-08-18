@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>챌린지 상세</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/challenge-detail.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header class="detail-header">
+
+<a
+href="challenge-list.html"
+class="back-button"
+aria-label="챌린지 목록으로 돌아가기">
+←
+</a>
+
+<h1>챌린지 상세</h1>
+
+</header>
+
+
+<!-- 챌린지 소개 -->
+<section class="challenge-intro">
+
+<div class="challenge-main">
+
+<div class="challenge-image">
+<span>🥗</span>
+</div>
+
+<div class="challenge-text">
+
+<h2>
+야식 끊기 7일 챌린지
+</h2>
+
+<p>
+야식 대신 건강한 식습관 만들기!
+</p>
+
+<div class="challenge-meta">
+
+<span>
+2026.08.08 ~ 2026.08.14 (7일)
+</span>
+
+<span>
+4명 참여 중
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="challenge-dday">
+
+<strong>
+D-3
+</strong>
+
+<span>
+종료까지
+</span>
+
+</div>
+
+</section>
+
+
+<!-- 전체 진행률 -->
+<section class="progress-section">
+
+<div class="progress-header">
+
+<h2>
+전체 진행률
+</h2>
+
+<strong>
+72%
+</strong>
+
+</div>
+
+
+<div class="progress">
+
+<div
+class="progress-bar"
+style="width:72%;">
+</div>
+
+</div>
+
+
+<p>
+5일 성공 / 총 7일
+</p>
+
+</section>
+
+
+<!-- 챌린지 정보 -->
+<section class="challenge-info">
+
+<h2>
+챌린지 정보
+</h2>
+
+
+<!-- 기간 -->
+<div class="info-item">
+
+<div class="info-icon">
+📅
+</div>
+
+<span class="info-title">
+기간
+</span>
+
+<p>
+2026.08.08 ~ 2026.08.14 (7일)
+</p>
+
+</div>
+
+
+<!-- 목표 -->
+<div class="info-item">
+
+<div class="info-icon">
+🎯
+</div>
+
+<span class="info-title">
+목표
+</span>
+
+<p>
+야식 대신 건강한 식습관 만들기
+</p>
+
+</div>
+
+
+<!-- 실패 시 약속 -->
+<div class="info-item">
+
+<div class="info-icon">
+🤝
+</div>
+
+<span class="info-title">
+실패 시 약속
+</span>
+
+<p>
+다음 챌린지 참여하기
+</p>
+
+</div>
+
+</section>
+
+
+<!-- 참여자 -->
+<section class="participants">
+
+<h2>
+참여자
+</h2>
+
+<div class="participant-list">
+
+
+<!-- 참여자 1 -->
+<div class="participant">
+
+<div class="member-avatar">
+김
+</div>
+
+<p>
+김다혜
+</p>
+
+</div>
+
+
+<!-- 나 -->
+<div class="participant">
+
+<div class="member-avatar">
+나
+</div>
+
+<p>
+나
+</p>
+
+</div>
+
+
+<!-- 참여자 3 -->
+<div class="participant">
+
+<div class="member-avatar">
+이
+</div>
+
+<p>
+이지은
+</p>
+
+</div>
+
+
+<!-- 참여자 4 -->
+<div class="participant">
+
+<div class="member-avatar">
+박
+</div>
+
+<p>
+박서연
+</p>
+
+</div>
+
+
+<!-- 친구 초대 -->
+<button
+type="button"
+class="invite-member">
+
+<span>
++
+</span>
+
+<strong>
+초대하기
+</strong>
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 오늘 인증 -->
+<section class="today-check">
+
+<h2>
+오늘 인증
+</h2>
+
+<p class="check-description">
+사진이나 글로 오늘의 챌린지를 인증해보세요!
+</p>
+
+
+<!-- 인증 방식 -->
+<div class="check-type-list">
+
+<button
+type="button"
+class="check-type active"
+data-type="photo">
+
+📷 사진 인증
+
+</button>
+
+
+<button
+type="button"
+class="check-type"
+data-type="text">
+
+✏️ 글 인증
+
+</button>
+
+</div>
+
+
+<!-- 사진 인증 -->
+<div class="photo-check">
+
+<label class="photo-upload">
+
+<span>
+📷
+</span>
+
+<strong>
+사진 추가하기
+</strong>
+
+<p>
+카메라로 촬영하거나 사진첩에서 선택해주세요.
+</p>
+
+<input
+type="file"
+accept="image/*">
+
+</label>
+
+
+<!-- 사진 미리보기 -->
+<div class="photo-preview">
+</div>
+
+</div>
+
+
+<!-- 글 인증 -->
+<div class="text-check">
+
+<textarea
+name="checkText"
+placeholder="오늘의 챌린지를 어떻게 실천했나요?"
+maxlength="100"></textarea>
+
+<div class="text-count">
+
+<span class="check-text-count">
+0
+</span>
+
+/
+
+100
+
+</div>
+
+</div>
+
+
+<!-- 인증 버튼 -->
+<button
+type="button"
+class="check-button">
+
+✓ 오늘 인증하기
+
+</button>
+
+</section>
+
+
+<!-- 초대 코드 -->
+<section class="invite-code">
+
+<h2>
+초대 코드
+</h2>
+
+<div class="invite-code-area">
+
+<strong class="code">
+</strong>
+
+<button
+type="button"
+class="copy-button">
+
+복사
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- 챌린지 관리 -->
+<section class="challenge-manage">
+
+<button
+type="button"
+class="delete-button">
+
+챌린지 삭제
+
+</button>
+
+</section>
+
+</main>
+
+
+<script src="../scripts/challenge-detail.js"></script>
+
+</body>
+
+</html>

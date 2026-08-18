@@ -1,0 +1,639 @@
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:"Pretendard",sans-serif;
+background-color:#f7f8f7;
+color:#222;
+}
+
+button,
+input,
+textarea{
+font:inherit;
+}
+
+button{
+cursor:pointer;
+}
+
+main{
+width:100%;
+max-width:900px;
+margin:0 auto;
+padding:40px 40px 110px;
+}
+
+
+/* 상단 */
+.record-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.record-header h1{
+margin:0;
+font-size:28px;
+font-weight:800;
+}
+
+.menu-button,
+.calendar-button{
+width:42px;
+height:42px;
+padding:0;
+border:none;
+background:transparent;
+font-size:25px;
+}
+
+
+/* 날짜 선택 */
+.date-section{
+margin-bottom:20px;
+padding:22px 25px;
+border:1px solid #e6e9e6;
+border-radius:18px;
+background-color:white;
+box-shadow:0 3px 12px rgba(0,0,0,0.04);
+}
+
+.month-area{
+display:flex;
+align-items:center;
+gap:9px;
+margin-bottom:20px;
+}
+
+.date-icon{
+font-size:18px;
+}
+
+.month-area strong{
+font-size:17px;
+}
+
+.month-button{
+margin-left:auto;
+padding:0;
+border:none;
+background:transparent;
+color:#555;
+font-size:18px;
+}
+
+.week-list{
+display:grid;
+grid-template-columns:repeat(7, 1fr);
+gap:10px;
+}
+
+.day-item{
+min-height:67px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:7px;
+border:1px solid transparent;
+border-radius:12px;
+background-color:transparent;
+color:#777;
+}
+
+.day-item span{
+font-size:12px;
+}
+
+.day-item strong{
+font-size:16px;
+color:#333;
+}
+
+.day-item:hover{
+background-color:#f5faf6;
+}
+
+.day-item.active{
+border-color:#2bb24c;
+background-color:#eef9f0;
+color:#2bb24c;
+}
+
+.day-item.active strong{
+color:#2bb24c;
+}
+
+
+/* 기록 카드 */
+.record-card{
+margin-bottom:20px;
+padding:25px;
+border:1px solid #e6e9e6;
+border-radius:18px;
+background-color:white;
+box-shadow:0 3px 12px rgba(0,0,0,0.04);
+}
+
+
+/* 기록 제목 */
+.record-title{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.record-icon{
+width:44px;
+height:44px;
+flex-shrink:0;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:50%;
+background-color:#eef8f0;
+font-size:20px;
+}
+
+.record-title h2{
+margin:0 0 5px;
+font-size:18px;
+}
+
+.record-title p{
+margin:0;
+color:#777;
+font-size:13px;
+}
+
+.optional{
+margin-left:4px;
+color:#999;
+font-size:11px;
+font-weight:500;
+}
+
+
+/* 체중 */
+.weight-input-area{
+margin-top:22px;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.weight-input-area input{
+width:180px;
+height:50px;
+padding:0 15px;
+border:1px solid #dddddd;
+border-radius:10px;
+outline:none;
+background-color:white;
+font-size:16px;
+}
+
+.weight-input-area input:focus{
+border-color:#2bb24c;
+box-shadow:0 0 0 3px rgba(43,178,76,0.08);
+}
+
+.weight-input-area span{
+color:#666;
+font-size:14px;
+}
+
+
+/* 컨디션 */
+.condition-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.condition-result{
+text-align:right;
+}
+
+.condition-result strong{
+display:block;
+margin-bottom:4px;
+color:#2bb24c;
+font-size:14px;
+}
+
+.condition-result span{
+color:#999;
+font-size:12px;
+}
+
+.condition-list{
+display:grid;
+grid-template-columns:repeat(5, 1fr);
+gap:12px;
+margin-top:22px;
+}
+
+.condition-item{
+height:82px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:5px;
+border:1px solid #e3e3e3;
+border-radius:12px;
+background-color:white;
+}
+
+.condition-item span{
+font-size:25px;
+}
+
+.condition-item strong{
+color:#666;
+font-size:13px;
+}
+
+.condition-item:hover{
+border-color:#b8dfc1;
+background-color:#f7fbf8;
+}
+
+.condition-item.active{
+border-color:#2bb24c;
+background-color:#eef9f0;
+}
+
+.condition-item.active strong{
+color:#2bb24c;
+}
+
+
+/* 메모 */
+.record-card textarea{
+width:100%;
+min-height:130px;
+margin-top:22px;
+padding:15px;
+border:1px solid #dddddd;
+border-radius:10px;
+outline:none;
+resize:vertical;
+color:#222;
+font-size:14px;
+line-height:1.6;
+}
+
+.record-card textarea:focus{
+border-color:#2bb24c;
+box-shadow:0 0 0 3px rgba(43,178,76,0.08);
+}
+
+.record-card textarea::placeholder{
+color:#aaa;
+}
+
+.text-count{
+margin-top:7px;
+color:#999;
+font-size:12px;
+text-align:right;
+}
+
+
+/* 오늘 목표 */
+.goal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:20px;
+}
+
+.goal-header-right{
+display:flex;
+align-items:center;
+gap:18px;
+}
+
+.goal-header-right p{
+margin:0;
+color:#777;
+font-size:13px;
+}
+
+.record-goal-count{
+color:#2bb24c;
+font-size:15px;
+}
+
+.record-goal-add-button{
+height:38px;
+padding:0 15px;
+border:1px solid #2bb24c;
+border-radius:9px;
+background-color:white;
+color:#2bb24c;
+font-size:13px;
+font-weight:700;
+}
+
+.record-goal-add-button:hover{
+background-color:#f1faf3;
+}
+
+
+/* 목표 추가 입력 */
+.record-goal-add-form{
+display:none;
+align-items:center;
+gap:10px;
+margin-top:20px;
+padding:15px;
+border-radius:12px;
+background-color:#f7faf7;
+}
+
+.record-goal-add-form.active{
+display:flex;
+}
+
+.record-goal-input{
+flex:1;
+height:44px;
+padding:0 13px;
+border:1px solid #dddddd;
+border-radius:9px;
+outline:none;
+background-color:white;
+font-size:13px;
+}
+
+.record-goal-input:focus{
+border-color:#2bb24c;
+}
+
+.record-goal-save-button,
+.record-goal-cancel-button{
+height:44px;
+padding:0 17px;
+border-radius:9px;
+font-size:13px;
+font-weight:700;
+}
+
+.record-goal-save-button{
+border:1px solid #2bb24c;
+background-color:#2bb24c;
+color:white;
+}
+
+.record-goal-save-button:hover{
+background-color:#249c43;
+}
+
+.record-goal-cancel-button{
+border:1px solid #dddddd;
+background-color:white;
+color:#666;
+}
+
+
+/* 목표 목록 */
+.record-goal-list{
+margin-top:20px;
+}
+
+.record-goal-list > p{
+margin:0;
+padding:22px 0;
+color:#999;
+font-size:13px;
+text-align:center;
+}
+
+.goal-item{
+display:flex;
+align-items:center;
+gap:15px;
+min-height:65px;
+padding:12px 5px;
+border-bottom:1px solid #eeeeee;
+}
+
+.goal-item:last-child{
+border-bottom:none;
+}
+
+.goal-name{
+flex:1;
+}
+
+.goal-name strong{
+font-size:14px;
+}
+
+.goal-progress{
+width:180px;
+height:8px;
+overflow:hidden;
+border-radius:10px;
+background-color:#e8e8e8;
+}
+
+.goal-progress-bar{
+height:100%;
+border-radius:10px;
+background-color:#2bb24c;
+transition:width 0.2s ease;
+}
+
+.goal-item > p{
+width:55px;
+margin:0;
+color:#777;
+font-size:12px;
+text-align:center;
+}
+
+.goal-check{
+width:35px;
+height:35px;
+padding:0;
+border:1px solid #cfd6d0;
+border-radius:50%;
+background-color:white;
+color:#999;
+font-size:17px;
+}
+
+.goal-check:hover{
+border-color:#2bb24c;
+color:#2bb24c;
+}
+
+.goal-check.active{
+border-color:#2bb24c;
+background-color:#2bb24c;
+color:white;
+}
+
+
+/* 목표 삭제 */
+.goal-delete{
+width:32px;
+height:32px;
+padding:0;
+border:none;
+border-radius:50%;
+background-color:transparent;
+color:#aaa;
+font-size:21px;
+}
+
+.goal-delete:hover{
+background-color:#fff2f2;
+color:#ee5555;
+}
+
+
+/* 기록 저장 */
+.save-button{
+width:100%;
+height:54px;
+margin-top:5px;
+border:none;
+border-radius:11px;
+background-color:#2bb24c;
+color:white;
+font-size:15px;
+font-weight:700;
+}
+
+.save-button:hover{
+background-color:#249c43;
+}
+
+
+/* 하단 메뉴 */
+.bottom-nav{
+position:fixed;
+left:50%;
+bottom:0;
+z-index:100;
+width:100%;
+max-width:900px;
+height:78px;
+display:flex;
+justify-content:space-around;
+align-items:center;
+transform:translateX(-50%);
+border-top:1px solid #e5e5e5;
+background-color:white;
+}
+
+.bottom-nav a{
+width:20%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:5px;
+color:#999;
+font-size:12px;
+text-decoration:none;
+}
+
+.bottom-nav img{
+width:22px;
+height:22px;
+opacity:0.55;
+}
+
+.bottom-nav a.active{
+color:#2bb24c;
+font-weight:700;
+}
+
+.bottom-nav a.active img{
+opacity:1;
+}
+
+
+/* 모바일 */
+@media(max-width:700px){
+
+main{
+padding:20px 20px 100px;
+}
+
+.record-header h1{
+font-size:23px;
+}
+
+.date-section,
+.record-card{
+padding:20px;
+}
+
+.week-list{
+gap:4px;
+}
+
+.day-item{
+min-height:60px;
+}
+
+.condition-header{
+align-items:flex-start;
+}
+
+.condition-list{
+gap:7px;
+}
+
+.condition-item{
+height:75px;
+}
+
+.condition-item span{
+font-size:22px;
+}
+
+.goal-header{
+align-items:flex-start;
+}
+
+.goal-header-right{
+flex-direction:column;
+align-items:flex-end;
+gap:8px;
+}
+
+.record-goal-add-form{
+flex-wrap:wrap;
+}
+
+.record-goal-input{
+width:100%;
+flex-basis:100%;
+}
+
+.goal-progress{
+width:100px;
+}
+
+.goal-item{
+gap:9px;
+}
+
+.bottom-nav{
+height:72px;
+}
+
+}

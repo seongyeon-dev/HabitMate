@@ -1,0 +1,499 @@
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:"Pretendard",sans-serif;
+background-color:#f7f8f7;
+color:#222;
+}
+
+button{
+font-family:inherit;
+}
+
+main{
+width:900px;
+margin:0 auto;
+padding:25px 30px 50px;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:55px;
+}
+
+header button{
+border:none;
+background:none;
+font-size:28px;
+cursor:pointer;
+}
+
+header h1{
+font-size:24px;
+margin:0;
+}
+
+
+/* 리포트 제목 */
+.report-title{
+margin-bottom:25px;
+}
+
+.report-title h2{
+font-size:34px;
+margin:0 0 10px;
+}
+
+.report-title p{
+margin:0;
+color:#666;
+font-size:17px;
+}
+
+
+/* 리포트 전체 */
+.report{
+background-color:white;
+border:1px solid #e5e5e5;
+border-radius:16px;
+padding:25px;
+box-shadow:0 3px 12px rgba(0,0,0,0.05);
+}
+
+
+/* 리포트 기본 정보 */
+.challenge-info{
+display:flex;
+align-items:center;
+gap:25px;
+margin-bottom:25px;
+}
+
+.challenge-icon{
+width:90px;
+height:90px;
+border-radius:14px;
+background-color:#f0f8f1;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.challenge-icon span{
+font-size:42px;
+}
+
+.challenge-text{
+flex:1;
+}
+
+.challenge-text h3{
+margin:0 0 8px;
+font-size:20px;
+}
+
+.challenge-text p{
+margin:5px 0;
+color:#777;
+}
+
+.challenge-end{
+text-align:center;
+}
+
+.challenge-end strong{
+font-size:25px;
+color:#18ad45;
+}
+
+.challenge-end p{
+margin:8px 0 0;
+color:#777;
+}
+
+
+/* 최종 달성률 */
+.result{
+border:1px solid #e5e5e5;
+border-radius:14px;
+padding:22px;
+display:flex;
+align-items:center;
+gap:35px;
+margin-bottom:18px;
+}
+
+.result-rate{
+width:150px;
+}
+
+.result-rate p{
+margin:0 0 5px;
+}
+
+.result-rate strong{
+font-size:30px;
+color:#18ad45;
+}
+
+.result-progress{
+flex:1;
+}
+
+.progress{
+width:100%;
+height:14px;
+background-color:#e2e2e2;
+border-radius:10px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:100%;
+background-color:#20b84b;
+border-radius:10px;
+}
+
+.result-progress p{
+margin:8px 0 0;
+color:#777;
+}
+
+.result-progress strong{
+color:#18ad45;
+}
+
+
+/* 성공 실패 화면 */
+.result-summary{
+display:flex;
+border:1px solid #e5e5e5;
+border-radius:14px;
+margin-bottom:20px;
+overflow:hidden;
+}
+
+.summary-item{
+width:33.33%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:3px;
+padding:18px;
+border-right:1px solid #eee;
+text-align:center;
+}
+
+.summary-item:last-child{
+border-right:none;
+}
+
+.summary-item span{
+font-size:20px;
+}
+
+.summary-item p{
+margin:0;
+font-size:14px;
+}
+
+.summary-item strong{
+font-size:23px;
+}
+
+
+/* 나의 변화 */
+.change{
+background-color:#f7fbf7;
+border:1px solid #e1ebe2;
+border-radius:14px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.section-title h3{
+margin:0 0 15px;
+}
+
+.section-title > p{
+font-size:12px;
+color:#777;
+}
+
+.change-list{
+display:flex;
+gap:20px;
+}
+
+.change-card{
+width:50%;
+background-color:white;
+border:1px solid #e5e5e5;
+border-radius:12px;
+padding:18px;
+}
+
+.change-card h4{
+margin:0 0 20px;
+font-size:18px;
+}
+
+.change-value{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+gap:10px;
+}
+
+.change-value p{
+font-size:12px;
+color:#777;
+margin:0 0 8px;
+}
+
+.change-value strong{
+font-size:20px;
+}
+
+.change-value > strong{
+font-size:16px;
+color:#18ad45;
+}
+
+.change-notice{
+font-size:12px;
+color:#777;
+margin:15px 0 0;
+}
+
+
+/* 7일 기록 */
+.week-record{
+border:1px solid #e5e5e5;
+border-radius:14px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.record-info{
+display:flex;
+gap:18px;
+font-size:13px;
+color:#666;
+}
+
+.record-days{
+display:flex;
+justify-content:space-between;
+text-align:center;
+}
+
+.record-day{
+width:70px;
+}
+
+.record-day p{
+font-size:13px;
+}
+
+.record-day span{
+width:38px;
+height:38px;
+margin:0 auto;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background-color:#e6f6e9;
+color:#18ad45;
+font-size:20px;
+}
+
+.record-day.fail span{
+background-color:#ffe8e5;
+color:#ff4b3e;
+}
+
+
+/* 참여자 순위 */
+.ranking{
+border:1px solid #e5e5e5;
+border-radius:14px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.ranking h3{
+margin-top:0;
+}
+
+.ranking-item{
+display:flex;
+align-items:center;
+gap:15px;
+padding:8px 10px;
+border-radius:10px;
+}
+
+
+/* 순위 숫자 공통 */
+.ranking-item > span{
+width:25px;
+height:25px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-weight:bold;
+}
+
+.ranking-item:nth-child(2) > span{
+background-color:#ffb515;
+color:white;
+}
+
+.ranking-item:nth-child(3) > span{
+background-color:#bfc1c3;
+color:white;
+}
+
+.ranking-item:nth-child(4) > span{
+background-color:#df781c;
+color:white;
+}
+
+.ranking-item:nth-child(5) > span{
+background-color:white;
+color:#222;
+border:1px solid #ddd;
+}
+
+.ranking-item p{
+width:110px;
+margin:0;
+}
+
+.ranking-progress{
+flex:1;
+height:10px;
+background-color:#e2e2e2;
+border-radius:10px;
+overflow:hidden;
+}
+
+.ranking-progress-bar{
+height:100%;
+background-color:#20b84b;
+border-radius:10px;
+}
+
+.ranking-item strong{
+width:55px;
+text-align:right;
+}
+
+
+/* 내 순위 강조 */
+.ranking-item.me{
+background-color:#f0f8f1;
+}
+
+.ranking-item.me p,
+.ranking-item.me strong{
+color:#18ad45;
+}
+
+
+/* 리포트 결과 코멘트 */
+.report-comment{
+display:flex;
+align-items:center;
+gap:20px;
+background-color:#fafafa;
+border:1px solid #e5e5e5;
+border-radius:14px;
+padding:15px 20px;
+margin-bottom:15px;
+}
+
+.report-comment img{
+width:130px;
+}
+
+.comment-bubble{
+flex:1;
+background-color:white;
+border:1px solid #e5e5e5;
+border-radius:14px;
+padding:15px 25px;
+}
+
+.comment-bubble p{
+margin:6px 0;
+}
+
+
+/* 리포트 버튼 */
+.report-buttons{
+display:grid;
+grid-template-columns:repeat(3, 1fr);
+gap:20px;
+}
+
+.report-buttons button{
+width:100%;
+height:54px;
+padding:0 15px;
+border-radius:10px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+
+/* 다시 도전하기 */
+.report-buttons button:first-child{
+background-color:white;
+border:1px solid #18ad45;
+color:#18ad45;
+}
+
+.report-buttons button:first-child:hover{
+background-color:#f0f8f1;
+}
+
+
+/* 홈으로 돌아가기 */
+.report-buttons button:nth-child(2){
+background-color:white;
+border:1px solid #dddddd;
+color:#333;
+}
+
+.report-buttons button:nth-child(2):hover{
+background-color:#f7f7f7;
+}
+
+
+/* 챌린지 삭제 */
+.report-buttons .delete-button{
+background-color:white;
+border:1px solid #ff5a5a;
+color:#ff5a5a;
+}
+
+.report-buttons .delete-button:hover{
+background-color:#fff5f5;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>챌린지</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+<link rel="stylesheet" href="../css/challenge-list.css">
+</head>
+
+<body>
+
+<main>
+
+<!-- 상단 -->
+<header class="challenge-header">
+
+<button
+type="button"
+class="menu-button"
+aria-label="메뉴 열기">
+☰
+</button>
+
+<h1>챌린지</h1>
+
+<button
+type="button"
+class="add-button"
+onclick="location.href='challenge-create.html'"
+aria-label="새 챌린지 만들기">
+＋
+</button>
+
+</header>
+
+
+<!-- 챌린지 상태 -->
+<div class="challenge-tabs">
+
+<button
+type="button"
+class="tab-button active"
+data-status="ongoing">
+진행 중
+</button>
+
+<button
+type="button"
+class="tab-button"
+data-status="completed">
+완료
+</button>
+
+</div>
+
+
+<!-- 챌린지 목록 -->
+<section class="challenge-list">
+</section>
+
+
+<!-- 새 챌린지 만들기 -->
+<button
+type="button"
+class="create-challenge"
+onclick="location.href='challenge-create.html'">
+
+<span>＋</span>
+새 챌린지 만들기
+
+</button>
+
+
+<!-- 하단 메뉴 -->
+<nav class="bottom-nav">
+
+
+<!-- 홈 -->
+<a href="../index.html">
+
+<img
+src="../icons/bottom-home.svg"
+alt="홈">
+
+<span>
+홈
+</span>
+
+</a>
+
+
+<!-- 챌린지 -->
+<a
+href="challenge-list.html"
+class="active">
+
+<img
+src="../icons/bottom-trophy.svg"
+alt="챌린지">
+
+<span>
+챌린지
+</span>
+
+</a>
+
+
+<!-- 기록 -->
+<a href="challenge-record.html">
+
+<img
+src="../icons/bottom-record.svg"
+alt="기록">
+
+<span>
+기록
+</span>
+
+</a>
+
+
+<!-- 분석 -->
+<a href="analysis.html">
+
+<img
+src="../icons/bottom-chart.svg"
+alt="분석">
+
+<span>
+분석
+</span>
+
+</a>
+
+
+<!-- 마이 -->
+<a href="my-page.html">
+
+<img
+src="../icons/bottom-user.svg"
+alt="마이">
+
+<span>
+마이
+</span>
+
+</a>
+
+</nav>
+
+</main>
+
+
+<script src="../scripts/challenge-list.js"></script>
+
+</body>
+
+</html>
