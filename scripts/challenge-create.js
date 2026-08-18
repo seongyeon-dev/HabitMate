@@ -20,11 +20,9 @@ categoryItems.forEach(function (item) {
   });
 });
 
-
 /* 목표 설정 */
 const goalValue = document.querySelector('input[name="goalValue"]');
 const goalUnit = document.querySelector('select[name="goalUnit"]');
-
 
 /* 제목 글자 수 */
 const titleInput = document.querySelector('input[name="title"]');
@@ -34,7 +32,6 @@ titleInput.addEventListener("input", function () {
   titleCount.innerText = titleInput.value.length;
 });
 
-
 /* 목표 설명 글자 수 */
 const descriptionInput = document.querySelector('textarea[name="description"]');
 const descriptionCount = document.querySelector(".description-count");
@@ -43,11 +40,9 @@ descriptionInput.addEventListener("input", function () {
   descriptionCount.innerText = descriptionInput.value.length;
 });
 
-
 /* 시작일, 종료일 */
 const startDate = document.querySelector('input[name="startDate"]');
 const endDate = document.querySelector('input[name="endDate"]');
-
 
 /* 기간 선택 */
 const periodButtons = document.querySelectorAll(".period-list button");
@@ -80,14 +75,12 @@ periodButtons.forEach(function (button) {
   });
 });
 
-
 /* 시작일 변경 */
 startDate.addEventListener("change", function () {
   if (selectedPeriod !== null) {
     updateEndDate();
   }
 });
-
 
 /* 종료일 직접 변경 */
 endDate.addEventListener("change", function () {
@@ -102,7 +95,6 @@ endDate.addEventListener("change", function () {
 
   selectedPeriod = null;
 });
-
 
 /* 종료일 자동 계산 */
 function updateEndDate() {
@@ -121,7 +113,6 @@ function updateEndDate() {
   endDate.value = year + "-" + month + "-" + day;
 }
 
-
 /* 실제 챌린지 기간 계산 */
 function calculatePeriod(start, end) {
   const startValue = new Date(start + "T00:00:00");
@@ -132,7 +123,6 @@ function calculatePeriod(start, end) {
 
   return Math.floor(difference / dayMilliseconds) + 1;
 }
-
 
 /* 도전 방식 */
 const participationOptions = document.querySelectorAll(".participation-option");
@@ -166,7 +156,6 @@ participationOptions.forEach(function (button) {
   });
 });
 
-
 /* 성공 보상 / 실패 약속 선택 */
 const rewardOptions = document.querySelectorAll(".reward-option");
 
@@ -196,7 +185,6 @@ rewardOptions.forEach(function (button) {
   });
 });
 
-
 /* 랜덤 초대 코드 생성 */
 function createInviteCode() {
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -211,7 +199,6 @@ function createInviteCode() {
 
   return "HABIT" + randomCode;
 }
-
 
 /* 초대 코드 중복 확인 */
 function createUniqueInviteCode() {
@@ -233,7 +220,6 @@ function createUniqueInviteCode() {
 
   return inviteCode;
 }
-
 
 /* 챌린지 생성 */
 const challengeForm = document.querySelector(".challenge-form");
@@ -257,7 +243,6 @@ challengeForm.addEventListener("submit", function (event) {
 
   const selectedCategory = activeCategory.dataset.category;
 
-
   /* 직접 설정 확인 */
   let customGoalValue = "";
 
@@ -272,13 +257,11 @@ challengeForm.addEventListener("submit", function (event) {
     customGoalValue = customGoal.value.trim();
   }
 
-
   /* 목표 확인 */
   if (goalValue.value === "" || Number(goalValue.value) <= 0) {
     alert("나의 목표를 설정해주세요.");
     return;
   }
-
 
   /* 시작일 확인 */
   if (startDate.value === "") {
@@ -286,13 +269,11 @@ challengeForm.addEventListener("submit", function (event) {
     return;
   }
 
-
   /* 종료일 확인 */
   if (endDate.value === "") {
     alert("챌린지 종료일을 선택해주세요.");
     return;
   }
-
 
   /* 실제 기간 계산 */
   const period = calculatePeriod(startDate.value, endDate.value);
@@ -301,7 +282,6 @@ challengeForm.addEventListener("submit", function (event) {
     alert("종료일은 시작일 이후로 설정해주세요.");
     return;
   }
-
 
   /* 카테고리 이모지 */
   let categoryIcon = "🎯";
@@ -317,7 +297,6 @@ challengeForm.addEventListener("submit", function (event) {
   } else if (selectedCategory === "custom") {
     categoryIcon = "✏️";
   }
-
 
   /* 성공 보상 / 실패 약속 */
   let reward = "";
@@ -361,14 +340,12 @@ challengeForm.addEventListener("submit", function (event) {
     }
   }
 
-
   /* 초대 코드 */
   let inviteCode = null;
 
   if (selectedMode === "together") {
     inviteCode = createUniqueInviteCode();
   }
-
 
   /* 챌린지 정보 */
   const challenge = {
@@ -393,18 +370,14 @@ challengeForm.addEventListener("submit", function (event) {
     status: "ongoing",
   };
 
-
   /* 저장된 챌린지 가져오기 */
   const challenges = JSON.parse(localStorage.getItem("challenges")) || [];
-
 
   /* 새로운 챌린지 추가 */
   challenges.push(challenge);
 
-
   /* 다시 저장 */
   localStorage.setItem("challenges", JSON.stringify(challenges));
-
 
   /* 생성 완료 */
   if (selectedMode === "together") {
@@ -413,11 +386,9 @@ challengeForm.addEventListener("submit", function (event) {
     alert("챌린지가 만들어졌어요!");
   }
 
-
   /* 챌린지 목록 이동 */
   location.href = "challenge-list.html";
 });
-
 
 /* 처음 화면 설정 */
 customGoalForm.style.display = "none";
@@ -426,14 +397,12 @@ soloRewardSection.style.display = "block";
 groupPenaltySection.style.display = "none";
 inviteSection.style.display = "none";
 
-
 /* 기간 선택 초기화 */
 periodButtons.forEach(function (button) {
   button.classList.remove("active");
 });
 
 selectedPeriod = null;
-
 
 /* 직접 설정 입력창 숨기기 */
 document.querySelectorAll(".custom-reward-input").forEach(function (input) {
