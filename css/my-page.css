@@ -1,19 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Pretendard", sans-serif;
-  background-color: #f7f8f7;
-  color: #222;
-}
-
-button {
-  font: inherit;
-  cursor: pointer;
-}
-
 main {
   width: 100%;
   max-width: 900px;
@@ -26,14 +10,12 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
   margin-bottom: 30px;
 }
 
 /* 페이지 제목 */
 .header-title h1 {
   margin: 0 0 10px;
-
   font-size: 28px;
   font-weight: 800;
 }
@@ -41,17 +23,15 @@ main {
 /* 페이지 설명 */
 .header-title p {
   margin: 0;
-
-  color: #555;
+  color: var(--text-gray);
   font-size: 14px;
   font-weight: 500;
 }
 
-/* HabitMate 로고 */
+/* 로고 */
 .header-logo {
   margin-top: 3px;
-
-  color: #222;
+  color: var(--text);
   font-size: 26px;
   font-weight: 800;
   line-height: 1;
@@ -61,51 +41,39 @@ main {
 .profile {
   display: flex;
   align-items: stretch;
-
   margin-bottom: 25px;
   padding: 35px;
-
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-
-  background-color: white;
-
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 /* 프로필 정보 */
 .profile-info {
   width: 42%;
-
   display: flex;
   align-items: center;
   gap: 22px;
-
   padding-right: 30px;
 }
 
 .profile-image {
   width: 95px;
   height: 95px;
-
   flex-shrink: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   border-radius: 50%;
-
-  background-color: #eef8f0;
-  color: #315c38;
-
+  background-color: var(--color-light-green);
+  color: var(--color-dark-green);
   font-size: 35px;
   font-weight: 700;
 }
 
 .profile-text {
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -114,104 +82,78 @@ main {
 
 .profile-text h2 {
   margin: 0 0 5px;
-
   font-size: 22px;
   font-weight: 800;
 }
 
 .profile-text p {
   margin: 0 0 14px;
-
-  color: #444;
+  color: var(--text-gray);
   font-size: 13px;
 }
 
 .edit-button {
   padding: 8px 18px;
-
-  border: 1px solid #2bb24c;
+  border: 1px solid var(--color-green);
   border-radius: 20px;
-
-  background-color: white;
-  color: #239a40;
-
+  background-color: var(--color-light-green);
+  color: var(--color-dark-green);
   font-size: 13px;
   font-weight: 700;
-}
-
-.edit-button:hover {
-  background-color: #eef8f0;
 }
 
 /* 통계 */
 .statistics {
   width: 58%;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
 }
 
 .statistic-item {
   min-width: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   padding: 0 12px;
-
-  border-left: 1px solid #e6e9e6;
-
+  border-left: 1px solid var(--border);
   text-align: center;
 }
 
 .statistic-item p {
   height: 20px;
-
   margin: 0 0 10px;
-
-  color: #333;
-
+  color: var(--text);
   font-size: 13px;
   font-weight: 700;
-
   white-space: nowrap;
 }
 
 .statistic-item strong {
   height: 36px;
-
   display: flex;
   justify-content: center;
   align-items: baseline;
-
-  color: #222;
-
+  color: var(--text);
   font-size: 27px;
   font-weight: 800;
 }
 
 .statistic-item strong span {
   margin-left: 3px;
-
   font-size: 14px;
   font-weight: 700;
 }
 
 .statistic-item .highlight {
-  color: #2bb24c;
+  color: var(--color-green);
 }
 
 .statistic-item small {
   height: 16px;
-
   display: block;
-
   margin-top: 5px;
-
-  color: #666;
-
+  color: var(--text-gray);
   font-size: 11px;
   font-weight: 500;
 }
@@ -219,37 +161,32 @@ main {
 /* 설정 */
 .setting {
   overflow: hidden;
-
   margin-bottom: 25px;
-
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-
-  background-color: white;
-
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 .setting-item {
   width: 100%;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 20px 25px;
-
   border: none;
-  border-bottom: 1px solid #eeeeee;
-
-  background-color: white;
-  color: #222;
-
+  border-bottom: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--text);
   text-align: left;
 }
 
 .setting-item:last-child {
   border-bottom: none;
+}
+
+.setting-item:hover {
+  background-color: var(--background-light);
 }
 
 .setting-item span {
@@ -258,23 +195,18 @@ main {
 }
 
 .setting-item strong {
-  color: #777;
-
+  color: var(--text-gray);
   font-size: 20px;
   font-weight: 400;
 }
 
-.setting-item:hover {
-  background-color: #fafbfa;
-}
-
 /* 로그아웃 */
-.logout span {
-  color: #e05252;
+.logout {
+  background-color: var(--danger-background);
 }
 
-.logout:hover {
-  background-color: #fff8f8;
+.logout span {
+  color: var(--danger);
 }
 
 /* 하단 메뉴 */
@@ -282,32 +214,23 @@ main {
   display: flex;
   justify-content: space-around;
   align-items: center;
-
   margin-top: 25px;
   padding: 13px 10px;
-
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-
-  background-color: white;
-
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
 .bottom-nav a {
   width: 20%;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   gap: 5px;
-
-  color: #777;
-
+  color: var(--text-gray);
   font-size: 12px;
-
   text-decoration: none;
 }
 
@@ -317,7 +240,7 @@ main {
 }
 
 .bottom-nav a.active {
-  color: #2bb24c;
+  color: var(--color-green);
   font-weight: bold;
 }
 
@@ -334,7 +257,6 @@ main {
 
   .header-title h1 {
     margin-bottom: 7px;
-
     font-size: 23px;
   }
 
@@ -344,20 +266,17 @@ main {
 
   .header-logo {
     margin-top: 2px;
-
     font-size: 20px;
   }
 
   /* 프로필 */
   .profile {
     flex-direction: column;
-
     padding: 22px;
   }
 
   .profile-info {
     width: 100%;
-
     padding-right: 0;
     padding-bottom: 22px;
   }
@@ -365,7 +284,6 @@ main {
   .profile-image {
     width: 75px;
     height: 75px;
-
     font-size: 28px;
   }
 
@@ -376,19 +294,17 @@ main {
   /* 통계 */
   .statistics {
     width: 100%;
-
     grid-template-columns: repeat(2, 1fr);
   }
 
   .statistic-item {
     padding: 15px 10px;
-
     border-left: none;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid var(--border);
   }
 
   .statistic-item:nth-child(odd) {
-    border-right: 1px solid #eeeeee;
+    border-right: 1px solid var(--border);
   }
 
   .statistic-item strong {

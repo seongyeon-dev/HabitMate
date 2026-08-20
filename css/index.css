@@ -1,49 +1,4 @@
-* {
-  box-sizing: border-box;
-}
-
-/* 공통 클래스 */
-.display-flex {
-  display: flex;
-}
-
-.flex-direction-column {
-  flex-direction: column;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.justify-content-space-between {
-  justify-content: space-between;
-}
-
-.justify-content-space-around {
-  justify-content: space-around;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.align-items-end {
-  align-items: flex-end;
-}
-
-/* 기본 설정 */
-body {
-  margin: 0;
-  font-family: "Pretendard", sans-serif;
-  background-color: #f7f8f7;
-  color: #222;
-}
-
-button,
-input {
-  font: inherit;
-}
-
+/* 메인 */
 main {
   width: 100%;
   max-width: 1100px;
@@ -78,7 +33,7 @@ main {
   align-items: flex-end;
 }
 
-/* 캐릭터 + 말풍선 영역 */
+/* 캐릭터 + 말풍선 */
 .intro {
   position: relative;
   width: 50%;
@@ -109,7 +64,7 @@ main {
   padding: 15px 18px;
   border: 1px solid #cfe7d4;
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
 }
 
 .speech-bubble p {
@@ -145,7 +100,7 @@ main {
   top: 36px;
   border-top: 10px solid transparent;
   border-bottom: 10px solid transparent;
-  border-right: 16px solid white;
+  border-right: 16px solid var(--surface);
 }
 
 /* 기록 현황 */
@@ -163,10 +118,7 @@ main {
   height: 140px;
   padding: 20px 25px;
   gap: 18px;
-}
-
-.record-item:first-child {
-  border-right: 1px solid #e6e9e6;
+  border-right: 1px solid var(--border);
 }
 
 /* 기록 아이콘 */
@@ -178,7 +130,7 @@ main {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #eef8f0;
+  background-color: var(--color-light-green);
 }
 
 .record-icon img {
@@ -203,12 +155,12 @@ main {
 }
 
 .record-text > span {
-  color: #777;
+  color: var(--text-gray);
   font-size: 13px;
 }
 
 .week-percent {
-  color: #222;
+  color: var(--text);
 }
 
 /* 이번 주 진행률 */
@@ -218,21 +170,21 @@ main {
   margin-top: 12px;
   overflow: hidden;
   border-radius: 10px;
-  background-color: #ddd;
+  background-color: var(--progress-background);
 }
 
 .week-progress-bar {
   width: 0;
   height: 100%;
-  background-color: #2bb24c;
+  background-color: var(--color-green);
 }
 
 /* 오늘 목표 */
 .goal {
   padding: 25px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -260,7 +212,7 @@ main {
 }
 
 .goal strong {
-  color: #2bb24c;
+  color: var(--color-green);
 }
 
 /* 오늘 목표 진행률 */
@@ -277,21 +229,21 @@ main {
   width: 0;
   height: 100%;
   border-radius: inherit;
-  background-color: #2bb24c;
+  background-color: var(--color-green);
   transition: width 0.3s;
 }
 
 /* 오늘 목표 목록 */
 .goal-list {
   overflow: hidden;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 15px;
 }
 
 .goal-list > p {
   margin: 0;
   padding: 25px;
-  color: #999;
+  color: var(--text-light);
   font-size: 14px;
   text-align: center;
 }
@@ -304,16 +256,11 @@ main {
   align-items: center;
   gap: 15px;
   padding: 15px 20px;
-  border-bottom: 1px solid #e6e9e6;
-  background-color: white;
-}
-
-.goal-item:last-child {
-  border-bottom: none;
+  background-color: var(--surface);
 }
 
 .goal-item.complete {
-  background-color: #f3fbf4;
+  background-color: var(--success-background);
 }
 
 /* 목표 이름 */
@@ -337,13 +284,13 @@ main {
   color: #218c3c;
 }
 
-/* 그룹 현황 */
+/* 함께하는 챌린지 */
 .group {
   margin-top: 25px;
   padding: 25px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -356,34 +303,34 @@ main {
 }
 
 .group-header strong {
-  color: #2bb24c;
+  color: var(--color-green);
 }
 
-/* 그룹 멤버 목록 */
-.group-list {
+/* 함께하는 챌린지 목록 */
+.group-list,
+.mate-list {
   margin-top: 20px;
 }
 
-/* 그룹 멤버 */
-.group-member {
+/* 참여자 */
+.group-member,
+.mate-item {
   width: 23%;
   padding: 10px;
   text-align: center;
 }
 
-.group-member.me {
-  border: 1px solid #e6e9e6;
+/* 나 */
+.group-member.me,
+.mate-item.me {
+  border: 1px solid var(--border);
   border-radius: 15px;
   background-color: #fafdfa;
 }
 
-.rank {
-  display: block;
-  margin-bottom: 10px;
-}
-
-/* 멤버 프로필 */
-.member-profile {
+/* 참여자 프로필 */
+.member-profile,
+.mate-profile {
   width: 65px;
   height: 65px;
   margin: 0 auto 10px;
@@ -392,28 +339,46 @@ main {
   align-items: center;
   border-radius: 50%;
   background-color: #b9ddb9;
-  color: white;
+  color: var(--surface);
   font-size: 24px;
 }
 
-.group-member:nth-child(2) .member-profile {
+/* 참여자별 프로필 색상 */
+.group-member:nth-child(2) .member-profile,
+.mate-item:nth-child(2) .mate-profile {
   background-color: #c6deb9;
 }
 
-.group-member:nth-child(3) .member-profile {
+.group-member:nth-child(3) .member-profile,
+.mate-item:nth-child(3) .mate-profile {
   background-color: #e7c6a7;
 }
 
-.group-member:nth-child(4) .member-profile {
+.group-member:nth-child(4) .member-profile,
+.mate-item:nth-child(4) .mate-profile {
   background-color: #aca3d5;
 }
 
-.group-member p {
+/* 참여자 이름 */
+.group-member p,
+.mate-item p {
   margin: 5px 0;
 }
 
-.group-member > strong {
-  color: #2bb24c;
+/* 인증 상태 */
+.group-member > strong,
+.mate-item > strong {
+  color: var(--color-green);
+  font-size: 14px;
+}
+
+/* 참여자 없을 때 */
+.mate-empty {
+  width: 100%;
+  padding: 25px 0;
+  color: var(--text-light);
+  font-size: 14px;
+  text-align: center;
 }
 
 /* 진행 중인 챌린지 */
@@ -426,7 +391,7 @@ main {
 }
 
 .challenge-section a {
-  color: #777;
+  color: var(--text-gray);
   text-decoration: none;
 }
 
@@ -441,16 +406,16 @@ main {
   gap: 20px;
   margin: 15px 0;
   padding: 20px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
 .challenge-arrow {
   flex-shrink: 0;
-  color: #999;
+  color: var(--text-light);
   font-size: 20px;
 }
 
@@ -463,7 +428,7 @@ main {
   justify-content: center;
   align-items: center;
   border-radius: 15px;
-  background-color: #eef8f0;
+  background-color: var(--color-light-green);
 }
 
 .challenge-image span {
@@ -481,11 +446,11 @@ main {
 
 .challenge-info p {
   margin: 0 0 12px;
-  color: #777;
+  color: var(--text-gray);
 }
 
 .challenge-info p strong {
-  color: #2bb24c;
+  color: var(--color-green);
 }
 
 .challenge-percent {
@@ -498,13 +463,13 @@ main {
   height: 8px;
   overflow: hidden;
   border-radius: 10px;
-  background-color: #ddd;
+  background-color: var(--progress-background);
 }
 
 .progress-bar {
   height: 100%;
   border-radius: inherit;
-  background-color: #2bb24c;
+  background-color: var(--color-green);
 }
 
 /* 오늘 한 줄 요약 */
@@ -512,9 +477,9 @@ main {
   gap: 25px;
   margin-top: 20px;
   padding: 20px 30px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -527,8 +492,8 @@ main {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #eef8f0;
-  color: #2bb24c;
+  background-color: var(--color-light-green);
+  color: var(--color-green);
   font-size: 25px;
 }
 
@@ -536,7 +501,7 @@ main {
 .summary-text {
   min-width: 0;
   flex: 1;
-  color: #222;
+  color: var(--text);
 }
 
 .summary-text p {
@@ -558,10 +523,10 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #2bb24c;
+  border: 1px solid var(--color-green);
   border-radius: 12px;
-  background-color: white;
-  color: #2bb24c;
+  background-color: var(--surface);
+  color: var(--color-green);
   font-weight: bold;
   text-decoration: none;
   cursor: pointer;
@@ -571,9 +536,9 @@ main {
 .bottom-nav {
   margin-top: 20px;
   padding: 15px 0;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -582,13 +547,13 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  color: #777;
+  color: var(--text-gray);
   font-size: 14px;
   text-decoration: none;
 }
 
 .bottom-nav a.active {
-  color: #2bb24c;
+  color: var(--color-green);
   font-weight: bold;
 }
 
@@ -682,9 +647,9 @@ main {
     height: auto;
     margin-bottom: 20px;
     padding: 15px 0;
-    border: 1px solid #e6e9e6;
+    border: 1px solid var(--border);
     border-radius: 18px;
-    background-color: white;
+    background-color: var(--surface);
   }
 
   .record-item {
@@ -758,7 +723,7 @@ main {
     font-size: 11px;
   }
 
-  /* 그룹 현황 */
+  /* 함께하는 챌린지 */
   .group {
     padding: 20px;
   }
@@ -771,29 +736,34 @@ main {
     font-size: 13px;
   }
 
-  .group-list {
+  .group-list,
+  .mate-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
-  .group-member {
+  .group-member,
+  .mate-item {
     width: 100%;
     padding: 12px 8px;
   }
 
-  .member-profile {
+  .member-profile,
+  .mate-profile {
     width: 55px;
     height: 55px;
     font-size: 20px;
   }
 
-  .group-member p {
+  .group-member p,
+  .mate-item p {
     font-size: 13px;
   }
 
-  .group-member > strong {
-    font-size: 14px;
+  .group-member > strong,
+  .mate-item > strong {
+    font-size: 13px;
   }
 
   /* 진행 중인 챌린지 */

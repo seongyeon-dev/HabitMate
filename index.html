@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
@@ -10,11 +11,16 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
-    <link rel="stylesheet" href="./css/style.css" />
+
+    <link rel="stylesheet" href="./css/variables.css" />
+    <link rel="stylesheet" href="./css/global.css" />
+    <link rel="stylesheet" href="./css/utility.css" />
+    <link rel="stylesheet" href="./css/index.css" />
   </head>
 
   <body>
     <main>
+      <!-- 상단 -->
       <header
         class="header display-flex justify-content-space-between align-items-center"
       >
@@ -33,7 +39,10 @@
             <div class="speech-bubble">
               <p>
                 <img class="speech-leaf" src="./icons/leaf.png" alt="" />
-                나에게 맞는 건강 습관을<br />
+
+                나에게 맞는 건강 습관을
+                <br />
+
                 꾸준히 이어가보세요!
               </p>
             </div>
@@ -52,9 +61,12 @@
               <div class="record-text">
                 <p>연속 기록</p>
 
-                <strong> <span class="streak-count">0</span>일 </strong>
+                <strong>
+                  <span class="streak-count"> 0 </span>
+                  일
+                </strong>
 
-                <span>최고 0일</span>
+                <span> 최고 0일 </span>
               </div>
             </div>
 
@@ -67,9 +79,9 @@
               <div class="record-text">
                 <p>이번 주 달성률</p>
 
-                <strong class="week-percent">0%</strong>
+                <strong class="week-percent"> 0% </strong>
 
-                <span>목표 0/0</span>
+                <span> 목표 0/0 </span>
 
                 <div class="week-progress">
                   <div class="week-progress-bar"></div>
@@ -87,13 +99,15 @@
         >
           <h2>
             오늘 목표
+
             <img class="goal-title-icon" src="./icons/check.png" alt="" />
           </h2>
 
           <div class="goal-header-right">
             <p>
               오늘 달성률
-              <strong class="goal-percent">0%</strong>
+
+              <strong class="goal-percent"> 0% </strong>
             </p>
           </div>
         </div>
@@ -116,39 +130,20 @@
 
           <p>
             오늘 인증
-            <strong>3 / 4명</strong>
+
+            <strong class="mate-count"> 0 / 0명 </strong>
           </p>
         </div>
 
-        <div class="group-list display-flex justify-content-space-around">
-          <!-- 첫 번째 멤버 -->
-          <div class="group-member">
-            <div class="member-profile">김</div>
-            <p>김다혜</p>
-            <strong class="member-complete">인증 완료</strong>
-          </div>
+        <!--
+        참여자 목록
 
-          <!-- 나 -->
-          <div class="group-member me">
-            <div class="member-profile">나</div>
-            <p>나</p>
-            <strong class="member-wait">인증 전</strong>
-          </div>
-
-          <!-- 세 번째 멤버 -->
-          <div class="group-member">
-            <div class="member-profile">이</div>
-            <p>이지은</p>
-            <strong class="member-complete">인증 완료</strong>
-          </div>
-
-          <!-- 네 번째 멤버 -->
-          <div class="group-member">
-            <div class="member-profile">박</div>
-            <p>박서연</p>
-            <strong class="member-complete">인증 완료</strong>
-          </div>
-        </div>
+        JS에서 현재 함께하는 챌린지의
+        참여자를 자동으로 출력
+      -->
+        <div
+          class="group-list mate-list display-flex justify-content-space-around"
+        ></div>
       </section>
 
       <!-- 진행 중인 챌린지 -->
@@ -157,7 +152,8 @@
           class="challenge-section display-flex justify-content-space-between align-items-center"
         >
           <h2>진행 중인 챌린지</h2>
-          <a href="./html/challenge-list.html">전체 보기 &gt;</a>
+
+          <a href="./html/challenge-list.html"> 전체 보기 &gt; </a>
         </div>
 
         <!-- 진행 중 챌린지가 JS로 들어오는 곳 -->
@@ -185,29 +181,39 @@
       <nav
         class="bottom-nav display-flex justify-content-space-around align-items-center"
       >
+        <!-- 홈 -->
         <a href="./index.html" class="active">
           <img src="./icons/bottom-home.svg" alt="홈" />
-          <span>홈</span>
+
+          <span> 홈 </span>
         </a>
 
+        <!-- 챌린지 -->
         <a href="./html/challenge-list.html">
           <img src="./icons/bottom-trophy.svg" alt="챌린지" />
-          <span>챌린지</span>
+
+          <span> 챌린지 </span>
         </a>
 
+        <!-- 기록 -->
         <a href="./html/challenge-record.html">
           <img src="./icons/bottom-record.svg" alt="기록" />
-          <span>기록</span>
+
+          <span> 기록 </span>
         </a>
 
+        <!-- 분석 -->
         <a href="./html/analysis.html">
           <img src="./icons/bottom-chart.svg" alt="분석" />
-          <span>분석</span>
+
+          <span> 분석 </span>
         </a>
 
+        <!-- 마이 -->
         <a href="./html/my-page.html">
           <img src="./icons/bottom-user.svg" alt="마이" />
-          <span>마이</span>
+
+          <span> 마이 </span>
         </a>
       </nav>
     </main>

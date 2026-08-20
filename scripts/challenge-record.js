@@ -1,27 +1,62 @@
-/* 날짜 */
-const dayItems = document.querySelectorAll(".day-item");
+/* 캘린더 */
+const calendarDays = document.querySelector(".calendar-days");
 
 const currentMonthText = document.querySelector(".current-month");
+
 const prevMonthButton = document.querySelector(".prev-month-button");
+
 const nextMonthButton = document.querySelector(".next-month-button");
 
-let selectedDate = "";
+/* 날짜 클릭 후 나타나는 기록 영역 */
+const recordDetail = document.querySelector(".record-detail");
 
-/* 현재 화면에 표시할 연도 / 월 */
+const selectedDateText = document.querySelector(".selected-date");
+
+const todayButton = document.querySelector(".today-button");
+
+/* 오늘 날짜 */
 const today = new Date();
 
 today.setHours(0, 0, 0, 0);
 
+/* 현재 표시 중인 연도 / 월 */
 let currentYear = today.getFullYear();
+
 let currentMonth = today.getMonth();
+
+/* 처음에는 날짜를 선택하지 않음 */
+let selectedDate = null;
 
 /* 날짜 형식 */
 function formatDate(date) {
   const year = date.getFullYear();
+
   const month = String(date.getMonth() + 1).padStart(2, "0");
+
   const day = String(date.getDate()).padStart(2, "0");
 
   return year + "-" + month + "-" + day;
+}
+
+/* 선택 날짜 표시 형식 */
+function formatSelectedDate(date) {
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+
+  return (
+    date.getFullYear() +
+    "년 " +
+    (date.getMonth() + 1) +
+    "월 " +
+    date.getDate() +
+    "일 (" +
+    weekdays[date.getDay()] +
+    ")"
+  );
+}
+
+/* 문자열 날짜를 Date로 변환 */
+function createDate(dateString) {
+  return new Date(dateString + "T00:00:00");
 }
 
 /* 월 표시 */
@@ -29,121 +64,293 @@ function updateMonthText() {
   currentMonthText.innerText = currentYear + "년 " + (currentMonth + 1) + "월";
 }
 
-/* 선택한 월의 주 표시 */
-function renderWeek() {
+/* 개인 기록 가져오기 */
+function getPersonalRecords() {
+  return JSON.parse(localStorage.getItem("personalRecords")) || [];
+}
+
+/* 컨디션 이모지 */
+const conditionEmojis = {
+  1: "😡",
+  2: "☹️",
+  3: "😐",
+  4: "🙂",
+  5: "😄",
+};
+
+/* 컨디션 이름 */
+const conditionNames = {
+  1: "매우 나쁨",
+  2: "나쁨",
+  3: "보통",
+  4: "좋음",
+  5: "매우 좋음",
+};
+
+/* 월간 캘린더 출력 */
+function renderCalendar() {
+  calendarDays.innerHTML = "";
+
   updateMonthText();
 
-  /*
-    현재 달이면 오늘이 포함된 주를 표시하고,
-    다른 달이면 해당 월 1일이 포함된 주를 표시
-  */
-  let baseDate;
+  /* 이번 달 첫 날짜 */
+  const firstDate = new Date(currentYear, currentMonth, 1);
 
-  if (
-    currentYear === today.getFullYear() &&
-    currentMonth === today.getMonth()
-  ) {
-    baseDate = new Date(today);
-  } else {
-    baseDate = new Date(currentYear, currentMonth, 1);
+  /* 이번 달 마지막 날짜 */
+  const lastDate = new Date(currentYear, currentMonth + 1, 0);
+
+  /* 캘린더 시작 날짜 */
+  const calendarStart = new Date(firstDate);
+
+  calendarStart.setDate(firstDate.getDate() - firstDate.getDay());
+
+  /* 캘린더 마지막 날짜 */
+  const calendarEnd = new Date(lastDate);
+
+  calendarEnd.setDate(lastDate.getDate() + (6 - lastDate.getDay()));
+
+  /* 저장된 개인 기록 */
+  const personalRecords = getPersonalRecords();
+
+  let date = new Date(calendarStart);
+
+  while (date <= calendarEnd) {
+    const dateValue = formatDate(date);
+
+    /* 날짜 버튼 */
+    const dayButton = document.createElement("button");
+
+    dayButton.type = "button";
+
+    dayButton.className = "calendar-day";
+
+    dayButton.dataset.date = dateValue;
+
+    /* 해당 날짜 기록 */
+    const record = personalRecords.find(function (item) {
+      return item.date === dateValue;
+    });
+
+    /* 다른 달 */
+    if (date.getMonth() !== currentMonth) {
+      dayButton.classList.add("other-month");
+    }
+
+    /* 오늘 */
+    if (dateValue === formatDate(today)) {
+      dayButton.classList.add("today");
+    }
+
+    /* 선택한 날짜 */
+    if (dateValue === selectedDate) {
+      dayButton.classList.add("active");
+    }
+
+    /* 미래 / 기록 있음 / 기록 없음 */
+    if (date > today) {
+      dayButton.classList.add("future");
+    } else if (record) {
+      dayButton.classList.add("recorded");
+    } else {
+      dayButton.classList.add("empty");
+    }
+
+    /* 날짜 숫자 */
+    const dayNumber = document.createElement("span");
+
+    dayNumber.className = "day-number";
+
+    dayNumber.innerText = date.getDate();
+
+    dayButton.append(dayNumber);
+
+    /* 컨디션 표시 */
+    const condition = document.createElement("span");
+
+    condition.className = "day-condition";
+
+    if (record && record.condition !== null && record.condition !== undefined) {
+      condition.innerText = conditionEmojis[record.condition] || "";
+    } else if (date > today) {
+      condition.innerText = "";
+    } else {
+      condition.innerText = "·";
+    }
+
+    dayButton.append(condition);
+
+    /* 날짜 클릭 */
+    dayButton.addEventListener("click", function () {
+      const clickedDate = createDate(dayButton.dataset.date);
+
+      const clickedDateText = dayButton.dataset.date;
+
+      /* 미래 날짜 선택 방지 */
+      if (clickedDate > today) {
+        return;
+      }
+
+      /*
+          이미 선택된 날짜를
+          다시 누르면 기록 영역 닫기
+        */
+      if (
+        selectedDate === clickedDateText &&
+        recordDetail &&
+        recordDetail.classList.contains("active")
+      ) {
+        recordDetail.classList.remove("active");
+
+        selectedDate = null;
+
+        renderCalendar();
+
+        return;
+      }
+
+      /* 새 날짜 선택 */
+      selectedDate = clickedDateText;
+
+      /*
+          앞달 / 다음달 날짜를
+          클릭한 경우 해당 월로 이동
+        */
+      if (
+        clickedDate.getFullYear() !== currentYear ||
+        clickedDate.getMonth() !== currentMonth
+      ) {
+        currentYear = clickedDate.getFullYear();
+
+        currentMonth = clickedDate.getMonth();
+      }
+
+      /* 화면 갱신 */
+      renderCalendar();
+
+      updateSelectedDate();
+
+      loadRecord(selectedDate);
+
+      renderRecordGoals();
+
+      /* 기록 영역 열기 */
+      openRecordDetail();
+    });
+
+    calendarDays.append(dayButton);
+
+    /* 다음 날짜 */
+    date.setDate(date.getDate() + 1);
+  }
+}
+
+/* 기록 영역 열기 */
+function openRecordDetail() {
+  if (!recordDetail) {
+    return;
   }
 
-  /* 해당 주의 일요일 */
-  const startDate = new Date(baseDate);
+  recordDetail.classList.add("active");
 
-  startDate.setDate(baseDate.getDate() - baseDate.getDay());
+  /* 기록 영역으로 부드럽게 이동 */
+  setTimeout(function () {
+    recordDetail.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }, 100);
+}
 
-  let activeDate = null;
-
-  dayItems.forEach(function (item, index) {
-    const date = new Date(startDate);
-
-    date.setDate(startDate.getDate() + index);
-
-    const dateText = item.querySelector("strong");
-
-    dateText.innerText = date.getDate();
-
-    /* 날짜 저장 */
-    item.dataset.date = formatDate(date);
-
-    item.classList.remove("active");
-
-    /*
-      현재 달이면 오늘 선택
-    */
-    if (
-      currentYear === today.getFullYear() &&
-      currentMonth === today.getMonth() &&
-      formatDate(date) === formatDate(today)
-    ) {
-      activeDate = date;
-    }
-  });
-
-  /*
-    현재 달이 아닌 경우
-    해당 월의 1일을 선택
-  */
-  if (!activeDate) {
-    activeDate = new Date(currentYear, currentMonth, 1);
+/* 선택 날짜 표시 */
+function updateSelectedDate() {
+  if (!selectedDate) {
+    return;
   }
 
-  selectedDate = formatDate(activeDate);
+  const date = createDate(selectedDate);
 
-  dayItems.forEach(function (item) {
-    if (item.dataset.date === selectedDate) {
-      item.classList.add("active");
-    }
-  });
-
-  loadRecord(selectedDate);
-  renderRecordGoals();
+  selectedDateText.innerText = formatSelectedDate(date);
 }
 
 /* 이전 달 */
 prevMonthButton.addEventListener("click", function () {
   currentMonth--;
 
-  /* 1월에서 이전 버튼을 누르면 전년도 12월 */
   if (currentMonth < 0) {
     currentMonth = 11;
+
     currentYear--;
   }
 
-  renderWeek();
+  /* 날짜 선택 해제 */
+  selectedDate = null;
+
+  /* 기록 영역 닫기 */
+  if (recordDetail) {
+    recordDetail.classList.remove("active");
+  }
+
+  renderCalendar();
 });
 
 /* 다음 달 */
 nextMonthButton.addEventListener("click", function () {
   currentMonth++;
 
-  /* 12월에서 다음 버튼을 누르면 다음년도 1월 */
   if (currentMonth > 11) {
     currentMonth = 0;
+
     currentYear++;
   }
 
-  renderWeek();
+  /* 날짜 선택 해제 */
+  selectedDate = null;
+
+  /* 기록 영역 닫기 */
+  if (recordDetail) {
+    recordDetail.classList.remove("active");
+  }
+
+  renderCalendar();
 });
 
-/* 날짜 선택 */
-dayItems.forEach(function (day) {
-  day.addEventListener("click", function () {
-    dayItems.forEach(function (item) {
-      item.classList.remove("active");
-    });
+/* 오늘 버튼 */
+todayButton.addEventListener("click", function () {
+  currentYear = today.getFullYear();
 
-    day.classList.add("active");
+  currentMonth = today.getMonth();
 
-    selectedDate = day.dataset.date;
+  const todayText = formatDate(today);
 
-    /* 선택 날짜 기록 불러오기 */
-    loadRecord(selectedDate);
+  /*
+      이미 오늘이 열려 있으면
+      다시 눌렀을 때 닫기
+    */
+  if (
+    selectedDate === todayText &&
+    recordDetail &&
+    recordDetail.classList.contains("active")
+  ) {
+    recordDetail.classList.remove("active");
 
-    /* 선택 날짜 목표 출력 */
-    renderRecordGoals();
-  });
+    selectedDate = null;
+
+    renderCalendar();
+
+    return;
+  }
+
+  selectedDate = todayText;
+
+  renderCalendar();
+
+  updateSelectedDate();
+
+  loadRecord(selectedDate);
+
+  renderRecordGoals();
+
+  openRecordDetail();
 });
 
 /* 컨디션 */
@@ -155,21 +362,31 @@ const conditionResultScore = document.querySelector(".condition-result span");
 
 let selectedCondition = null;
 
-/* 컨디션 이름 */
-const conditionNames = {
-  1: "매우 나쁨",
-  2: "나쁨",
-  3: "보통",
-  4: "좋음",
-  5: "매우 좋음",
-};
-
+/* 컨디션 선택 */
 conditionItems.forEach(function (item) {
   item.addEventListener("click", function () {
+    /*
+          이미 선택한 컨디션을
+          다시 누르면 선택 해제
+        */
+    if (item.classList.contains("active")) {
+      item.classList.remove("active");
+
+      selectedCondition = null;
+
+      conditionResultText.innerText = "선택해주세요";
+
+      conditionResultScore.innerText = "- / 5";
+
+      return;
+    }
+
+    /* 기존 선택 해제 */
     conditionItems.forEach(function (button) {
       button.classList.remove("active");
     });
 
+    /* 새 컨디션 선택 */
     item.classList.add("active");
 
     selectedCondition = Number(item.dataset.value);
@@ -188,6 +405,7 @@ const memo = document.querySelector('textarea[name="memo"]');
 
 const memoCount = document.querySelector(".memo-count");
 
+/* 메모 글자 수 */
 memo.addEventListener("input", function () {
   memoCount.innerText = memo.value.length;
 });
@@ -209,7 +427,9 @@ const recordGoalCancelButton = document.querySelector(
   ".record-goal-cancel-button",
 );
 
-/* 날짜별 목표 불러오기 */
+const goalEmpty = document.querySelector(".goal-empty");
+
+/* 날짜별 목표 */
 let goals = JSON.parse(localStorage.getItem("goals")) || [];
 
 /* 목표 저장 */
@@ -219,6 +439,10 @@ function saveGoals() {
 
 /* 선택 날짜 목표 가져오기 */
 function getSelectedGoals() {
+  if (!selectedDate) {
+    return [];
+  }
+
   return goals.filter(function (goal) {
     return goal.date === selectedDate;
   });
@@ -230,13 +454,20 @@ function renderRecordGoals() {
 
   const selectedGoals = getSelectedGoals();
 
-  /* 목표가 없는 경우 */
+  /* 목표 없음 */
   if (selectedGoals.length === 0) {
-    recordGoalList.innerHTML = "<p>등록된 목표가 없습니다.</p>";
-
     recordGoalCount.innerText = "0 / 0";
 
+    if (goalEmpty) {
+      goalEmpty.style.display = "flex";
+    }
+
     return;
+  }
+
+  /* 목표 있음 */
+  if (goalEmpty) {
+    goalEmpty.style.display = "none";
   }
 
   selectedGoals.forEach(function (goal) {
@@ -245,38 +476,30 @@ function renderRecordGoals() {
     goalItem.className = "goal-item";
 
     goalItem.innerHTML = `
-      <div class="goal-name">
-        <strong>
-          ${goal.name}
-        </strong>
-      </div>
+        <button
+          type="button"
+          class="goal-check ${goal.completed ? "active" : ""}"
+          data-id="${goal.id}"
+          aria-label="목표 완료"
+        >
+          ${goal.completed ? "✓" : ""}
+        </button>
 
-      <div class="goal-progress">
-        <div
-          class="goal-progress-bar"
-          style="width: ${goal.completed ? "100%" : "0%"};">
+        <div class="goal-name">
+          <strong>
+            ${goal.name}
+          </strong>
         </div>
-      </div>
 
-      <p>
-        ${goal.completed ? "완료" : "진행 중"}
-      </p>
-
-      <button
-        type="button"
-        class="goal-check ${goal.completed ? "active" : ""}"
-        data-id="${goal.id}">
-        ${goal.completed ? "✓" : "○"}
-      </button>
-
-      <button
-        type="button"
-        class="goal-delete"
-        data-id="${goal.id}"
-        aria-label="목표 삭제">
-        ×
-      </button>
-    `;
+        <button
+          type="button"
+          class="goal-delete"
+          data-id="${goal.id}"
+          aria-label="목표 삭제"
+        >
+          ×
+        </button>
+      `;
 
     recordGoalList.append(goalItem);
   });
@@ -284,7 +507,7 @@ function renderRecordGoals() {
   updateGoalCount();
 }
 
-/* 목표 완료 개수 */
+/* 완료 목표 개수 */
 function updateGoalCount() {
   const selectedGoals = getSelectedGoals();
 
@@ -297,7 +520,13 @@ function updateGoalCount() {
 
 /* 목표 추가 버튼 */
 recordGoalAddButton.addEventListener("click", function () {
+  if (!selectedDate) {
+    return;
+  }
+
   recordGoalAddForm.classList.add("active");
+
+  recordGoalAddButton.style.display = "none";
 
   recordGoalInput.focus();
 });
@@ -314,8 +543,11 @@ recordGoalSaveButton.addEventListener("click", function () {
 
   const newGoal = {
     id: Date.now(),
+
     date: selectedDate,
+
     name: goalName,
+
     completed: false,
   };
 
@@ -328,6 +560,8 @@ recordGoalSaveButton.addEventListener("click", function () {
   recordGoalInput.value = "";
 
   recordGoalAddForm.classList.remove("active");
+
+  recordGoalAddButton.style.display = "block";
 });
 
 /* Enter로 목표 추가 */
@@ -342,6 +576,8 @@ recordGoalCancelButton.addEventListener("click", function () {
   recordGoalInput.value = "";
 
   recordGoalAddForm.classList.remove("active");
+
+  recordGoalAddButton.style.display = "block";
 });
 
 /* 목표 체크 / 삭제 */
@@ -383,8 +619,7 @@ recordGoalList.addEventListener("click", function (event) {
 
 /* 기록 불러오기 */
 function loadRecord(date) {
-  const personalRecords =
-    JSON.parse(localStorage.getItem("personalRecords")) || [];
+  const personalRecords = getPersonalRecords();
 
   const record = personalRecords.find(function (item) {
     return item.date === date;
@@ -407,13 +642,13 @@ function loadRecord(date) {
 
   conditionResultScore.innerText = "- / 5";
 
-  /* 저장된 기록이 없으면 종료 */
+  /* 저장된 기록 없음 */
   if (!record) {
     return;
   }
 
   /* 체중 */
-  if (record.weight !== null) {
+  if (record.weight !== null && record.weight !== undefined) {
     weightInput.value = record.weight;
   }
 
@@ -423,8 +658,8 @@ function loadRecord(date) {
   memoCount.innerText = memo.value.length;
 
   /* 컨디션 */
-  if (record.condition !== null) {
-    selectedCondition = record.condition;
+  if (record.condition !== null && record.condition !== undefined) {
+    selectedCondition = Number(record.condition);
 
     conditionItems.forEach(function (item) {
       if (Number(item.dataset.value) === selectedCondition) {
@@ -442,11 +677,49 @@ function loadRecord(date) {
 const saveButton = document.querySelector(".save-button");
 
 saveButton.addEventListener("click", function () {
+  if (!selectedDate) {
+    alert("날짜를 선택해주세요.");
+
+    return;
+  }
+
+  const selectedDateObject = createDate(selectedDate);
+
+  /* 미래 날짜 저장 방지 */
+  if (selectedDateObject > today) {
+    alert("미래 날짜에는 기록할 수 없어요.");
+
+    return;
+  }
+
+  /* 체중 */
   const weight = weightInput.value.trim();
 
+  if (weight !== "" && (Number.isNaN(Number(weight)) || Number(weight) <= 0)) {
+    alert("체중을 올바르게 입력해주세요.");
+
+    weightInput.focus();
+
+    return;
+  }
+
+  /* 메모 */
   const memoText = memo.value.trim();
 
+  /* 목표 */
   const selectedGoals = getSelectedGoals();
+
+  /* 아무 기록도 없는 경우 */
+  if (
+    weight === "" &&
+    selectedCondition === null &&
+    memoText === "" &&
+    selectedGoals.length === 0
+  ) {
+    alert("기록할 내용을 하나 이상 입력해주세요.");
+
+    return;
+  }
 
   /* 기록 데이터 */
   const recordData = {
@@ -466,15 +739,14 @@ saveButton.addEventListener("click", function () {
   };
 
   /* 기존 기록 */
-  const personalRecords =
-    JSON.parse(localStorage.getItem("personalRecords")) || [];
+  const personalRecords = getPersonalRecords();
 
   /* 같은 날짜 기록 찾기 */
   const existingIndex = personalRecords.findIndex(function (record) {
     return record.date === selectedDate;
   });
 
-  /* 이미 기록 존재 */
+  /* 기존 기록 수정 */
   if (existingIndex !== -1) {
     personalRecords[existingIndex] = recordData;
   } else {
@@ -484,25 +756,32 @@ saveButton.addEventListener("click", function () {
 
   /* 날짜순 정렬 */
   personalRecords.sort(function (a, b) {
-    return new Date(a.date) - new Date(b.date);
+    return createDate(a.date) - createDate(b.date);
   });
 
   /* 전체 기록 저장 */
   localStorage.setItem("personalRecords", JSON.stringify(personalRecords));
 
-  /* 오늘 날짜 */
-  const todayText = formatDate(new Date());
-
   /* 오늘 기록 저장 */
-  if (selectedDate === todayText) {
+  if (selectedDate === formatDate(today)) {
     localStorage.setItem("todayRecord", JSON.stringify(recordData));
   }
 
   /* 목표 저장 */
   saveGoals();
 
+  /* 캘린더 갱신 */
+  renderCalendar();
+
   alert(selectedDate + " 기록이 저장되었어요!");
 });
 
 /* 처음 화면 */
-renderWeek();
+
+/* 캘린더만 출력 */
+renderCalendar();
+
+/* 기록 입력 영역 닫기 */
+if (recordDetail) {
+  recordDetail.classList.remove("active");
+}

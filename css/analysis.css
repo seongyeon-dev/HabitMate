@@ -1,24 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Pretendard", sans-serif;
-  background-color: #f7f8f7;
-  color: #222;
-}
-
-button,
-select {
-  font: inherit;
-}
-
-button,
-select {
-  cursor: pointer;
-}
-
 main {
   width: 100%;
   max-width: 900px;
@@ -26,35 +5,23 @@ main {
   padding: 40px;
 }
 
+select {
+  cursor: pointer;
+}
+
 /* 상단 */
 .analysis-header {
-  position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   min-height: 42px;
   margin-bottom: 25px;
 }
 
 .analysis-header h1 {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   margin: 0;
   font-size: 35px;
   font-weight: 800;
-}
-
-.calendar-button {
-  width: 42px;
-  height: 42px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  font-size: 25px;
 }
 
 /* 분석 안내 */
@@ -90,7 +57,7 @@ main {
   margin-bottom: 15px;
   padding: 20px 28px;
   border-radius: 18px;
-  background-color: #eef8f0;
+  background-color: var(--color-light-green);
 }
 
 .analysis-message::before {
@@ -101,20 +68,20 @@ main {
   transform: translateY(-50%);
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
-  border-right: 15px solid #eef8f0;
+  border-right: 15px solid var(--color-light-green);
 }
 
 .analysis-message strong {
   display: block;
   margin-bottom: 7px;
-  color: #239a40;
+  color: var(--color-dark-green);
   font-size: 21px;
   font-weight: 800;
 }
 
 .analysis-message p {
   margin: 0;
-  color: #333;
+  color: var(--text);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.5;
@@ -133,9 +100,9 @@ main {
   align-items: center;
   gap: 15px;
   padding: 20px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
 }
 
@@ -147,7 +114,7 @@ main {
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  background-color: #eef8f0;
+  background-color: var(--color-light-green);
   font-size: 23px;
 }
 
@@ -157,14 +124,14 @@ main {
 
 .summary-text p {
   margin: 0 0 5px;
-  color: #333;
+  color: var(--text);
   font-size: 13px;
   font-weight: 700;
 }
 
 .summary-text strong {
   display: block;
-  color: #2bb24c;
+  color: var(--color-green);
   font-size: 24px;
   font-weight: 800;
 }
@@ -178,7 +145,7 @@ main {
 .summary-text small {
   display: block;
   margin-top: 4px;
-  color: #666;
+  color: var(--text-gray);
   font-size: 11px;
   font-weight: 500;
 }
@@ -187,9 +154,9 @@ main {
 .analysis-card {
   margin-bottom: 20px;
   padding: 25px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -202,24 +169,25 @@ main {
 
 .card-header h2 {
   margin: 0;
-  color: #222;
+  color: var(--text);
   font-size: 19px;
   font-weight: 800;
 }
 
 .period-select {
   padding: 8px 12px;
-  border: 1px solid #dddddd;
+  border: 1px solid var(--color-green);
   border-radius: 9px;
   outline: none;
-  background-color: white;
-  color: #444;
+  background-color: var(--surface);
+  color: var(--text);
   font-size: 13px;
   font-weight: 500;
 }
 
 .period-select:focus {
-  border-color: #2bb24c;
+  border-color: var(--color-dark-green);
+  box-shadow: 0 0 0 3px rgba(43, 178, 76, 0.08);
 }
 
 /* 주간 달성률 그래프 */
@@ -243,9 +211,9 @@ main {
   gap: 15px;
   min-height: 125px;
   padding: 20px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 16px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
 }
 
@@ -262,13 +230,13 @@ main {
 }
 
 .fail-icon {
-  background-color: #fff1f1;
-  color: #e05252;
+  background-color: var(--danger-background);
+  color: var(--danger);
 }
 
 .success-icon {
-  background-color: #eef8f0;
-  color: #239a40;
+  background-color: var(--color-light-green);
+  color: var(--color-dark-green);
 }
 
 .result-text {
@@ -278,7 +246,7 @@ main {
 
 .result-text h2 {
   margin: 0 0 9px;
-  color: #222;
+  color: var(--text);
   font-size: 14px;
   font-weight: 700;
 }
@@ -292,23 +260,23 @@ main {
 
 .result-text p {
   margin: 0;
-  color: #555;
+  color: var(--text-gray);
   font-size: 12px;
   font-weight: 600;
 }
 
 .result-text p strong {
-  color: #333;
+  color: var(--text);
   font-weight: 800;
 }
 
 .fail-value {
-  color: #e05252;
+  color: var(--danger);
   font-weight: 800;
 }
 
 .success-value {
-  color: #239a40;
+  color: var(--color-dark-green);
   font-weight: 800;
 }
 
@@ -338,9 +306,9 @@ main {
   align-items: center;
   margin-top: 25px;
   padding: 13px 10px;
-  border: 1px solid #e6e9e6;
+  border: 1px solid var(--border);
   border-radius: 18px;
-  background-color: white;
+  background-color: var(--surface);
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
 }
 
@@ -351,7 +319,7 @@ main {
   justify-content: center;
   align-items: center;
   gap: 5px;
-  color: #777;
+  color: var(--text-gray);
   font-size: 12px;
   text-decoration: none;
 }
@@ -362,7 +330,7 @@ main {
 }
 
 .bottom-nav a.active {
-  color: #2bb24c;
+  color: var(--color-green);
   font-weight: bold;
 }
 
@@ -372,10 +340,12 @@ main {
     padding: 20px;
   }
 
+  /* 상단 */
   .analysis-header h1 {
     font-size: 23px;
   }
 
+  /* 분석 안내 */
   .analysis-intro {
     align-items: flex-end;
     gap: 10px;
@@ -409,6 +379,7 @@ main {
     font-size: 12px;
   }
 
+  /* 분석 요약 */
   .summary-list {
     grid-template-columns: 1fr;
   }
@@ -417,14 +388,17 @@ main {
     padding: 17px;
   }
 
+  /* 분석 카드 */
   .analysis-card {
     padding: 20px;
   }
 
+  /* 분석 결과 */
   .result-list {
     grid-template-columns: 1fr;
   }
 
+  /* 그래프 */
   .week-chart {
     height: 230px;
   }

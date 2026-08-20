@@ -1,3 +1,6 @@
+/* 현재 사용자 */
+const currentUserId = localStorage.getItem("currentUserId") || "local-user";
+
 /* 카테고리 선택 */
 const categoryItems = document.querySelectorAll(".category-item");
 const customGoalForm = document.querySelector(".custom-goal-form");
@@ -34,6 +37,7 @@ titleInput.addEventListener("input", function () {
 
 /* 목표 설명 글자 수 */
 const descriptionInput = document.querySelector('textarea[name="description"]');
+
 const descriptionCount = document.querySelector(".description-count");
 
 descriptionInput.addEventListener("input", function () {
@@ -54,6 +58,7 @@ periodButtons.forEach(function (button) {
     /* 선택한 기간을 다시 누르면 선택 해제 */
     if (button.classList.contains("active")) {
       button.classList.remove("active");
+
       selectedPeriod = null;
       endDate.value = "";
 
@@ -107,7 +112,9 @@ function updateEndDate() {
   date.setDate(date.getDate() + selectedPeriod - 1);
 
   const year = date.getFullYear();
+
   const month = String(date.getMonth() + 1).padStart(2, "0");
+
   const day = String(date.getDate()).padStart(2, "0");
 
   endDate.value = year + "-" + month + "-" + day;
@@ -116,9 +123,11 @@ function updateEndDate() {
 /* 실제 챌린지 기간 계산 */
 function calculatePeriod(start, end) {
   const startValue = new Date(start + "T00:00:00");
+
   const endValue = new Date(end + "T00:00:00");
 
   const difference = endValue - startValue;
+
   const dayMilliseconds = 1000 * 60 * 60 * 24;
 
   return Math.floor(difference / dayMilliseconds) + 1;
@@ -126,8 +135,11 @@ function calculatePeriod(start, end) {
 
 /* 도전 방식 */
 const participationOptions = document.querySelectorAll(".participation-option");
+
 const inviteSection = document.querySelector(".invite-section");
+
 const soloRewardSection = document.querySelector(".solo-reward-section");
+
 const groupPenaltySection = document.querySelector(".group-penalty-section");
 
 let selectedMode = "solo";
@@ -145,23 +157,28 @@ participationOptions.forEach(function (button) {
     /* 혼자 도전 */
     if (selectedMode === "solo") {
       soloRewardSection.style.display = "block";
+
       groupPenaltySection.style.display = "none";
+
       inviteSection.style.display = "none";
     } else {
       /* 함께 도전 */
       soloRewardSection.style.display = "none";
+
       groupPenaltySection.style.display = "block";
+
       inviteSection.style.display = "block";
     }
   });
 });
 
-/* 성공 보상 / 실패 약속 선택 */
+/* 성공 보상 , 실패 약속 선택 */
 const rewardOptions = document.querySelectorAll(".reward-option");
 
 rewardOptions.forEach(function (button) {
   button.addEventListener("click", function () {
     const rewardList = button.closest(".reward-option-list");
+
     const buttons = rewardList.querySelectorAll(".reward-option");
 
     buttons.forEach(function (item) {
@@ -230,6 +247,7 @@ challengeForm.addEventListener("submit", function (event) {
   /* 제목 확인 */
   if (titleInput.value.trim() === "") {
     alert("챌린지 제목을 입력해주세요.");
+
     return;
   }
 
@@ -238,6 +256,7 @@ challengeForm.addEventListener("submit", function (event) {
 
   if (!activeCategory) {
     alert("카테고리를 선택해주세요.");
+
     return;
   }
 
@@ -251,27 +270,37 @@ challengeForm.addEventListener("submit", function (event) {
 
     if (customGoal.value.trim() === "") {
       alert("나만의 목표를 입력해주세요.");
+
       return;
     }
 
     customGoalValue = customGoal.value.trim();
   }
 
-  /* 목표 확인 */
-  if (goalValue.value === "" || Number(goalValue.value) <= 0) {
+  /* 나의 개인 목표 확인 */
+  const selectedGoalValue = Number(goalValue.value);
+
+  if (
+    goalValue.value === "" ||
+    Number.isNaN(selectedGoalValue) ||
+    selectedGoalValue <= 0
+  ) {
     alert("나의 목표를 설정해주세요.");
+
     return;
   }
 
   /* 시작일 확인 */
   if (startDate.value === "") {
     alert("챌린지 시작일을 선택해주세요.");
+
     return;
   }
 
   /* 종료일 확인 */
   if (endDate.value === "") {
     alert("챌린지 종료일을 선택해주세요.");
+
     return;
   }
 
@@ -280,6 +309,7 @@ challengeForm.addEventListener("submit", function (event) {
 
   if (period <= 0) {
     alert("종료일은 시작일 이후로 설정해주세요.");
+
     return;
   }
 
@@ -347,37 +377,93 @@ challengeForm.addEventListener("submit", function (event) {
     inviteCode = createUniqueInviteCode();
   }
 
-  /* 챌린지 정보 */
+  /* 챌린지 ID */
+  const challengeId = Date.now();
+
+  /* 챌린지 공통 정보 */
   const challenge = {
-    id: Date.now(),
+    id: challengeId,
+
     title: titleInput.value.trim(),
+
     description: descriptionInput.value.trim(),
+
     category: selectedCategory,
+
     icon: categoryIcon,
+
     customGoal: customGoalValue,
-    goalValue: Number(goalValue.value),
+
+    /* 공통 단위 */
+    unit: goalUnit.value,
+
+    /* 기존 detail 코드 호환용 */
     goalUnit: goalUnit.value,
+
+    /* 생성자 개인 목표 호환용 */
+    myGoal: {
+      value: selectedGoalValue,
+      unit: goalUnit.value,
+    },
+
     period: period,
+
     startDate: startDate.value,
+
     endDate: endDate.value,
+
     mode: selectedMode,
+
     reward: reward,
+
     promise: promise,
+
     inviteCode: inviteCode,
+
     progress: 0,
+
     successDays: 0,
+
     checkRecords: [],
+
     status: "ongoing",
   };
 
-  /* 저장된 챌린지 가져오기 */
+  /* 저장된 챌린지 */
   const challenges = JSON.parse(localStorage.getItem("challenges")) || [];
 
-  /* 새로운 챌린지 추가 */
+  /* 챌린지 추가 */
   challenges.push(challenge);
 
-  /* 다시 저장 */
+  /* 챌린지 저장 */
   localStorage.setItem("challenges", JSON.stringify(challenges));
+
+  /* 참여자 정보 */
+  const participants =
+    JSON.parse(localStorage.getItem("challengeParticipants")) || [];
+
+  const creatorParticipant = {
+    challengeId: challengeId,
+
+    participantId: currentUserId,
+
+    role: "owner",
+
+    personalGoal: selectedGoalValue,
+
+    unit: goalUnit.value,
+
+    successDays: 0,
+
+    checkRecords: [],
+
+    joinedAt: new Date().toISOString(),
+  };
+
+  participants.push(creatorParticipant);
+
+  /* 참여자 정보 저장 */
+  localStorage.setItem("challengeParticipants", JSON.stringify(participants));
 
   /* 생성 완료 */
   if (selectedMode === "together") {
@@ -394,7 +480,9 @@ challengeForm.addEventListener("submit", function (event) {
 customGoalForm.style.display = "none";
 
 soloRewardSection.style.display = "block";
+
 groupPenaltySection.style.display = "none";
+
 inviteSection.style.display = "none";
 
 /* 기간 선택 초기화 */

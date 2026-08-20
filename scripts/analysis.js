@@ -421,6 +421,7 @@ for (let week = 3; week >= 0; week--) {
 
   challenges.forEach(function (challenge) {
     const challengeStart = new Date(challenge.startDate);
+
     const challengeEnd = new Date(challenge.endDate);
 
     challengeStart.setHours(0, 0, 0, 0);
@@ -497,6 +498,13 @@ new Chart(rateChart, {
     responsive: true,
     maintainAspectRatio: false,
 
+    /* 차트 내부 아래쪽 여백 */
+    layout: {
+      padding: {
+        bottom: 12,
+      },
+    },
+
     plugins: {
       legend: {
         display: false,
@@ -540,6 +548,11 @@ new Chart(rateChart, {
       x: {
         grid: {
           display: false,
+        },
+
+        /* 0%와 아래 주차 글자 간격 */
+        ticks: {
+          padding: 8,
         },
 
         border: {

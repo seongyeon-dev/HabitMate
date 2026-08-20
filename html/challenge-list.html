@@ -10,6 +10,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
+
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/utility.css" />
     <link rel="stylesheet" href="../css/challenge-list.css" />
   </head>
 
@@ -33,6 +37,81 @@
 
       <!-- 챌린지 목록 -->
       <section class="challenge-list"></section>
+
+      <!-- 초대코드 참여 -->
+      <section class="invite-section">
+        <div class="invite-header">
+          <div>
+            <h2>초대코드로 참여하기</h2>
+
+            <p>친구에게 받은 초대코드를 입력해주세요.</p>
+          </div>
+        </div>
+
+        <div class="invite-input-box">
+          <input
+            type="text"
+            id="invite-code"
+            class="invite-code-input"
+            placeholder="초대코드 입력"
+            maxlength="12"
+            autocomplete="off"
+          />
+
+          <button
+            type="button"
+            id="invite-check-button"
+            class="invite-check-button"
+          >
+            확인
+          </button>
+        </div>
+
+        <p id="invite-message" class="invite-message"></p>
+
+        <!-- 초대코드 확인 후 표시 -->
+        <div id="join-challenge-box" class="join-challenge-box hidden">
+          <!-- 참여할 챌린지 정보 -->
+          <div class="join-challenge-info">
+            <span class="join-category"></span>
+
+            <h3 id="join-challenge-title"></h3>
+
+            <p id="join-challenge-period"></p>
+          </div>
+
+          <!-- 개인 목표 설정 -->
+          <div class="personal-goal-box">
+            <label for="personal-goal">나의 목표</label>
+
+            <p>
+              같은 주제로 도전하지만 목표는 나에게 맞게 설정할 수 있어요.
+            </p>
+
+            <div class="goal-input-box">
+              <input
+                type="number"
+                id="personal-goal"
+                class="personal-goal-input"
+                placeholder="목표 입력"
+                min="0"
+                step="0.1"
+              />
+
+              <span id="goal-unit" class="goal-unit"></span>
+            </div>
+          </div>
+
+          <!-- 참여 버튼 -->
+          <button
+            type="button"
+            id="join-challenge-button"
+            class="join-challenge-button"
+          >
+            챌린지 참여하기
+          </button>
+        </div>
+      </section>
 
       <!-- 새 챌린지 만들기 -->
       <button

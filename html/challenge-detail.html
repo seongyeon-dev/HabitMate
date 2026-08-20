@@ -10,6 +10,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
     />
+
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/common.css" />
+    <link rel="stylesheet" href="../css/utility.css" />
     <link rel="stylesheet" href="../css/challenge-detail.css" />
   </head>
 
@@ -32,42 +36,39 @@
       <section class="challenge-intro">
         <div class="challenge-main">
           <div class="challenge-image">
-            <span>🥗</span>
+            <span>🎯</span>
           </div>
 
           <div class="challenge-text">
-            <h2>야식 끊기 7일 챌린지</h2>
+            <h2>챌린지 제목</h2>
 
-            <p>야식 대신 건강한 식습관 만들기!</p>
+            <p>설정된 설명이 없습니다.</p>
 
             <div class="challenge-meta">
-              <span> 2026.08.08 ~ 2026.08.14 (7일) </span>
-
-              <span> 4명 참여 중 </span>
+              <span></span>
+              <span></span>
             </div>
           </div>
         </div>
 
         <div class="challenge-dday">
-          <strong> D-3 </strong>
-
-          <span> 종료까지 </span>
+          <strong>D-0</strong>
+          <span>종료까지</span>
         </div>
       </section>
 
-      <!-- 전체 진행률 -->
+      <!-- 나의 진행률 -->
       <section class="progress-section">
         <div class="progress-header">
-          <h2>전체 진행률</h2>
-
-          <strong> 72% </strong>
+          <h2>나의 진행률</h2>
+          <strong>0%</strong>
         </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width: 72%"></div>
+          <div class="progress-bar" style="width: 0%"></div>
         </div>
 
-        <p>5일 성공 / 총 7일</p>
+        <p>0일 성공 / 총 0일</p>
       </section>
 
       <!-- 챌린지 정보 -->
@@ -78,27 +79,27 @@
         <div class="info-item">
           <div class="info-icon">📅</div>
 
-          <span class="info-title"> 기간 </span>
+          <span class="info-title">기간</span>
 
-          <p>2026.08.08 ~ 2026.08.14 (7일)</p>
+          <p></p>
         </div>
 
-        <!-- 목표 -->
+        <!-- 나의 목표 -->
         <div class="info-item">
           <div class="info-icon">🎯</div>
 
-          <span class="info-title"> 목표 </span>
+          <span class="info-title">나의 목표</span>
 
-          <p>야식 대신 건강한 식습관 만들기</p>
+          <p></p>
         </div>
 
-        <!-- 실패 시 약속 -->
+        <!-- 성공 보상 / 실패 시 약속 -->
         <div class="info-item">
           <div class="info-icon">🤝</div>
 
-          <span class="info-title"> 실패 시 약속 </span>
+          <span class="info-title">실패 시 약속</span>
 
-          <p>다음 챌린지 참여하기</p>
+          <p></p>
         </div>
       </section>
 
@@ -106,42 +107,7 @@
       <section class="participants">
         <h2>참여자</h2>
 
-        <div class="participant-list">
-          <!-- 참여자 1 -->
-          <div class="participant">
-            <div class="member-avatar">김</div>
-
-            <p>김다혜</p>
-          </div>
-
-          <!-- 나 -->
-          <div class="participant">
-            <div class="member-avatar">나</div>
-
-            <p>나</p>
-          </div>
-
-          <!-- 참여자 3 -->
-          <div class="participant">
-            <div class="member-avatar">이</div>
-
-            <p>이지은</p>
-          </div>
-
-          <!-- 참여자 4 -->
-          <div class="participant">
-            <div class="member-avatar">박</div>
-
-            <p>박서연</p>
-          </div>
-
-          <!-- 친구 초대 -->
-          <button type="button" class="invite-member">
-            <span> + </span>
-
-            <strong> 초대하기 </strong>
-          </button>
-        </div>
+        <div class="participant-list"></div>
       </section>
 
       <!-- 오늘 인증 -->
@@ -166,13 +132,13 @@
         <!-- 사진 인증 -->
         <div class="photo-check">
           <label class="photo-upload">
-            <span> 📷 </span>
+            <span>📷</span>
 
-            <strong> 사진 추가하기 </strong>
+            <strong>사진 추가하기</strong>
 
             <p>카메라로 촬영하거나 사진첩에서 선택해주세요.</p>
 
-            <input type="file" accept="image/*" />
+            <input type="file" accept="image/*" aria-label="인증 사진 선택" />
           </label>
 
           <!-- 사진 미리보기 -->
@@ -188,8 +154,7 @@
           ></textarea>
 
           <div class="text-count">
-            <span class="check-text-count"> 0 </span>
-
+            <span class="check-text-count">0</span>
             / 100
           </div>
         </div>
@@ -203,7 +168,7 @@
         <h2>초대 코드</h2>
 
         <div class="invite-code-area">
-          <strong class="code"> </strong>
+          <strong class="code"></strong>
 
           <button type="button" class="copy-button">복사</button>
         </div>

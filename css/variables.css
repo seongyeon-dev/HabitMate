@@ -1,0 +1,30 @@
+:root {
+  /* 색상 */
+  --color-green: #2bb24c;
+  --color-dark-green: #239a40;
+  --color-light-green: #eef8f0;
+
+  /* 배경 */
+  --background: #f7f7f5;
+  --surface: #ffffff;
+  --background-light: #fafafa;
+
+  /* 글자 */
+  --text: #222222;
+  --text-gray: #777777;
+  --text-light: #999999;
+
+  /* 테두리 */
+  --border: #e6e9e6;
+  --border-dark: #d9ded9;
+
+  /* 상태 */
+  --success-background: #f3fbf4;
+
+  /* 진행률 */
+  --progress-background: #dddddd;
+
+  /* 경고 */
+  --danger: #e05252;
+  --danger-background: #fff5f5;
+}
