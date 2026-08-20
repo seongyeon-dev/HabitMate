@@ -94,6 +94,31 @@
         </div>
       </section>
 
+      <!-- 체중 변화 -->
+      <section class="analysis-card">
+        <div class="card-header">
+          <h2>체중 변화</h2>
+
+          <select
+            class="period-select weight-period-select"
+            aria-label="체중 변화 조회 기간"
+          >
+            <option value="7">최근 7일</option>
+            <option value="30">최근 30일</option>
+          </select>
+        </div>
+
+        <div class="weight-chart">
+          <canvas id="weightChart"></canvas>
+        </div>
+
+        <div class="weight-summary">
+          <span>기간 변화</span>
+
+          <strong class="weight-change"> 기록 없음 </strong>
+        </div>
+      </section>
+
       <!-- 분석 결과 -->
       <section class="result-list">
         <!-- 실패가 가장 잦은 요일 -->

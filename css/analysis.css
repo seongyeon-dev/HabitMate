@@ -197,6 +197,33 @@ select {
   height: 260px;
 }
 
+/* 체중 변화 그래프 */
+.weight-chart {
+  position: relative;
+  width: 100%;
+  height: 280px;
+}
+
+.weight-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid var(--border);
+}
+
+.weight-summary span {
+  color: var(--text-gray);
+  font-size: 13px;
+}
+
+.weight-summary strong {
+  color: var(--color-green);
+  font-size: 15px;
+  font-weight: 800;
+}
+
 /* 분석 결과 */
 .result-list {
   display: grid;
@@ -294,6 +321,7 @@ select {
 
 /* 그래프 */
 .week-chart canvas,
+.weight-chart canvas,
 .rate-chart canvas {
   width: 100% !important;
   height: 100% !important;
@@ -403,7 +431,20 @@ select {
     height: 230px;
   }
 
+  .weight-chart {
+    height: 240px;
+  }
+
   .rate-chart {
     height: 240px;
+  }
+
+  /* 체중 변화 요약 */
+  .weight-summary span {
+    font-size: 12px;
+  }
+
+  .weight-summary strong {
+    font-size: 14px;
   }
 }

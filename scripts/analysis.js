@@ -1,6 +1,10 @@
 /* 저장된 챌린지 */
 const challenges = JSON.parse(localStorage.getItem("challenges")) || [];
 
+/* 저장된 개인 기록 */
+const personalRecords =
+  JSON.parse(localStorage.getItem("personalRecords")) || [];
+
 /* 오늘 날짜 */
 const today = new Date();
 today.setHours(0, 0, 0, 0);
@@ -71,53 +75,22 @@ const uniqueSuccessDates = [...new Set(successDates)];
 /* 날짜 순서 정렬 */
 uniqueSuccessDates.sort();
 
-let currentStreak = 0;
-let maxStreak = 0;
-
-for (let i = 0; i < uniqueSuccessDates.length; i++) {
-  if (i === 0) {
-    currentStreak = 1;
-    maxStreak = 1;
-    continue;
-  }
-
-  const previousDate = new Date(uniqueSuccessDates[i - 1]);
-  const currentDate = new Date(uniqueSuccessDates[i]);
-
-  previousDate.setHours(0, 0, 0, 0);
-  currentDate.setHours(0, 0, 0, 0);
-
-  const difference = Math.round(
-    (currentDate - previousDate) / (1000 * 60 * 60 * 24),
-  );
-
-  if (difference === 1) {
-    currentStreak++;
-  } else {
-    currentStreak = 1;
-  }
-
-  if (currentStreak > maxStreak) {
-    maxStreak = currentStreak;
-  }
-}
-
-/* 현재 연속 성공 계산 */
+/* 현재 연속 성공 */
 let streak = 0;
 
 if (uniqueSuccessDates.length > 0) {
   const sortedDates = uniqueSuccessDates.slice().sort().reverse();
 
-  let checkDate = new Date(today);
-
   const todayText = getDateText(today);
 
-  /* 오늘 인증이 없으면 어제부터 확인 */
-  if (sortedDates[0] !== todayText) {
+  let checkDate = new Date(today);
+
+  /* 오늘 성공 기록이 없으면 어제부터 확인 */
+  if (!sortedDates.includes(todayText)) {
     checkDate.setDate(checkDate.getDate() - 1);
   }
 
-  for (let i = 0; i < sortedDates.length; i++) {
+  while (true) {
     const expectedDate = getDateText(checkDate);
 
     if (sortedDates.includes(expectedDate)) {
@@ -131,15 +104,22 @@ if (uniqueSuccessDates.length > 0) {
 }
 
 /* 연속 성공 화면 */
-summaryCards[0].querySelector("strong").innerHTML = streak + "<span>일</span>";
+if (summaryCards[0]) {
+  summaryCards[0].querySelector("strong").innerHTML =
+    streak + "<span>일</span>";
+}
 
 /* 평균 달성률 화면 */
-summaryCards[1].querySelector("strong").innerHTML =
-  averageRate + "<span>%</span>";
+if (summaryCards[1]) {
+  summaryCards[1].querySelector("strong").innerHTML =
+    averageRate + "<span>%</span>";
+}
 
 /* 완료한 챌린지 화면 */
-summaryCards[2].querySelector("strong").innerHTML =
-  completedChallenges.length + "<span>개</span>";
+if (summaryCards[2]) {
+  summaryCards[2].querySelector("strong").innerHTML =
+    completedChallenges.length + "<span>개</span>";
+}
 
 /* 이번 주 요일 */
 const weekLabels = ["월", "화", "수", "목", "금", "토", "일"];
@@ -210,78 +190,331 @@ for (let i = 0; i < 7; i++) {
 /* 주간 달성률 차트 */
 const weekChart = document.querySelector("#weekChart");
 
-new Chart(weekChart, {
-  type: "bar",
+if (weekChart) {
+  new Chart(weekChart, {
+    type: "bar",
 
-  data: {
-    labels: weekLabels,
+    data: {
+      labels: weekLabels,
 
-    datasets: [
-      {
-        data: weekRates,
-        backgroundColor: "#2bb24c",
-        borderRadius: 7,
-        barThickness: 36,
+      datasets: [
+        {
+          data: weekRates,
+          backgroundColor: "#2bb24c",
+          borderRadius: 7,
+          barThickness: 36,
+        },
+      ],
+    },
+
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      plugins: {
+        legend: {
+          display: false,
+        },
+
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              if (context.raw === null) {
+                return "미기록";
+              }
+
+              return context.raw + "%";
+            },
+          },
+        },
       },
-    ],
-  },
 
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
 
-    plugins: {
-      legend: {
-        display: false,
-      },
+          ticks: {
+            stepSize: 25,
 
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            if (context.raw === null) {
-              return "미기록";
-            }
+            callback: function (value) {
+              return value + "%";
+            },
+          },
 
-            return context.raw + "%";
+          grid: {
+            color: "#eeeeee",
+          },
+
+          border: {
+            display: false,
+          },
+        },
+
+        x: {
+          grid: {
+            display: false,
+          },
+
+          border: {
+            display: false,
           },
         },
       },
     },
+  });
+}
 
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
+/* 체중 기록 가져오기 */
+function getWeightRecords(days) {
+  const startDate = new Date(today);
 
-        ticks: {
-          stepSize: 25,
+  startDate.setDate(today.getDate() - (days - 1));
 
-          callback: function (value) {
-            return value + "%";
+  return personalRecords
+    .filter(function (record) {
+      if (!record.date) {
+        return false;
+      }
+
+      if (
+        record.weight === null ||
+        record.weight === undefined ||
+        record.weight === ""
+      ) {
+        return false;
+      }
+
+      const recordDate = new Date(record.date);
+      recordDate.setHours(0, 0, 0, 0);
+
+      return recordDate >= startDate && recordDate <= today;
+    })
+    .map(function (record) {
+      return {
+        date: record.date,
+        weight: Number(record.weight),
+      };
+    })
+    .filter(function (record) {
+      return Number.isFinite(record.weight);
+    })
+    .sort(function (a, b) {
+      return a.date.localeCompare(b.date);
+    });
+}
+
+/* 체중 날짜 표시 */
+function getWeightDateLabel(dateText) {
+  const date = new Date(dateText);
+
+  return date.getMonth() + 1 + "/" + date.getDate();
+}
+
+/* 체중 변화 차트 */
+const weightCanvas = document.querySelector("#weightChart");
+
+const weightPeriodSelect = document.querySelector(".weight-period-select");
+
+const weightChange = document.querySelector(".weight-change");
+
+let weightChartInstance = null;
+
+/* 체중 그래프 출력 */
+function renderWeightChart(days) {
+  if (!weightCanvas) {
+    return;
+  }
+
+  const records = getWeightRecords(days);
+
+  const labels = records.map(function (record) {
+    return getWeightDateLabel(record.date);
+  });
+
+  const weights = records.map(function (record) {
+    return record.weight;
+  });
+
+  /* 기존 차트 제거 */
+  if (weightChartInstance) {
+    weightChartInstance.destroy();
+  }
+
+  /* 체중 기록 없음 */
+  if (records.length === 0) {
+    if (weightChange) {
+      weightChange.innerText = "기록 없음";
+    }
+
+    weightChartInstance = new Chart(weightCanvas, {
+      type: "line",
+
+      data: {
+        labels: [],
+
+        datasets: [
+          {
+            data: [],
+          },
+        ],
+      },
+
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+
+        plugins: {
+          legend: {
+            display: false,
           },
         },
 
-        grid: {
-          color: "#eeeeee",
-        },
+        scales: {
+          y: {
+            display: true,
 
-        border: {
-          display: false,
+            grid: {
+              color: "#eeeeee",
+            },
+
+            border: {
+              display: false,
+            },
+          },
+
+          x: {
+            display: true,
+
+            grid: {
+              display: false,
+            },
+
+            border: {
+              display: false,
+            },
+          },
+        },
+      },
+    });
+
+    return;
+  }
+
+  /* 기간 변화 */
+  if (weightChange) {
+    if (records.length < 2) {
+      weightChange.innerText = "비교 기록 부족";
+    } else {
+      const firstWeight = records[0].weight;
+      const lastWeight = records[records.length - 1].weight;
+
+      const difference = Number((lastWeight - firstWeight).toFixed(1));
+
+      if (difference > 0) {
+        weightChange.innerText = "+" + difference.toFixed(1) + "kg";
+      } else if (difference < 0) {
+        weightChange.innerText = difference.toFixed(1) + "kg";
+      } else {
+        weightChange.innerText = "0.0kg";
+      }
+    }
+  }
+
+  weightChartInstance = new Chart(weightCanvas, {
+    type: "line",
+
+    data: {
+      labels: labels,
+
+      datasets: [
+        {
+          data: weights,
+          borderColor: "#2bb24c",
+          backgroundColor: "rgba(43,178,76,0.08)",
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          pointBackgroundColor: "#2bb24c",
+          pointBorderColor: "#ffffff",
+          pointBorderWidth: 2,
+          tension: 0.3,
+          fill: true,
+          spanGaps: true,
+        },
+      ],
+    },
+
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      layout: {
+        padding: {
+          bottom: 12,
         },
       },
 
-      x: {
-        grid: {
+      plugins: {
+        legend: {
           display: false,
         },
 
-        border: {
-          display: false,
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              return context.raw + "kg";
+            },
+          },
+        },
+      },
+
+      scales: {
+        y: {
+          ticks: {
+            callback: function (value) {
+              return value + "kg";
+            },
+          },
+
+          grid: {
+            color: "#eeeeee",
+          },
+
+          border: {
+            display: false,
+          },
+        },
+
+        x: {
+          grid: {
+            display: false,
+          },
+
+          ticks: {
+            padding: 8,
+          },
+
+          border: {
+            display: false,
+          },
         },
       },
     },
-  },
-});
+  });
+}
+
+/* 최초 체중 그래프 */
+renderWeightChart(7);
+
+/* 체중 조회 기간 변경 */
+if (weightPeriodSelect) {
+  weightPeriodSelect.addEventListener("change", function () {
+    const days = Number(weightPeriodSelect.value);
+
+    renderWeightChart(days);
+  });
+}
 
 /* 실패가 가장 잦은 요일 */
 const dayNames = [
@@ -295,7 +528,6 @@ const dayNames = [
 ];
 
 const dayStats = [0, 0, 0, 0, 0, 0, 0];
-
 const dayTotal = [0, 0, 0, 0, 0, 0, 0];
 
 challenges.forEach(function (challenge) {
@@ -421,7 +653,6 @@ for (let week = 3; week >= 0; week--) {
 
   challenges.forEach(function (challenge) {
     const challengeStart = new Date(challenge.startDate);
-
     const challengeEnd = new Date(challenge.endDate);
 
     challengeStart.setHours(0, 0, 0, 0);
@@ -470,95 +701,96 @@ for (let week = 3; week >= 0; week--) {
 /* 달성률 추이 차트 */
 const rateChart = document.querySelector("#rateChart");
 
-new Chart(rateChart, {
-  type: "line",
+if (rateChart) {
+  new Chart(rateChart, {
+    type: "line",
 
-  data: {
-    labels: rateLabels,
+    data: {
+      labels: rateLabels,
 
-    datasets: [
-      {
-        data: rateValues,
-        borderColor: "#2bb24c",
-        backgroundColor: "rgba(43,178,76,0.08)",
-        borderWidth: 3,
-        pointRadius: 5,
-        pointHoverRadius: 7,
-        pointBackgroundColor: "#2bb24c",
-        pointBorderColor: "#ffffff",
-        pointBorderWidth: 2,
-        tension: 0.3,
-        fill: true,
-        spanGaps: false,
-      },
-    ],
-  },
-
-  options: {
-    responsive: true,
-    maintainAspectRatio: false,
-
-    /* 차트 내부 아래쪽 여백 */
-    layout: {
-      padding: {
-        bottom: 12,
-      },
+      datasets: [
+        {
+          data: rateValues,
+          borderColor: "#2bb24c",
+          backgroundColor: "rgba(43,178,76,0.08)",
+          borderWidth: 3,
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          pointBackgroundColor: "#2bb24c",
+          pointBorderColor: "#ffffff",
+          pointBorderWidth: 2,
+          tension: 0.3,
+          fill: true,
+          spanGaps: false,
+        },
+      ],
     },
 
-    plugins: {
-      legend: {
-        display: false,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+
+      /* 차트 내부 아래쪽 여백 */
+      layout: {
+        padding: {
+          bottom: 12,
+        },
       },
 
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            if (context.raw === null) {
-              return "기록 없음";
-            }
+      plugins: {
+        legend: {
+          display: false,
+        },
 
-            return context.raw + "%";
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              if (context.raw === null) {
+                return "기록 없음";
+              }
+
+              return context.raw + "%";
+            },
+          },
+        },
+      },
+
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+
+          ticks: {
+            stepSize: 25,
+
+            callback: function (value) {
+              return value + "%";
+            },
+          },
+
+          grid: {
+            color: "#eeeeee",
+          },
+
+          border: {
+            display: false,
+          },
+        },
+
+        x: {
+          grid: {
+            display: false,
+          },
+
+          ticks: {
+            padding: 8,
+          },
+
+          border: {
+            display: false,
           },
         },
       },
     },
-
-    scales: {
-      y: {
-        beginAtZero: true,
-        max: 100,
-
-        ticks: {
-          stepSize: 25,
-
-          callback: function (value) {
-            return value + "%";
-          },
-        },
-
-        grid: {
-          color: "#eeeeee",
-        },
-
-        border: {
-          display: false,
-        },
-      },
-
-      x: {
-        grid: {
-          display: false,
-        },
-
-        /* 0%와 아래 주차 글자 간격 */
-        ticks: {
-          padding: 8,
-        },
-
-        border: {
-          display: false,
-        },
-      },
-    },
-  },
-});
+  });
+}
