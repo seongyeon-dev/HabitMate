@@ -73,17 +73,12 @@ function getParticipantProgress(challenge) {
   return progress;
 }
 
-/* -------------------------------- */
 /* 연속 기록 */
-/* -------------------------------- */
 
 /* 모든 성공 날짜 */
 let successDates = [];
 
-/*
-  현재 사용자의
-  챌린지 인증 기록만 사용
-*/
+/*현재 사용자의 챌린지 인증 기록만 사용*/
 participants.forEach(function (participant) {
   if (participant.participantId !== currentUserId) {
     return;
@@ -113,10 +108,7 @@ if (successDates.length > 0) {
 
   const checkDate = new Date(today);
 
-  /*
-    오늘 성공 기록이 없다면
-    어제부터 연속 기록 확인
-  */
+  /* 오늘 성공 기록이 없다면어제부터 연속 기록 확인*/
   if (sortedDates[0] !== todayText) {
     checkDate.setDate(checkDate.getDate() - 1);
   }
@@ -184,11 +176,8 @@ if (recordItems[0]) {
   }
 }
 
-/* -------------------------------- */
-/* 이번 주 달성률 */
-/* -------------------------------- */
 
-/* 이번 주 월요일 */
+/* 이번 주 달성률 */
 const currentDay = today.getDay();
 
 const monday = new Date(today);
@@ -197,7 +186,7 @@ const mondayDifference = currentDay === 0 ? -6 : 1 - currentDay;
 
 monday.setDate(today.getDate() + mondayDifference);
 
-/* 주간 성공 / 전체 */
+/* 주간 성공 , 전체 */
 let weekTotalCount = 0;
 
 let weekSuccessCount = 0;
@@ -207,10 +196,7 @@ const checkDate = new Date(monday);
 while (checkDate <= today) {
   const dateText = getDateText(checkDate);
 
-  /*
-    해당 날짜에 진행 중이면서
-    내가 참여한 챌린지
-  */
+  /*해당 날짜에 진행 중이면서내가 참여한 챌린지 */
   const activeChallenges = challenges.filter(function (challenge) {
     const participant = getMyParticipant(challenge.id);
 
@@ -275,10 +261,7 @@ if (recordItems[1]) {
   }
 }
 
-/* -------------------------------- */
 /* 오늘 목표 */
-/* -------------------------------- */
-
 const goalList = document.querySelector(".goal-list");
 
 const goalPercent = document.querySelector(".goal-percent");
@@ -381,24 +364,12 @@ function updateGoalProgress() {
   }
 }
 
-/* -------------------------------- */
 /* 함께하는 챌린지 */
-/* -------------------------------- */
-
-/*
-  HTML에 아래 클래스가 있을 경우
-  자동으로 참여자 출력
-
-  .mate-list
-  .mate-count
-*/
 const mateList = document.querySelector(".mate-list");
 
 const mateCount = document.querySelector(".mate-count");
 
-/*
-  현재 진행 중인 함께 도전 챌린지
-*/
+/* 현재 진행 중인 함께 도전 챌린지 */
 const togetherChallenge = challenges.find(function (challenge) {
   if (challenge.mode !== "together") {
     return false;
@@ -413,12 +384,6 @@ const togetherChallenge = challenges.find(function (challenge) {
   );
 });
 
-/*
-  목업용 표시 이름
-
-  실제 회원 DB 연결 후에는
-  participant.userName 등으로 교체
-*/
 const mockNames = ["김다혜", "이지은", "박서연", "참여자"];
 
 /* 함께하는 챌린지 출력 */
@@ -491,9 +456,7 @@ function renderTogetherChallenge() {
   }
 }
 
-/* -------------------------------- */
 /* 진행 중 챌린지 */
-/* -------------------------------- */
 
 const challengeList = document.querySelector(".challenge-list");
 
@@ -608,10 +571,8 @@ function renderChallenges() {
   });
 }
 
-/* -------------------------------- */
-/* 처음 화면 */
-/* -------------------------------- */
 
+/* 처음 화면 */
 renderGoals();
 
 renderTogetherChallenge();

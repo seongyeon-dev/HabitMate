@@ -122,14 +122,6 @@ function getSuccessDays(participant) {
   }).length;
 }
 
-/* -------------------------------- */
-/* 깨진 챌린지 데이터 정리 */
-/* -------------------------------- */
-
-/*
-  id, 제목, 시작일, 종료일이 없는
-  잘못된 데이터는 목록에서 제거
-*/
 challenges = challenges.filter(function (challenge) {
   return (
     challenge &&
@@ -141,13 +133,9 @@ challenges = challenges.filter(function (challenge) {
   );
 });
 
-/* 정리된 데이터 다시 저장 */
 localStorage.setItem("challenges", JSON.stringify(challenges));
 
-/* -------------------------------- */
 /* 종료 상태 갱신 */
-/* -------------------------------- */
-
 challenges.forEach(function (challenge) {
   const endDate = createDate(challenge.endDate);
 
@@ -160,17 +148,11 @@ challenges.forEach(function (challenge) {
 
 localStorage.setItem("challenges", JSON.stringify(challenges));
 
-/* -------------------------------- */
 /* 챌린지 목록 */
-/* -------------------------------- */
-
 function renderChallenges(status) {
   challengeList.innerHTML = "";
 
-  /*
-    현재 사용자가 실제로 참여하고 있는
-    챌린지만 표시
-  */
+  /* 실제로 참여하고 있는 챌린지만 표시 */
   const filteredChallenges = challenges.filter(function (challenge) {
     const myParticipant = getMyParticipant(challenge.id);
 
@@ -450,10 +432,6 @@ joinChallengeButton.addEventListener("click", function () {
     return;
   }
 
-  /*
-      localStorage가 다른 화면에서
-      변경됐을 수 있으므로 다시 불러오기
-    */
   participants =
     JSON.parse(localStorage.getItem("challengeParticipants")) || [];
 
